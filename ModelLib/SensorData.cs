@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelLib
 {
-    class SensorData
+    public class SensorData
     {
         public int Id { get; set; }
         public string SensorName { get; set; }
@@ -31,7 +31,7 @@ namespace ModelLib
 
         public override string ToString()
         {
-            return $"{SensorName} - Data {Id}\nTemp: {Temperature}\nHumidity: {Humidity}\nPressure: {Pressure} ";
+            return $"{SensorName} - Data {Id}\nTemp: {Temperature}°C\nHumidity: {Humidity}%\nPressure: {Pressure} ";
         }
 
         public override bool Equals(object obj)
