@@ -70,10 +70,10 @@
           v-else
           class="d-flex justify-content-center align-items-center vh-100"
         >
-          <!-- Not Yet Authenticated View -->
+          <!-- Login with spotify button -->
           <section>
-            <button class="btn btn-primary" @click="toggleLogin()">
-              Authenticate With Spotify
+            <button id="spotifyButton" class="btn btn-success btn-lg text-light" @click="spotfiyAuthentication()" style="border-radius: 32px">
+              Spotify Login <i class="bi bi-spotify"></i>
             </button>
           </section>
         </div>
