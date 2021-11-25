@@ -1,3 +1,4 @@
+/* #region Globals */
 html {
   height: 100%;
 }
@@ -9,8 +10,17 @@ body {
   /* background: linear-gradient(to bottom, #202020, #111119); */
   /* background-color: #212529; */
 }
+/* #endregion */
 
-/* rain animation */
+/* #region Utilites */
+
+#spotifyButton {
+  border-radius: 32px;
+  color: #1ed760;
+}
+/* #endregion */
+
+/*#region rain animation */
 
 .rain {
   position: absolute;
@@ -142,7 +152,9 @@ div.back-row-toggle .rain.back-row {
   padding-top: 14px;
 }
 
-/* Audio player */
+/*#endregion rain animation*/
+
+/*#region Audio player */
 
 .audio-player {
   height: 50px;
@@ -262,7 +274,9 @@ div.back-row-toggle .rain.back-row {
   width: 120px;
 }
 
-/* Sun Animation */
+/*#endregion Audio player*/
+
+/*#region Sun Animation */
 .sun {
   position: absolute;
   top: 0;
@@ -389,3 +403,5 @@ div.back-row-toggle .rain.back-row {
     transform: rotate(360deg);
   }
 }
+
+/*#endregion Sun Animation */
