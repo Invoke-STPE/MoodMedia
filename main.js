@@ -108,6 +108,21 @@ const mediaComponent = {
 // Sun Component
 const sunComponent = {
   template: `
+  <div id="background-wrap">
+   
+
+    <div class="x2">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x3">
+        <div class="cloud"></div>
+    </div>
+
+    <div class="x4">
+        <div class="cloud"></div>
+    </div>
+</div>
     <div class="sun">
     <div class="ray_box">
         <div class="ray ray1"></div>
@@ -125,12 +140,11 @@ const sunComponent = {
               `,
 };
 
-
 const app = {
   data() {
     return {
-      rain: true,
-      login: false,
+      rain: false,
+      login: true,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: ["user-read-private", "user-read-email", "playlist-modify-private"],
       redirect_uri: "http://127.0.0.1:5501/index.html",
@@ -157,28 +171,30 @@ const app = {
         this.login = true;
         popup.close();
 
-        fetch('https://api.spotify.com/v1/me', {
+        fetch("https://api.spotify.com/v1/me", {
           headers: {
-            'Authorization': `Bearer ${payload}`
-          }
-        }).then(response => {
-          return response.json();
-        }).then(data => {
-          this.me = data;
+            Authorization: `Bearer ${payload}`,
+          },
         })
-      }
-    }
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            this.me = data;
+          });
+      };
+    },
   },
 
   mounted() {
-    this.token = window.location.hash.substr(1).split("&")[0].split("=")[1]
+    this.token = window.location.hash.substr(1).split("&")[0].split("=")[1];
 
-    if(this.token) {
+    if (this.token) {
       //alert(this.token)
-      
+
       window.opener.spotifyCallback(this.token);
     }
-  }
+  },
 };
 
 // weather.mount("#weather");
