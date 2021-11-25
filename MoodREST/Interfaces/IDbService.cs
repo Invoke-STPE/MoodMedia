@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MoodREST.Interfaces
 {
-    interface IDbService
+    public interface IDbService
     {
     }
 }
