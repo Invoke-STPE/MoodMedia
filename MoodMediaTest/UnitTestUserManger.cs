@@ -76,7 +76,6 @@ namespace MoodMediaTest
         {
             User removedUser = new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234");
 
-
             //Remove method also returns the deleted user
             Assert.AreEqual(removedUser, userManager.Remove(0));
             Assert.IsTrue(userManager.GetAll().Count() == 3);

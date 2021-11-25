@@ -21,13 +21,13 @@ namespace MoodREST.Managers
 
         public User Get(int id)
         {
-            User foundUser = Users.FirstOrDefault(u => u.Id == id);
-            if (foundUser == null)
+            User foundUser = Users.Find(u => u.Id == id);
+            if(foundUser == null)
             {
-                throw new KeyNotFoundException("User with id not found");
+                throw new KeyNotFoundException($"User with Id: {id} not found");
             }
             return foundUser;
-        }
+        }        
 
         public List<User> GetAll()
         {
@@ -52,9 +52,9 @@ namespace MoodREST.Managers
                 Users.Remove(Get((id)));
                 return RemovedUser;
             }
-            catch (IndexOutOfRangeException)
+            catch (KeyNotFoundException keyexcep)
             {
-                return null;
+                throw new KeyNotFoundException(keyexcep.Message);
             }
         }
 
