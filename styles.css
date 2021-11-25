@@ -23,7 +23,7 @@ body {
 /*#region rain animation */
 
 .rain {
-  position: absolute;
+  position: static;
   left: 0;
   width: 100%;
   height: 100%;
