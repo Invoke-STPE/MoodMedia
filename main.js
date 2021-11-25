@@ -143,10 +143,14 @@ const sunComponent = {
 const app = {
   data() {
     return {
-      rain: false,
-      login: true,
+      rain: true,
+      login: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
-      scopes: ["user-read-private", "user-read-email", "playlist-modify-private"],
+      scopes: [
+        "user-read-private",
+        "user-read-email",
+        "playlist-modify-private",
+      ],
       redirect_uri: "http://127.0.0.1:5501/index.html",
       me: null,
     };
