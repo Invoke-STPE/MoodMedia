@@ -283,6 +283,8 @@ div.back-row-toggle .rain.back-row {
   left: 0;
   right: 0;
   bottom: 0;
+  margin-left: 10rem;
+
   /* margin: auto; */
   width: 70px;
   height: 70px;
@@ -411,7 +413,7 @@ div.back-row-toggle .rain.back-row {
   bottom: 0;
   left: 0;
   padding-top: 50px;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   z-index: -1;
