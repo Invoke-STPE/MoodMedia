@@ -35,7 +35,7 @@
   <body class="bg-dark">
     <div class="container vw-100 vh-100">
       <div id="app" class="w-100">
-        <h1 class="display-4 text-light pt-3 text-center">MoodMedia</h1>
+        <h1 class="display-4 text-light py-3 text-center">MoodMedia</h1>
         <div class="position-absolute top-0 end-0">
           <button
             type="button"
@@ -72,7 +72,12 @@
         >
           <!-- Login with spotify button -->
           <section>
-            <button id="spotifyButton" class="btn btn-success btn-lg text-light" @click="spotfiyAuthentication()" style="border-radius: 32px">
+            <button
+              id="spotifyButton"
+              class="btn btn-success btn-lg text-light"
+              @click="spotfiyAuthentication()"
+              style="border-radius: 32px"
+            >
               Spotify Login <i class="bi bi-spotify"></i>
             </button>
           </section>
@@ -87,20 +92,22 @@
         >
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="informationModal">
-                  MoodMedia music player
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-light" id="informationModal">
+                  MoodMedia Introduction
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn-close btn-close-white"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
-                Welcome to MoodMedia, an app designed to play your favorite
-                music depending on the weather.
+              <div class="modal-body bg-dark">
+                <p class="text-light">
+                  Welcome to MoodMedia, an app designed to play your favorite
+                  music depending on the weather.
+                </p>
               </div>
             </div>
           </div>
