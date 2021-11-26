@@ -24,9 +24,9 @@ app.component("registration-component", {
         <div class="modal-body bg-dark">
         <div class="col-12">  
           <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
+            <b class="text-light">Please correct the following error(s):</b>
             <ul>
-              <li v-for="error in errors">{{ error }}</li>
+              <li class="text-light" v-for="error in errors">{{ error }}</li>
             </ul>
           </p>
         </div>
