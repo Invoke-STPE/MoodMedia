@@ -39,22 +39,22 @@ const app = Vue.createApp({
           })
           .then((data) => {
             this.me = data;
-            console.log(data)
-            if(!this.doesUserExist(data)){
+            console.log(data);
+            if (!this.doesUserExist(data)) {
               this.toggleRegistationModel();
             }
           });
       };
     },
     doesUserExist(data) {
-      const user = JSON.parse(JSON.stringify(users))
-      return user.some(u => u.spotifyId == data.id)
+      const users = JSON.parse(JSON.stringify(this.users));
+      return this.users.some((u) => u.spotifyId == data.id);
     },
-    toggleRegistationModel(){
-      $(document).ready(function(){
+    toggleRegistationModel() {
+      $(document).ready(function () {
         $("#registationModel").modal("show");
-        });
-    }
+      });
+    },
   },
 
   mounted() {
