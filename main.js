@@ -5,7 +5,7 @@ const app = Vue.createApp({
     return {
       users: Seed.users,
       rain: true,
-      login: true,
+      login: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
