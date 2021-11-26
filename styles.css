@@ -18,6 +18,23 @@ body {
   border-radius: 32px;
   color: #1ed760;
 }
+
+.avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.navbar {
+  position: relative;
+}
+.navbar-brand {
+  position: absolute;
+  left: 46.5%;
+  margin-left: -50px !important; /* 50% of your logo width */
+  display: block;
+}
+
 /* #endregion */
 
 /*#region rain animation */

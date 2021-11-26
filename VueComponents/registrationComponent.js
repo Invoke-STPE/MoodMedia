@@ -70,6 +70,7 @@ app.component("registration-component", {
 
   methods: {
     submitUser: function (e) {
+      // this.spotifyId = this.username;
       let user = {
         id: 4,
         spotifyId: this.id,
@@ -86,18 +87,16 @@ app.component("registration-component", {
         this.address &&
         this.picture
       ) {
-        console.log("IT ENTERED");
         const response = fetch("https://localhost:44367/api/User/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(user),
-        });
-        console.log("IT PASSED");
+        }).then($("#registationModel").modal("hide"));
       }
 
       this.errors = []; // Make suren no boo boo from last time
 
-      if (!this.name) {
+      if (!this.username) {
         // Is there any value in there?
         this.errors.push("Name required");
       }
