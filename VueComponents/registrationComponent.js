@@ -1,5 +1,5 @@
 app.component("registration-component", {
-    template: `<div
+  template: /* html*/ `<div
     class="modal fade"
     data-bs-backdrop="static"
     data-bs-keyboard="false"
@@ -23,20 +23,26 @@ app.component("registration-component", {
         </div>
         <div class="modal-body bg-dark">
           <form class="row g-3">
+          <div class="col-12">
+            <input id="profileId" type="hidden"/>      
+          </div>
+          <div class="col-12">
+            <img class="img-fluid w-50 d-block rounded-circle mx-auto" id="profilePicture"/>
+          </div>
             <div class="col-md-6">
-              <label for="inputEmail4" class="form-label text-light">Email</label>
-              <input type="email" class="form-control" id="inputEmail4">
+              <label for="profileEmail" class="form-label text-light">Email</label>
+              <input type="email" class="form-control" id="profileEmail">
             </div>
             <div class="col-md-6">
-              <label for="inputName" class="form-label text-light">Name</label>
-              <input type="text" class="form-control" id="inputName">
+              <label for="profileName" class="form-label text-light">Name</label>
+              <input type="text" class="form-control" id="profileName">
             </div>
             <div class="col-12">
-              <label for="inputAddress" class="form-label text-light">Address</label>
-              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              <label for="profileAddress" class="form-label text-light">Address</label>
+              <input type="text" class="form-control" id="profileAddress" placeholder="1234 Main St">
             </div>
             <div class="col-12">
-              <button class="btn btn-primary">
+              <button class="btn btn-success">
                 Create
               </button>
             </div>
@@ -44,5 +50,5 @@ app.component("registration-component", {
         </div>
       </div>
     </div>
-  </div>`
-})
+  </div>`,
+});

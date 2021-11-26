@@ -1,5 +1,5 @@
 app.component("rain-component", {
-  template: `
+  template: /* html*/ `
     <div class="back-row-toggle splat-toggle">
         <div class="rain front-row w-100"></div>
         <div class="rain back-row"></div>
