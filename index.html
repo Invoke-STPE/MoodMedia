@@ -93,6 +93,7 @@
 
         <!-- Weather Components -->
         <div v-if="login">
+          <!-- <div v-if=""></div> -->
           <div v-if="rain">
             <rain-component></rain-component>
           </div>
@@ -109,6 +110,15 @@
             "
           >
             <media-component></media-component>
+            <div
+              v-if="profileEmail != null && profileName != null && profilePicture != null"
+            >
+              <register-component
+                v-bind:profilePicture="profilePicture"
+                v-bind:profileName="profileName"
+                v-bind:profileEmail="profileEmail"
+              ></register-component>
+            </div>
           </div>
         </div>
         <div
@@ -127,7 +137,7 @@
             </button>
           </section>
         </div>
-        <!-- Modal -->
+        <!-- Information Modal -->
         <div
           class="modal fade"
           id="informationModal"
@@ -157,6 +167,9 @@
             </div>
           </div>
         </div>
+        <!-- Register Modal -->
+
+        <!-- Modal -->
       </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -167,6 +180,7 @@
     ></script>
 
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="seed.js"></script>
     <script src="main.js"></script>
 
     <script></script>

@@ -71,6 +71,95 @@ const rainComponent = {
   },
 };
 
+const registerComponent = {
+  template: /*html*/ `
+  <div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="modal-dialog ">
+    <form class="row g-3"></form>
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title text-light" id="staticBackdropLabel">
+          First time registration
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-12">
+            <img
+            
+        src="./images/profile_pic.svg"
+        class="img-fluid w-50 mx-auto d-block"
+        alt=""
+        srcset=""
+      />
+          </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <button id="spotifyButton" class="btn btn-small">Change Picture</button>
+          </div>
+          <div class="col-md-6">
+            <label for="inputEmail4" class="form-label text-light">Name</label>
+            <input  type="text" class="form-control"  placeholder="John Doe..." />
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label text-light">Email</label>
+            <input v-bind:value="profileEmail" type="email" class="form-control"  placeholder="JD@gmail.com" />
+          </div>
+          <div class="col-12">
+            <label for="inputAddress" class="form-label text-light">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              
+              placeholder="1234 Main St"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Logout
+        </button>
+        <button type="button" class="btn btn-success">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+          `,
+  // data() {
+  //   return {
+  //     profilePicture: "",
+  //     profileName: "",
+  //     profileEmail: "",
+  //     profileAddress: "",
+  //   };
+  // },
+  props: ["profilePicture", "profileName", "profileEmail", "profileAddress"],
+  // props: ["user"],
+  methods: {},
+  mounted() {
+    console.log(this.profileEmail);
+    console.log(this.profilePicture);
+    console.log(this.profileName);
+  },
+};
+
 // Media Component
 const mediaComponent = {
   template: `
@@ -141,10 +230,19 @@ const sunComponent = {
 };
 
 const app = {
+  props: {
+    profileName: String,
+    profileEmail: String,
+    profilePicture: String,
+  },
   data() {
     return {
       rain: true,
       login: false,
+      // profileName: null,
+      // profileEmail: null,
+      // profilePicture: null,
+      user: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
@@ -153,16 +251,32 @@ const app = {
       ],
       redirect_uri: "http://127.0.0.1:5501/index.html",
       me: null,
+      users: Seed.users,
     };
   },
   components: {
     "rain-component": rainComponent,
     "media-component": mediaComponent,
     "sun-component": sunComponent,
+    "register-component": registerComponent,
   },
   methods: {
     logout() {
       this.login = false;
+    },
+    doesUserExists(data) {
+      const tempArray = JSON.parse(JSON.stringify(this.users));
+      return tempArray.some((u) => u.spotifyId === data.id);
+    },
+    toggleRegisterModal() {
+      let user = JSON.parse(JSON.stringify(this.me));
+      console.log(JSON.parse(JSON.stringify(this.me)));
+      this.profileName = user.display_name;
+      this.profileEmail = user.email;
+      this.profilePicture = user.images[0].url;
+      $(document).ready(function () {
+        $("#staticBackdrop").modal("show");
+      });
     },
     spotfiyAuthentication() {
       let popup = window.open(
@@ -172,9 +286,8 @@ const app = {
       );
 
       window.spotifyCallback = (payload) => {
-        this.login = true;
         popup.close();
-
+        this.login = true;
         fetch("https://api.spotify.com/v1/me", {
           headers: {
             Authorization: `Bearer ${payload}`,
@@ -184,7 +297,12 @@ const app = {
             return response.json();
           })
           .then((data) => {
-            this.me = data;
+            this.me = JSON.parse(JSON.stringify(data));
+            console.log(this.me);
+            console.log(this.doesUserExists(data));
+            if (!this.doesUserExists(data)) {
+              this.toggleRegisterModal();
+            }
           });
       };
     },
@@ -194,8 +312,7 @@ const app = {
     this.token = window.location.hash.substr(1).split("&")[0].split("=")[1];
 
     if (this.token) {
-      //alert(this.token)
-
+      // alert(this.token);
       window.opener.spotifyCallback(this.token);
     }
   },
