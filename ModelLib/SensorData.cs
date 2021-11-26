@@ -13,11 +13,12 @@ namespace ModelLib
         public double Temperature { get; set; }
         public double Humidity { get; set; }
         public int Pressure { get; set; }
+        public DateTime Time { get; set; }
         
 
         public SensorData()
         {
-
+            
         }
 
         public SensorData(int id, string name, double temperature, double humidity, int pressure)
@@ -27,11 +28,12 @@ namespace ModelLib
             Temperature = temperature;
             Humidity = humidity;
             Pressure = pressure;
+            Time = DateTime.Now;
         }
 
         public override string ToString()
         {
-            return $"{SensorName} - Data {Id}\nTemp: {Temperature}°C\nHumidity: {Humidity}%\nPressure: {Pressure} ";
+            return $"{SensorName} - Data {Id} - Measured at {Time}\nTemp: {Temperature}°C\nHumidity: {Humidity}%\nPressure: {Pressure} ";
         }
 
         public override bool Equals(object obj)

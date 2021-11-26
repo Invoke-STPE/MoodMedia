@@ -1,9 +1,11 @@
+const baseUrl = "https://localhost:44367/api/Sensor/"
+
 const app = Vue.createApp({
   data() {
     return {
       users: Seed.users,
       rain: true,
-      login: false,
+      login: true,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",

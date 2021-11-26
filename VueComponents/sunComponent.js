@@ -1,5 +1,5 @@
 app.component("sun-component", {
-  template: /* html*/ `
+  template: /*html*/ `
   <div id="background-wrap">
    
 

@@ -87,5 +87,10 @@ namespace MoodREST.Managers
             }
         }
 
+        public SensorData GetLatest()
+        {
+            return Get().Last();
+        }
+
     }
 }

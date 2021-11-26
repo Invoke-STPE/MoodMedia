@@ -73,7 +73,7 @@ namespace MoodMediaTest
             var newData2 = new SensorData(5, "MockSensor 3", 35, 80, 900);
 
             var result2 = _mgr.Create(newData2);
-            Assert.IsTrue(result);
+            Assert.IsTrue(result2);
 
             var dataAdded2 = _mgr.Get(9);
 
@@ -100,7 +100,7 @@ namespace MoodMediaTest
         {
             var newData = new SensorData(0, "MockSensor 3", 35, 80, 900);
 
-            var result = _mgr.Update(0, newData);
+            _mgr.Update(0, newData);
         }
 
         [TestMethod]
@@ -116,7 +116,7 @@ namespace MoodMediaTest
         [ExpectedException(typeof(KeyNotFoundException))]
         public void Delete_InvalidIdTest()
         {
-            var result = _mgr.Delete(0);
+            _mgr.Delete(0);
         }
     }
 }
