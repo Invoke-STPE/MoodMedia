@@ -120,7 +120,7 @@
             <button
               id="spotifyButton"
               class="btn btn-success btn-lg text-light"
-              @click="spotfiyAuthentication()"
+              @click="spotifyAuthentication()"
               style="border-radius: 32px"
             >
               Spotify Login <i class="bi bi-spotify"></i>
@@ -157,7 +157,9 @@
             </div>
           </div>
         </div>
-      </div>
+            <!-- Option 2: Registation Form -->
+          <registration-component></registration-component>
+          </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script
@@ -171,6 +173,7 @@
     <script src="./VueComponents/mediaComponent.js"></script>
     <script src="./VueComponents/rainComponent.js"></script>
     <script src="./VueComponents/sunComponent.js"></script>
+    <script src="./VueComponents/registrationComponent.js"></script>
 
     <script>
       const mountedApp = app.mount("#app");

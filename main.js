@@ -17,7 +17,7 @@ const app = Vue.createApp({
     logout() {
       this.login = false;
     },
-    spotfiyAuthentication() {
+    spotifyAuthentication() {
       let popup = window.open(
         `https://accounts.spotify.com/authorize?client_id=${this.client_id}&response_type=token&redirect_uri=${this.redirect_uri}&scope=${this.scopes}&show_dialog=true`,
         "Login with Spotify",
@@ -38,9 +38,22 @@ const app = Vue.createApp({
           })
           .then((data) => {
             this.me = data;
+            console.log(data)
+            if(!this.doesUserExist(data)){
+              this.toggleRegistationModel();
+            }
           });
       };
     },
+    doesUserExist(data) {
+      const user = JSON.parse(JSON.stringify(data))
+      return user.some(u => u.spotifyId == data.id)
+    },
+    toggleRegistationModel(){
+      $(document).ready(function(){
+        $("#registationModel").modal("show");
+        });
+    }
   },
 
   mounted() {
