@@ -13,5 +13,6 @@ namespace MoodREST.Interfaces
         bool Create(SensorData data);
         bool Update(int id, SensorData data);
         SensorData Delete(int id);
+        SensorData GetLatest();
     }
 }
