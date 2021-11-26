@@ -65,7 +65,7 @@ namespace MoodREST.Managers
                 var obj = Get(id);
                 obj.Id = updatedUser.Id;
                 obj.Name = updatedUser.Name;
-                obj.Password = updatedUser.Password;
+                obj.SpotifyId = updatedUser.SpotifyId;
                 obj.Address = updatedUser.Address;
                 obj.Email = updatedUser.Email;
                 obj.ProfilePhotoURL = updatedUser.ProfilePhotoURL;

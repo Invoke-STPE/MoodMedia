@@ -127,6 +127,7 @@
             </button>
           </section>
         </div>
+        <div class=""><p class="text-light">{{ me }}</p></div>
         <!-- Modal -->
         <div
           class="modal fade"
@@ -158,7 +159,14 @@
           </div>
         </div>
         <!-- Option 2: Registation Form -->
-        <registration-component></registration-component>
+        <registration-component
+          v-if="me"
+          v-bind:key="me.id"
+          v-bind:id="me.id"
+          v-bind:userName="me.display_name"
+          v-bind:email="me.email"
+          v-bind:picture="me.images[0].url"
+        ></registration-component>
       </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -9,16 +9,16 @@ namespace ModelLib
         public string Address { get; set; }
         public string Email { get; set; }
         public string ProfilePhotoURL { get; set; }
-        public string Password { get; set; }
+        public string SpotifyId { get; set; }
 
-        public User(int id, string name, string address, string email, string profilePhotoURL, string password)
+        public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId)
         {
             Id = id;
             Name = name;
             Address = address;
             Email = email;
             ProfilePhotoURL = profilePhotoURL;
-            Password = password;
+            SpotifyId = spotifyId;
         }
 
         public User()
@@ -39,12 +39,12 @@ namespace ModelLib
                    Address == user.Address &&
                    Email == user.Email &&
                    ProfilePhotoURL == user.ProfilePhotoURL &&
-                   Password == user.Password;
+                   SpotifyId == user.SpotifyId;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Name, Address, Email, ProfilePhotoURL, Password);
+            return HashCode.Combine(Id, Name, Address, Email, ProfilePhotoURL, SpotifyId);
         }
     }
 }

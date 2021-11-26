@@ -12,7 +12,7 @@ app.component("registration-component", {
       <div class="modal-content">
         <div class="modal-header bg-dark">
           <h5 class="modal-title text-light" id="informationModal">
-            Register User
+            Registration
           </h5>
           <button
             type="button"
@@ -22,27 +22,36 @@ app.component("registration-component", {
           ></button>
         </div>
         <div class="modal-body bg-dark">
-          <form class="row g-3">
+        <div class="col-12">  
+          <p v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+            <ul>
+              <li v-for="error in errors">{{ error }}</li>
+            </ul>
+          </p>
+        </div>
+          <form class="row g-3" @submit="submitUser">
           <div class="col-12">
-            <input id="profileId" type="hidden"/>      
+            <input id="profileId" type="hidden" v-model.lazy="id"/>      
           </div>
           <div class="col-12">
-            <img class="img-fluid w-50 d-block rounded-circle mx-auto" id="profilePicture"/>
+            <img class="img-fluid w-50 d-block rounded-circle mx-auto" v-bind:src="picture" id="profilePicture"/>
+            <input type="hidden" id="profilePicture" v-model.lazy="picture"/>
           </div>
             <div class="col-md-6">
               <label for="profileEmail" class="form-label text-light">Email</label>
-              <input type="email" class="form-control" id="profileEmail">
+              <input type="email" class="form-control" id="profileEmail" v-model.lazy="email">
             </div>
             <div class="col-md-6">
               <label for="profileName" class="form-label text-light">Name</label>
-              <input type="text" class="form-control" id="profileName">
+              <input type="text" class="form-control" id="profileName" v-model.lazy="username">
             </div>
             <div class="col-12">
               <label for="profileAddress" class="form-label text-light">Address</label>
-              <input type="text" class="form-control" id="profileAddress" placeholder="1234 Main St">
+              <input type="text" class="form-control" id="profileAddress" placeholder="1234 Main St" v-model.lazy="address">
             </div>
             <div class="col-12">
-              <button class="btn btn-success">
+              <button class="btn btn-success" type="submit" value="Submit">
                 Create
               </button>
             </div>
@@ -51,4 +60,59 @@ app.component("registration-component", {
       </div>
     </div>
   </div>`,
+  props: ["id", "username", "email", "picture"],
+  data() {
+    return {
+      errors: [],
+      address: null,
+    };
+  },
+
+  methods: {
+    submitUser: function (e) {
+      let user = {
+        id: 4,
+        spotifyId: this.id,
+        name: this.username,
+        email: this.email,
+        address: this.address,
+        profilePhotoURL: this.picture,
+      };
+      console.log(JSON.stringify(user));
+      if (
+        this.username &&
+        this.email &&
+        this.id &&
+        this.address &&
+        this.picture
+      ) {
+        console.log("IT ENTERED");
+        const response = fetch("https://localhost:44367/api/User/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user),
+        });
+        console.log("IT PASSED");
+      }
+
+      this.errors = []; // Make suren no boo boo from last time
+
+      if (!this.name) {
+        // Is there any value in there?
+        this.errors.push("Name required");
+      }
+
+      if (!this.email) {
+        // Is there any value in there?
+        this.errors.push("Email required");
+      }
+
+      if (!this.address) {
+        // Is there any value in there?
+        this.errors.push("Address required");
+      }
+      console.log("End of method");
+      e.preventDefault();
+    },
+  },
 });

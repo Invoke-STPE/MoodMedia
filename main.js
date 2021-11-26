@@ -2,10 +2,6 @@ const app = Vue.createApp({
   data() {
     return {
       users: Seed.users,
-      profileName: "",
-      profileEmail: "",
-      profilePicture: "",
-      profileId: 0,
       rain: true,
       login: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
@@ -43,18 +39,6 @@ const app = Vue.createApp({
           })
           .then((data) => {
             this.me = JSON.parse(JSON.stringify(data));
-            this.profileName = this.me.display_name;
-            this.profileEmail = this.me.email;
-            console.log(this.me.images);
-            this.profilePicture =
-              this.me.images.length != 0
-                ? this.me.images[0].url
-                : "../images/profile_pic.svg";
-            this.profileId = this.me.id;
-            document.getElementById("profileName").value = this.profileName;
-            document.getElementById("profileEmail").value = this.profileEmail;
-            document.getElementById("profilePicture").src = this.profilePicture;
-            document.getElementById("profileId").value = this.profileId;
             if (!this.doesUserExist(data)) {
               this.toggleRegistrationModal();
             }
