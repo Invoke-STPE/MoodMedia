@@ -110,14 +110,8 @@
             "
           >
             <media-component></media-component>
-            <div
-              v-if="profileEmail != null && profileName != null && profilePicture != null"
-            >
-              <register-component
-                v-bind:profilePicture="profilePicture"
-                v-bind:profileName="profileName"
-                v-bind:profileEmail="profileEmail"
-              ></register-component>
+            <div>
+              <register-component></register-component>
             </div>
           </div>
         </div>
@@ -185,6 +179,7 @@
     <script src="./VueComponents/mediaComponent.js"></script>
     <script src="./VueComponents/rainComponent.js"></script>
     <script src="./VueComponents/sunComponent.js"></script>
+    <script src="./VueComponents/registerComponent.js"></script>
 
     <script>
       const mountedApp = app.mount("#app");
