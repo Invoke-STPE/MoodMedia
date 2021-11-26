@@ -40,8 +40,10 @@ const app = Vue.createApp({
           .then((data) => {
             this.me = data;
             console.log(data);
+
+            console.log(this.doesUserExist(data));
             if (!this.doesUserExist(data)) {
-              this.toggleRegistationModel();
+              this.toggleRegisterModal();
             }
           });
       };
