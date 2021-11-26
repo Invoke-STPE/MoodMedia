@@ -7,6 +7,7 @@ using ModelLib;
 using MoodREST.Managers;
 using Microsoft.AspNetCore.Http;
 using MoodREST.Interfaces;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,13 +18,13 @@ namespace MoodREST.Controllers
     public class UserController : ControllerBase
     {
         private static IUserManager userManager = new UserManager();
-
+        [EnableCors]
         [HttpGet]
         public IEnumerable<User> Get()
         {
             return userManager.GetAll();
         }
-
+        [EnableCors]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,14 +39,14 @@ namespace MoodREST.Controllers
                 return NotFound(knfe.Message);
             }
         }
-
+        [EnableCors]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Post([FromBody] User user)
         {
             return Ok(userManager.Post(user));
         }
-
+        [EnableCors]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -61,7 +62,7 @@ namespace MoodREST.Controllers
             }
 
         }
-
+        [EnableCors]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
