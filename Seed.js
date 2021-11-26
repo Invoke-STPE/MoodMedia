@@ -7,9 +7,12 @@ window.Seed = function(){
             email: "",
             profilepicture: "",
             spotifyId: "",
-
+            
             
         }
     ]
+    return {
+        users: users
+    }
 
 }

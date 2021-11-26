@@ -1,6 +1,7 @@
 const app = Vue.createApp({
   data() {
     return {
+      users: Seed.users,
       rain: true,
       login: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
@@ -46,7 +47,7 @@ const app = Vue.createApp({
       };
     },
     doesUserExist(data) {
-      const user = JSON.parse(JSON.stringify(data))
+      const user = JSON.parse(JSON.stringify(users))
       return user.some(u => u.spotifyId == data.id)
     },
     toggleRegistationModel(){
