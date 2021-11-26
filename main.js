@@ -47,8 +47,8 @@ const app = Vue.createApp({
       };
     },
     doesUserExist(data) {
-      const users = JSON.parse(JSON.stringify(this.users));
-      return this.users.some((u) => u.spotifyId == data.id);
+      const tempUsers = JSON.parse(JSON.stringify(this.users));
+      return tempUsers.some((u) => u.spotifyId === data.id);
     },
     toggleRegistationModel() {
       $(document).ready(function () {
