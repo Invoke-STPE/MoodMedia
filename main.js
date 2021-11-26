@@ -50,7 +50,11 @@ const app = Vue.createApp({
     },
     doesUserExist(data) {
       const tempUsers = JSON.parse(JSON.stringify(this.users));
+<<<<<<< Updated upstream
       return tempUsers.some((u) => u.spotifyId === data.id);
+=======
+      return tempUsers.some((u) => u.spotifyId == data.id);
+>>>>>>> Stashed changes
     },
     toggleRegistationModel() {
       $(document).ready(function () {
