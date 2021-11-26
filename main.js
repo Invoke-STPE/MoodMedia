@@ -47,7 +47,7 @@ const app = Vue.createApp({
             this.profileEmail = this.me.email;
             console.log(this.me.images);
             this.profilePicture =
-              typeof this.me.images.length != 0
+              this.me.images.length != 0
                 ? this.me.images[0].url
                 : "../images/profile_pic.svg";
             this.profileId = this.me.id;
