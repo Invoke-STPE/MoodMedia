@@ -6,6 +6,7 @@ const app = Vue.createApp({
       users: Seed.users,
       rain: true,
       login: true,
+      user: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
@@ -41,6 +42,9 @@ const app = Vue.createApp({
           })
           .then((data) => {
             this.me = JSON.parse(JSON.stringify(data));
+
+            console.log(this.me);
+            // user = {};
             if (!this.doesUserExist(data)) {
               this.toggleRegistrationModal();
             }
@@ -57,6 +61,11 @@ const app = Vue.createApp({
       });
     },
   },
+  // watch: {
+  //   login: function () {
+  //     this.login = false;
+  //   },
+  // },
 
   mounted() {
     this.token = window.location.hash.substr(1).split("&")[0].split("=")[1];
