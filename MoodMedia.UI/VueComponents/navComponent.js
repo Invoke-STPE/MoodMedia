@@ -41,6 +41,7 @@ app.component("nav-component", {
           />
           </button>
           <ul class="dropdown-menu" aria-labelledby="profileSettings">
+            <li><a @click="getPlaylistSettings()" class="dropdown-item" href="#">Playlist settings</a></li>
             <li><a @click="logout()" class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </div>
@@ -57,5 +58,8 @@ app.component("nav-component", {
     logout() {
       this.$parent.logout();
     },
+    getPlaylistSettings(){
+      this.$parent.getPlaylistSettings();
+    }
   },
 });
