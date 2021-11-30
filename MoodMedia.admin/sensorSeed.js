@@ -13,7 +13,7 @@ window.Seed = (function () {
       sensorName: "sensor_hat",
       temperature: "10",
       humidity: "80%",
-      pressure: "60",
+      pressure: "20",
       time: "2021-10-31T07:01:41.2917938+01:00",
     },
     {
@@ -21,7 +21,7 @@ window.Seed = (function () {
       sensorName: "sensor_hat",
       temperature: "25",
       humidity: "60%",
-      pressure: "60",
+      pressure: "30",
       time: "2021-12-02T07:01:41.2917938+01:00",
     },
   ];

@@ -34,14 +34,23 @@
       <div class="container">
         <section>
           <h1 class="h3 text-center pt-5">MoodMedia Admin Panel</h1>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-            <input
-              type="text"
-              class="form-control"
-              aria-label="Amount (to the nearest dollar)"
-            />
-            <span class="input-group-text">Filter</span>
+          <div class="input-group mt-5 mb-3 justify-content-around">
+            <div class="">
+              <label class="me-3" for="datetime-local-start">Start Date</label>
+              <input
+                v-model="dateStart"
+                type="datetime-local"
+                id="datetime-local-start"
+              />
+            </div>
+            <div class="">
+              <label class="ms-3" for="datetime-local-end">End Date</label>
+              <input
+                v-model="dateEnd"
+                type="datetime-local"
+                id="datetime-local-end"
+              />
+            </div>
           </div>
           <h1 class="h6">Weather data</h1>
           <table class="table">
@@ -64,6 +73,10 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="">
+            {{ formatDate(dateStart)}} {{ formatDate(dateEnd) }}
+          </div>
         </section>
       </div>
     </div>
