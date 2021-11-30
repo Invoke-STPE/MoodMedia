@@ -3,48 +3,37 @@ const basePlaylistUrl= 'https://api.spotify.com/v1/me/playlists'
 
 app.component("playlist-component", {
     template: /*html*/ `
-    <div class="text-light modal fade">
+    <div class="text-light modal fade modal-dialog-centered" id="playlistSettingsModel">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-dark">
-            <h5 class="modal-title text-light" id="informationModal">
+            <h5 class="modal-title text-light" id="playlistModal">
+              Playlist Settings
             </h5>
+          </div>
+          <div class="modal-body bg-dark">
+          Alle playliste indstillinger
+            <div>
+              <select placeholder="happyPlaylist" name="playlist" id="playlist">
+                <option value="" disabled selected>Select a happy playlist </option>
+                <option value="playlist">Banger</option>
+              </select>
+            </div>
+            <div>
+              <select placeholder="okPlaylist" name="playlist" id="playlist">
+                <option value="" disabled selected>Select a ok playlist </option>
+                <option value="playlist">wackass</option>
+              </select>
+            </div>
+            <div>
+              <select placeholder="sadPlaylist" name="playlist" id="playlist">
+                <option value="" disabled selected>Select a sad playlist </option>
+                <option value="playlist">sad af</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    `
-    ,
-  data() {
-    return {
-      errors: [],
-      id: [],
-      name: [],
-    };
-  },
-    methods: {
-    getPlaylists: function (e) {
-      let Playlists = {
-        id: this.id,
-        name: this.name,
-      };
-
-      console.log(JSON.stringify(Playlists));
-      if (
-        this.id &&
-        this.name
-      ) {
-        const response = fetch("basePlaylistUrl", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(Playlists),
-        }).then($("#registationModel").modal("hide"));
-      }
-
-      this.errors = []; // Make suren no boo boo from last time
-
-      console.log("End of method");
-      e.preventDefault();
-    },
-  },
+    ` 
 });

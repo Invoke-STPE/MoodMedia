@@ -24,6 +24,7 @@ const app = Vue.createApp({
     },
     getPlaylistSettings() {
       this.playlistSettings = true;
+      this.togglePlaylistSettingsModal();
     },
     spotifyAuthentication() {
       let popup = window.open(
@@ -62,6 +63,11 @@ const app = Vue.createApp({
     toggleRegistrationModal() {
       $(document).ready(function () {
         $("#registationModel").modal("show");
+      });
+    },
+    togglePlaylistSettingsModal() {
+      $(document).ready(function () {
+        $("#playlistSettingsModel").modal("show");
       });
     },
   },
