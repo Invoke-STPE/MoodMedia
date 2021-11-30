@@ -19,34 +19,46 @@ app.component("sensordata-component", {
         />
       </div>
     </div>
-    <h1 class="h6">Weather data</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Sensor</th>
-          <th scope="col">Tempature</th>
-          <th scope="col">Humidity</th>
-          <th scope="col">Pressure</th>
-          <th scope="col">Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="data in sortedDateTimes" :key="data.id">
-          <td>{{ data.sensorName }}</td>
-          <td>{{ data.temperature }} &#176;</td>
-          <td>{{ data.humidity }}</td>
-          <td>{{ data.pressure }}</td>
-          <td>{{ formatDate(data.time) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <section v-if="error">
+    <p class="lead text-center">
+      We're sorry, we're not able to retrieve this information at the moment, please try back later
+    </p>
+  </section>
+    <section v-else>
+      <div v-if="loading"><h1 class="display-5 text-center">Hang on loading data...</h1></div>
+      <div v-else>
+        <h1 class="h6">Weather data</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sensor</th>
+              <th scope="col">Tempature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Pressure</th>
+              <th scope="col">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="data in sortedDateTimes" :key="data.id">
+              <td>{{ data.sensorName }}</td>
+              <td>{{ data.temperature }} &#176;</td>
+              <td>{{ data.humidity }}</td>
+              <td>{{ data.pressure }}</td>
+              <td>{{ formatDate(data.time) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </section>`,
   data() {
     return {
       dateStart: null,
       dateEnd: null,
       dateTimeSort: true,
-      sensorData: Seed.sensorData,
+      sensorData: [],
+      error: false,
+      loading: true,
     };
   },
   methods: {
@@ -88,5 +100,18 @@ app.component("sensordata-component", {
         return this.sensorData;
       }
     },
+  },
+  mounted() {
+    axios
+      .get("https://localhost:44367/api/Sensor/")
+      .then((response) => (this.sensorData = response.data))
+      .catch((error) => {
+        console.log(error);
+        this.error = true;
+      })
+      .finally(() => {
+        this.loading = false;
+      });
+    // sensorData = axios.get("https://localhost:44367/api/Sensor/").data;
   },
 });
