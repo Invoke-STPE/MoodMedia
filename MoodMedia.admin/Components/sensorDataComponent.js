@@ -57,6 +57,7 @@ app.component("sensordata-component", {
       dateEnd: null,
       dateTimeSort: true,
       sensorData: [],
+      // sensorData: Seed.sensorData, // THIS IS FOR MOCK DATA ONLY!
       error: false,
       loading: true,
     };
