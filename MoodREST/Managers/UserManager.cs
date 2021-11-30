@@ -52,11 +52,12 @@ namespace MoodREST.Managers
                 Users.Remove(Get((id)));
                 return RemovedUser;
             }
-            catch (KeyNotFoundException keyexcep)
+            catch (KeyNotFoundException knfe)
             {
-                throw new KeyNotFoundException(keyexcep.Message);
+                throw new KeyNotFoundException(knfe.Message);
             }
         }
+
 
         public User Update(int id, User updatedUser)
         {
