@@ -52,6 +52,9 @@
           >
             <mood-component></mood-component>
             <media-component></media-component>
+            <div v-if="playlistSettings">
+              <playlist-component></playlist-component>
+            </div>
           </div>
         </div>
         <div
@@ -110,6 +113,7 @@
           v-bind:email="me.email"
           v-bind:picture="me.images[0].url"
         ></registration-component>
+        
       </div>
     </div>
 
@@ -132,6 +136,7 @@
     <script src="./VueComponents/navComponent.js"></script>
     <script src="./seed.js"></script>
     <script src="./VueComponents/moodComponent.js"></script>
+    <script src="./VueComponents/playlistComponent.js"></script>
 
     <script>
       const mountedApp = app.mount("#app");
