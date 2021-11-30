@@ -13,7 +13,7 @@ const app = Vue.createApp({
         "user-read-email",
         "playlist-modify-private",
       ],
-      redirect_uri: "http://127.0.0.1:5501/index.html",
+      redirect_uri: "http://127.0.0.1:5501/MoodMedia.UI/index.html",
       me: null,
     };
   },
