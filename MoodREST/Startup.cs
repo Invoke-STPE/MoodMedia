@@ -34,6 +34,7 @@ namespace MoodREST
             }));
 
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoodREST", Version = "v1" });
@@ -55,7 +56,10 @@ namespace MoodREST
             app.UseCors("MyPolicy");
 
             app.UseRouting();
-
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

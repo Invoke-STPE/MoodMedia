@@ -1,17 +1,19 @@
-const baseUrl = "https://localhost:44367/api/Sensor/"
+const baseUrl = "https://localhost:44367/api/Sensor/";
 
 const app = Vue.createApp({
   data() {
     return {
+      users: Seed.users,
       rain: true,
       login: true,
+      user: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
         "user-read-email",
         "playlist-modify-private",
       ],
-      redirect_uri: "http://127.0.0.1:5501/index.html",
+      redirect_uri: "http://127.0.0.1:5501/MoodMedia.UI/index.html",
       me: null,
     };
   },
@@ -19,7 +21,7 @@ const app = Vue.createApp({
     logout() {
       this.login = false;
     },
-    spotfiyAuthentication() {
+    spotifyAuthentication() {
       let popup = window.open(
         `https://accounts.spotify.com/authorize?client_id=${this.client_id}&response_type=token&redirect_uri=${this.redirect_uri}&scope=${this.scopes}&show_dialog=true`,
         "Login with Spotify",
@@ -39,11 +41,31 @@ const app = Vue.createApp({
             return response.json();
           })
           .then((data) => {
-            this.me = data;
+            this.me = JSON.parse(JSON.stringify(data));
+
+            console.log(this.me);
+            // user = {};
+            if (!this.doesUserExist(data)) {
+              this.toggleRegistrationModal();
+            }
           });
       };
     },
+    doesUserExist(data) {
+      const tempUsers = JSON.parse(JSON.stringify(this.users));
+      return tempUsers.some((u) => u.spotifyId === data.id);
+    },
+    toggleRegistrationModal() {
+      $(document).ready(function () {
+        $("#registationModel").modal("show");
+      });
+    },
   },
+  // watch: {
+  //   login: function () {
+  //     this.login = false;
+  //   },
+  // },
 
   mounted() {
     this.token = window.location.hash.substr(1).split("&")[0].split("=")[1];

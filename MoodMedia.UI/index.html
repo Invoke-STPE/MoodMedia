@@ -18,13 +18,7 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
-    <!-- <style>
-        .audio-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      </style> -->
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -35,61 +29,9 @@
   <body class="bg-dark">
     <div class="container-fluid">
       <div id="app" class="w-100">
-        <div v-if="login">
-          <header>
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark w-100">
-              <div class="container-fluid">
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#navmenu"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navmenu">
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <button
-                        type="button"
-                        class="btn btn-lg pe-5"
-                        data-bs-toggle="modal"
-                        data-bs-target="#informationModal"
-                      >
-                        <i class="bi bi-question-circle text-white"></i>
-                      </button>
-                    </li>
-                  </ul>
-                  <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                      <h1 class="display-6 text-light text-center">
-                        <span class="text-success">M</span>ood<span
-                          class="text-success"
-                          >M</span
-                        >edia
-                      </h1>
-                    </li>
-                  </ul>
-                  <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                      <span>
-                        <a
-                          class="nav-link"
-                          @click="logout()"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >Logout
-                          <i class="bi bi-box-arrow-in-left"></i>
-                        </a>
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-          </header>
-        </div>
+        <header>
+          <nav-component v-bind:login="login"></nav-component>
+        </header>
 
         <!-- Weather Components -->
         <div v-if="login">
@@ -121,13 +63,14 @@
             <button
               id="spotifyButton"
               class="btn btn-success btn-lg text-light"
-              @click="spotfiyAuthentication()"
+              @click="spotifyAuthentication()"
               style="border-radius: 32px"
             >
               Spotify Login <i class="bi bi-spotify"></i>
             </button>
           </section>
         </div>
+        <div class=""><p class="text-light">{{ me }}</p></div>
         <!-- Modal -->
         <div
           class="modal fade"
@@ -158,6 +101,15 @@
             </div>
           </div>
         </div>
+        <!-- Option 2: Registation Form -->
+        <registration-component
+          v-if="me"
+          v-bind:key="me.id"
+          v-bind:id="me.id"
+          v-bind:username="me.display_name"
+          v-bind:email="me.email"
+          v-bind:picture="me.images[0].url"
+        ></registration-component>
       </div>
     </div>
 
@@ -175,6 +127,10 @@
     <script src="./VueComponents/mediaComponent.js"></script>
     <script src="./VueComponents/rainComponent.js"></script>
     <script src="./VueComponents/sunComponent.js"></script>
+    <script src="./VueComponents/registrationComponent.js"></script>
+    <script src="./VueComponents/brandComponent.js"></script>
+    <script src="./VueComponents/navComponent.js"></script>
+    <script src="./seed.js"></script>
     <script src="./VueComponents/moodComponent.js"></script>
 
     <script>
