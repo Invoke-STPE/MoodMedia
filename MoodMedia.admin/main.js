@@ -9,14 +9,9 @@ const app = Vue.createApp({
   computed: {
     sortedDateTimes() {
       if (this.dateTimeSort) {
-        //   return this.sensorData
-        //     .slice(0)
-        //     .sort((a, b) => new Date(a) - new Date(b));
-        // }
-        let tempArray = this.sensorData.sort(
-          (a, b) => new Date(a) - new Date(b)
-        );
-        return tempArray;
+        return this.sensorData.sort((a, b) => {
+          return new Date(a.time) - new Date(b.time);
+        });
       }
     },
   },
@@ -26,7 +21,7 @@ const app = Vue.createApp({
     },
     formatDate(date) {
       let formattedDate = "";
-      formattedDate = new Date(date).toLocaleString();
+      formattedDate = new Date(date).toLocaleString("dk-DK");
 
       for (let index = 0; index < formattedDate.length; index++) {
         formattedDate = formattedDate.replace(".", ":");
