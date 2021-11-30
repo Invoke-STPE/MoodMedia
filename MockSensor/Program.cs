@@ -76,7 +76,7 @@ namespace MockSensor
                     var response = client.PostAsync(url, new StringContent(myJson, Encoding.UTF8, "application/json"));
                     Console.WriteLine(response.Result.StatusCode);
 
-                    Thread.Sleep(2000);
+                    Thread.Sleep(500);
                 }
             }
         }
