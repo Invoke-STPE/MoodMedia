@@ -32,52 +32,7 @@
         <nav-component v-model:login="login"></nav-component>
       </header>
       <div class="container">
-        <section>
-          <h1 class="h3 text-center pt-5">MoodMedia Admin Panel</h1>
-          <div class="input-group mt-5 mb-3 justify-content-around">
-            <div class="">
-              <label class="me-3" for="datetime-local-start">Start Date</label>
-              <input
-                v-model="dateStart"
-                type="datetime-local"
-                id="datetime-local-start"
-              />
-            </div>
-            <div class="">
-              <label class="ms-3" for="datetime-local-end">End Date</label>
-              <input
-                v-model="dateEnd"
-                type="datetime-local"
-                id="datetime-local-end"
-              />
-            </div>
-          </div>
-          <h1 class="h6">Weather data</h1>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Sensor</th>
-                <th scope="col">Tempature</th>
-                <th scope="col">Humidity</th>
-                <th scope="col">Pressure</th>
-                <th scope="col">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="data in sortedDateTimes" :key="data.id">
-                <td>{{ data.sensorName }}</td>
-                <td>{{ data.temperature }} &#176;</td>
-                <td>{{ data.humidity }}</td>
-                <td>{{ data.pressure }}</td>
-                <td>{{ formatDate(data.time) }}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="">
-            {{ formatDate(dateStart)}} {{ formatDate(dateEnd) }}
-          </div>
-        </section>
+        <sensorData-component></sensorData-component>
       </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -93,6 +48,7 @@
     <script src="main.js"></script>
     <script src="sensorSeed.js"></script>
     <script src="./Components/navComponent.js"></script>
+    <script src="./Components/sensorDataComponent.js"></script>
 
     <script>
       const mountedApp = app.mount("#app");
