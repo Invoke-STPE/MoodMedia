@@ -41,7 +41,7 @@
               class="form-control"
               aria-label="Amount (to the nearest dollar)"
             />
-            <span class="input-group-text">Search</span>
+            <span class="input-group-text">Filter</span>
           </div>
           <h1 class="h6">Weather data</h1>
           <table class="table">
@@ -55,26 +55,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>sensor_hat</td>
-                <td>17°</td>
-                <td>77%</td>
-                <td>50</td>
-                <td>29/11/2021 - 12:12</td>
-              </tr>
-              <tr>
-                <td>sensor_hat</td>
-                <td>17°</td>
-                <td>77%</td>
-                <td>50</td>
-                <td>29/11/2021 - 12:12</td>
-              </tr>
-              <tr>
-                <td>sensor_hat</td>
-                <td>17°</td>
-                <td>77%</td>
-                <td>50</td>
-                <td>29/11/2021 - 12:12</td>
+              <tr v-for="data in sortedDateTimes" :key="data.id">
+                <td>{{ data.sensorName }}</td>
+                <td>{{ data.temperature }} &#176;</td>
+                <td>{{ data.humidity }}</td>
+                <td>{{ data.pressure }}</td>
+                <td>{{ formatDate(data.time) }}</td>
               </tr>
             </tbody>
           </table>
@@ -92,6 +78,7 @@
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="main.js"></script>
+    <script src="sensorSeed.js"></script>
     <script src="./Components/navComponent.js"></script>
 
     <script>
