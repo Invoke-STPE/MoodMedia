@@ -34,7 +34,7 @@ app.component("nav-component", {
           <li class="nav-item">
           <div class="dropstart">
           <button class="btn dropdown-toggle" id="profileSettings" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="../images/profile_pic.svg" class="avatar" />
+          <img src="./images/profile_pic.svg" class="avatar" />
           <img
             src="images/caret-down-fill.svg"
             style="width: 15px; height: 15px"
