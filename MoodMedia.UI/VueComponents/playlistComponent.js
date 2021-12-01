@@ -1,8 +1,6 @@
 // JavaScript source code
-const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
 
 app.component("playlist-component", {
-  prop: ["token"],
   template: /*html*/ `
     <div class="text-light modal fade modal-dialog-centered" id="playlistSettingsModel">
       <div class="modal-dialog modal-dialog-centered">
@@ -13,7 +11,7 @@ app.component("playlist-component", {
             </h5>
           </div>
           <div class="modal-body bg-dark">
-          Alle playliste indstillinger
+            Alle playliste indstillinger
             <div>
               <select placeholder="happyPlaylist" name="playlist" id="playlist">
                 <option value="" disabled selected>Select a happy playlist </option>
@@ -32,6 +30,7 @@ app.component("playlist-component", {
                 <option value="playlist">sad af</option>
               </select>
             </div>
+            <button class="btn btn-primary" type="button" @click="findPlaylists()">Test</button>
           </div>
         </div>
       </div>
@@ -42,24 +41,32 @@ app.component("playlist-component", {
       playlists: [],
       playlistId: "",
       playlistName: "",
+      id: null,
     };
   },
   methods: {
     findPlaylists() {
+      // const basePlaylistUrl = `https://api.spotify.com/v1/users/${this.$parent.me.id}/playlists`;
+      const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
+      console.log(basePlaylistUrl);
       const settings = {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${this.$parent.payload}`,
           "Content-Type": "application/json",
         },
       };
       const response = fetch(basePlaylistUrl, {
         method: "GET",
         settings,
-      }).then($("#playlistSettingsModel").modal("hide"));
+      });
     },
   },
   mounted() {
-    this.findPlaylists();
-    console.log(this.token);
+    // this.$watch("userid", (newVal, oldVal) => {
+    //   this.findPlaylists();
+    //   console.log(this.token);
+    // });
+    // this.findPlaylists();
+    // console.log(this.token);
   },
 });

@@ -9,6 +9,7 @@ const app = Vue.createApp({
       playlistSettings: false,
       user: null,
       token: null,
+      payload: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
@@ -54,6 +55,8 @@ const app = Vue.createApp({
       window.spotifyCallback = (payload) => {
         this.login = true;
         popup.close();
+        this.payload = payload;
+        console.log(`Payload: ${payload}`);
 
         fetch("https://api.spotify.com/v1/me", {
           headers: {
@@ -69,6 +72,7 @@ const app = Vue.createApp({
             this.me = JSON.parse(JSON.stringify(data));
 
             console.log(this.me);
+
             // user = {};
             if (!this.doesUserExist(data)) {
               this.toggleRegistrationModal();
