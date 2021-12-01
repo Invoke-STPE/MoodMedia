@@ -21,7 +21,7 @@ app.component("sensordata-component", {
     </div>
     <section v-if="error">
     <p class="lead text-center">
-      We're sorry, we're not able to retrieve this information at the moment, please try back later
+      We're sorry, we're not able to retrieve this information at the moment, please try again later
     </p>
   </section>
     <section v-else>

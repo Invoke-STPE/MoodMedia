@@ -8,10 +8,10 @@ namespace MoodREST.Interfaces
 {
     interface IUserController
     {
-        public List<User> GetAll();
-        public User Get(int id);
-        public User Put(int id, User user);
-        public bool Post(User user);
-        public User Delete(int id);
+        public List<Administrator> GetAll();
+        public Administrator Get(int id);
+        public Administrator Put(int id, Administrator user);
+        public bool Post(Administrator user);
+        public Administrator Delete(int id);
     }
 }

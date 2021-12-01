@@ -32,7 +32,12 @@
         <nav-component v-model:login="login"></nav-component>
       </header>
       <div class="container">
-        <sensorData-component></sensorData-component>
+        <div v-if="authenticated">
+          <sensorData-component></sensorData-component>
+        </div>
+        <div v-else>
+          <login-component></login-component>
+        </div>
       </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -49,6 +54,7 @@
     <script src="sensorSeed.js"></script>
     <script src="./Components/navComponent.js"></script>
     <script src="./Components/sensorDataComponent.js"></script>
+    <script src="./Components/loginComponent.js"></script>
 
     <script>
       const mountedApp = app.mount("#app");
