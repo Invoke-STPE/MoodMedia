@@ -1,9 +1,9 @@
 // JavaScript source code
-const basePlaylistUrl= 'https://api.spotify.com/v1/me/playlists'
-prop: ["token"] 
+const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
 
 app.component("playlist-component", {
-    template: /*html*/ `
+  prop: ["token"],
+  template: /*html*/ `
     <div class="text-light modal fade modal-dialog-centered" id="playlistSettingsModel">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -36,27 +36,30 @@ app.component("playlist-component", {
         </div>
       </div>
     </div>
-    ` ,
-    data(){
-      return {
-        playlists: [],
-        playlistId: "",
-        playlistName: "",
-      }
+    `,
+  data() {
+    return {
+      playlists: [],
+      playlistId: "",
+      playlistName: "",
+    };
+  },
+  methods: {
+    findPlaylists() {
+      const settings = {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json",
+        },
+      };
+      const response = fetch(basePlaylistUrl, {
+        method: "GET",
+        settings,
+      }).then($("#playlistSettingsModel").modal("hide"));
     },
-    methods: {
-      findPlaylists() {
-        const settings = {
-          headers: {Authorization: `Bearer ${this.token}`, "Content-Type": "application/json"}
-          }
-        const response = fetch(basePlaylistUrl, {
-          method: "GET",
-          settings
-        }).then($("#playlistSettingsModel").modal("hide"));
-      }
-    },
-    mounted() {
-      this.findPlaylists();
-      console.log(this.token);
-    }
+  },
+  mounted() {
+    this.findPlaylists();
+    console.log(this.token);
+  },
 });

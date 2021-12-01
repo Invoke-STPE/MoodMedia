@@ -5,16 +5,16 @@ const app = Vue.createApp({
     return {
       users: Seed.users,
       rain: true,
-      login: true,
+      login: false,
       playlistSettings: false,
       user: null,
+      token: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
         "user-read-private",
         "user-read-email",
         "playlist-modify-private",
         "playlist-read-private",
-        "ugc-image-upload",
         "user-read-playback-state",
         "user-modify-playback-state",
         "user-follow-modify",
@@ -25,10 +25,10 @@ const app = Vue.createApp({
         "user-read-playback-position",
         "playlist-modify-private",
         "playlist-read-collaborative",
-        "user-top-read", 
+        "user-top-read",
         "playlist-modify-public",
         "user-read-currently-playing",
-        "user-read-recently-played"
+        "user-read-recently-played",
       ],
       redirect_uri: "http://127.0.0.1:5501/MoodMedia.UI/index.html",
       me: null,
@@ -37,6 +37,8 @@ const app = Vue.createApp({
   methods: {
     logout() {
       this.login = false;
+      this.token = null;
+      console.log(this.token);
     },
     getPlaylistSettings() {
       this.playlistSettings = true;
@@ -54,12 +56,10 @@ const app = Vue.createApp({
         popup.close();
 
         fetch("https://api.spotify.com/v1/me", {
-          
           headers: {
             Authorization: `Bearer ${payload}`,
           },
-        }
-        )
+        })
           .then((response) => {
             console.log(response);
             return response.json();
@@ -74,7 +74,7 @@ const app = Vue.createApp({
               this.toggleRegistrationModal();
             }
           });
-          console.log(payload);
+        console.log(payload);
       };
     },
     doesUserExist(data) {
