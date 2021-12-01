@@ -1,5 +1,6 @@
 // JavaScript source code
 const basePlaylistUrl= 'https://api.spotify.com/v1/me/playlists'
+prop: ["token"] 
 
 app.component("playlist-component", {
     template: /*html*/ `
@@ -35,5 +36,27 @@ app.component("playlist-component", {
         </div>
       </div>
     </div>
-    ` 
+    ` ,
+    data(){
+      return {
+        playlists: [],
+        playlistId: "",
+        playlistName: "",
+      }
+    },
+    methods: {
+      findPlaylists() {
+        const settings = {
+          headers: {Authorization: `Bearer ${this.token}`, "Content-Type": "application/json"}
+          }
+        const response = fetch(basePlaylistUrl, {
+          method: "GET",
+          settings
+        }).then($("#playlistSettingsModel").modal("hide"));
+      }
+    },
+    mounted() {
+      this.findPlaylists();
+      console.log(this.token);
+    }
 });

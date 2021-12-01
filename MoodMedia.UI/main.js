@@ -13,6 +13,22 @@ const app = Vue.createApp({
         "user-read-private",
         "user-read-email",
         "playlist-modify-private",
+        "playlist-read-private",
+        "ugc-image-upload",
+        "user-read-playback-state",
+        "user-modify-playback-state",
+        "user-follow-modify",
+        "user-follow-read",
+        "user-library-modify",
+        "user-library-read",
+        "streaming",
+        "user-read-playback-position",
+        "playlist-modify-private",
+        "playlist-read-collaborative",
+        "user-top-read", 
+        "playlist-modify-public",
+        "user-read-currently-playing",
+        "user-read-recently-played"
       ],
       redirect_uri: "http://127.0.0.1:5501/MoodMedia.UI/index.html",
       me: null,
@@ -38,14 +54,18 @@ const app = Vue.createApp({
         popup.close();
 
         fetch("https://api.spotify.com/v1/me", {
+          
           headers: {
             Authorization: `Bearer ${payload}`,
           },
-        })
+        }
+        )
           .then((response) => {
+            console.log(response);
             return response.json();
           })
           .then((data) => {
+            console.log(data);
             this.me = JSON.parse(JSON.stringify(data));
 
             console.log(this.me);
@@ -54,6 +74,7 @@ const app = Vue.createApp({
               this.toggleRegistrationModal();
             }
           });
+          console.log(payload);
       };
     },
     doesUserExist(data) {

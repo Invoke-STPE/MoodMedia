@@ -112,7 +112,7 @@
         ></registration-component>
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
-          <playlist-component></playlist-component>
+          <playlist-component v-bind:token="token"></playlist-component>
         </div>
       </div>
     </div>
