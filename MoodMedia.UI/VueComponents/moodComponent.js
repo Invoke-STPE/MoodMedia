@@ -7,7 +7,7 @@ app.component('mood-component', {
       nice: false,
       cold: false,
       rain: false,
-      snow: true,
+      snow: false,
       freezing: false,
       
   }
@@ -55,6 +55,30 @@ app.component('mood-component', {
           this.rain = true
         }
       } 
+    },
+    toggleSnow() {
+      if (this.snow) this.snow = false
+      else this.snow = true
+    },
+    toggleRain() {
+      if (this.rain) this.rain = false
+      else this.rain = true
+    },
+    toggleFreezing() {
+      if (this.freezing) this.freezing = false
+      else this.freezing = true
+    },
+    toggleCold() {
+      if (this.cold) this.cold = false
+      else this.cold = true
+    },
+    toggleNice() {
+      if (this.nice) this.nice = false
+      else this.nice = true
+    },
+    toggleSunny() {
+      if (this.sunny) this.sunny = false
+      else this.sunny = true
     }
   },
   template: /*html*/`
@@ -63,9 +87,10 @@ app.component('mood-component', {
   <sun-clouds-component v-if="nice"></sun-clouds-component>
   <rain-component v-if="rain"></rain-component>
   <snow-component v-if="snow"></snow-component>
-  <freezing-component v-if="freezing" style="padding-right: 400px"></freezing-component>
   <freezing-component v-if="freezing"></freezing-component>
   
+  <!-- DISABLE FOR LIVE VERSION -->
+  <mood-test-buttons @toggleSnow="toggleSnow" @toggleRain="toggleRain" @toggleFreezing="toggleFreezing" @toggleCold="toggleCold" @toggleNice="toggleNice" @toggleSunny="toggleSunny"></mood-test-buttons>
 
   <weather-information-box v-if="weather" v-bind:weather=weather v-bind:mood=mood></weather-information-box>
   <mood-button @getMood="setMood"> </mood-button>
@@ -89,10 +114,10 @@ app.component('mood-button', {
   `
 })
 
-  app.component('weather-information-box', {
+app.component('weather-information-box', {
     props: {
-      weather: null,
-      mood: null
+      weather: '',
+      mood: ''
     },
     template: /*html*/`
     <div class="info-box">
@@ -103,4 +128,40 @@ app.component('mood-button', {
       </div>
     </div>
     `
+})
+
+
+app.component('mood-test-buttons', {
+  template: /*html*/`
+  <div class="buttons-bottom-right">
+    <button class="btn btn-dark" @click="toggleSnow">Toggle Snow</button>
+    <button class="btn btn-dark" @click="toggleRain">Toggle Rain</button>
+    <button class="btn btn-dark" @click="toggleFreezing">Toggle Freezing</button>
+    <button class="btn btn-dark" @click="toggleCold">Toggle Cold</button>
+    <button class="btn btn-dark" @click="toggleNice">Toggle Nice</button>
+    <button class="btn btn-dark" @click="toggleSunny">Toggle Sunny</button>
+  </div>
+  `,
+  methods: {
+    toggleSnow() {
+      this.$emit('toggleSnow')
+    },
+    toggleRain() {
+      this.$emit('toggleRain')
+    },
+    toggleFreezing() {
+      this.$emit('toggleFreezing')
+    },
+    toggleCold() {
+      this.$emit('toggleCold')
+    },
+    toggleNice() {
+      this.$emit('toggleNice')
+    },
+    toggleSunny() {
+      this.$emit('toggleSunny')
+    },
+
+
+  }
 })

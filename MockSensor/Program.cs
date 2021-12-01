@@ -35,7 +35,7 @@ namespace MockSensor
                 {
                     if (targetTemp > temperature)
                     {
-                        temperature += random.Next(0, 4);
+                        temperature += random.Next(4, 8);
                         if (targetTemp < temperature)
                         {
                             temperature = targetTemp;
@@ -43,7 +43,7 @@ namespace MockSensor
                     }
                     else
                     {
-                        temperature -= random.Next(0, 4);
+                        temperature -= random.Next(4, 8);
                         if (targetTemp > temperature)
                         {
                             temperature = targetTemp;
@@ -53,7 +53,7 @@ namespace MockSensor
 
                     if (targetHum > humidity)
                     {
-                        humidity += random.Next(2, 8);
+                        humidity += random.Next(4, 16);
                         if (targetHum < humidity)
                         {
                             humidity = targetHum;
@@ -61,7 +61,7 @@ namespace MockSensor
                     }
                     else
                     {
-                        humidity -= random.Next(2, 8);
+                        humidity -= random.Next(4, 16);
                         if (targetHum > humidity)
                         {
                             humidity = targetHum;
@@ -76,7 +76,7 @@ namespace MockSensor
                     var response = client.PostAsync(url, new StringContent(myJson, Encoding.UTF8, "application/json"));
                     Console.WriteLine(response.Result.StatusCode);
 
-                    Thread.Sleep(500);
+                    Thread.Sleep(2000);
                 }
             }
         }

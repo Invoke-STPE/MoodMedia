@@ -599,10 +599,21 @@ div.back-row-toggle .rain.back-row {
   background: white;
   transform: rotate(0deg);
   position: absolute;
-  top: 70%;
-  left: 60%;
+  top: 10%;
+  left: 20%;
   animation: Rotate 10s infinite linear;
-  position: relative;
+}
+
+.snow-left{
+  position: absolute;
+  top: 25%;
+  left: 20%;
+}
+
+.snow-right{
+  position: absolute;
+  top: 15%;
+  left: 70%;
 }
 
 .snow::after,.snow::before{
@@ -656,3 +667,9 @@ div.back-row-toggle .rain.back-row {
   100% { transform: rotate(360deg); }
 }
 /* #endregion */
+
+.buttons-bottom-right{
+  position: absolute;
+  top: 40%;
+  left: 80%;
+}
