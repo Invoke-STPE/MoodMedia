@@ -69,5 +69,11 @@ namespace MoodREST.Controllers
                 return NotFound(knfe.Message);
             }
         }
+
+        [HttpGet("GetLatest")]
+        public IActionResult GetLatest()
+        {
+            return Ok(_mgr.GetLatest());
+        }
     }
 }

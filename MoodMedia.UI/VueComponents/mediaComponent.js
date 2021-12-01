@@ -1,5 +1,5 @@
 app.component("media-component", {
-  template: `
+  template: /*html*/ `
       <h2 class="text-white p-1">Song</h2>
       <p class="lead text-white pb-3">Artist</p>
       <div class="audio-player">

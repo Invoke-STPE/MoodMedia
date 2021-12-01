@@ -52,11 +52,12 @@ namespace MoodREST.Managers
                 Users.Remove(Get((id)));
                 return RemovedUser;
             }
-            catch (KeyNotFoundException keyexcep)
+            catch (KeyNotFoundException knfe)
             {
-                throw new KeyNotFoundException(keyexcep.Message);
+                throw new KeyNotFoundException(knfe.Message);
             }
         }
+
 
         public User Update(int id, User updatedUser)
         {
@@ -65,7 +66,7 @@ namespace MoodREST.Managers
                 var obj = Get(id);
                 obj.Id = updatedUser.Id;
                 obj.Name = updatedUser.Name;
-                obj.Password = updatedUser.Password;
+                obj.SpotifyId = updatedUser.SpotifyId;
                 obj.Address = updatedUser.Address;
                 obj.Email = updatedUser.Email;
                 obj.ProfilePhotoURL = updatedUser.ProfilePhotoURL;
