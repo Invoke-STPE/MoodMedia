@@ -9,7 +9,7 @@ namespace MoodREST.Managers
 {
     public class AdministratorManager
     {
-        private static List<Administrator> _administrators = new List<Administrator>();
+        private static List<Administrator> _administrators;
         private static int _nextId = 1;
         public AdministratorManager()
         {
