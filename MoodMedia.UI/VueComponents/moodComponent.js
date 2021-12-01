@@ -4,21 +4,24 @@ app.component('mood-component', {
       mood: null,
       weather: null,
       sunny: false,
+      nice: false,
       cold: false,
       rain: false,
-      snow: false,
-      freezing: false
+      snow: true,
+      freezing: false,
+      
   }
   },
   methods : {
     setMood(response){
       this.weather = response
       this.sunny = false
+      this.nice = false
       this.cold = false
       this.rain = false
       this.snow = false
       this.freezing = false
-      console.log(this.weather)
+      //console.log(this.weather)
 
       if (response.temperature < 5) {
         this.mood = "freezing"
@@ -31,15 +34,15 @@ app.component('mood-component', {
       else if (response.temperature < 15) {
         this.mood = "cold"
         this.cold= true
-        if (response.humidity >= 20) {
+        if (response.humidity >= 80) {
           this.mood += " and rainy"
           this.rain = true
         }
       }
       else if (response.temperature <= 22) {
         this.mood = "nice" 
-        this.sunny = true
-        if (response.humidity >= 20) {
+        this.nice = true
+        if (response.humidity >= 80) {
           this.mood += " but rainy"
           this.rain = true
         }
@@ -47,7 +50,7 @@ app.component('mood-component', {
       else {
         this.mood = "hot"
         this.sunny = true
-        if (response.humidity >= 20) {
+        if (response.humidity >= 80) {
           this.mood += " but rainy"
           this.rain = true
         }
@@ -55,9 +58,15 @@ app.component('mood-component', {
     }
   },
   template: /*html*/`
-  <div class="text-light"><p>Freezing: {{freezing}} Cold: {{cold}} Sun: {{sunny}} | Rain: {{rain}} Snow: {{snow}}</p></div>
+  <!--<div class="text-light"><p>DEBUG: <b>Freezing:</b> {{freezing}} - <b>Cold:</b> {{cold}} - <b>Nice: </b> {{nice}} - <b>Sun:</b> {{sunny}} <b>| Rain:</b> {{rain}} - <b>Snow:</b> {{snow}}</p></div>-->
   <sun-component v-if="sunny"></sun-component>
+  <sun-clouds-component v-if="nice"></sun-clouds-component>
   <rain-component v-if="rain"></rain-component>
+  <snow-component v-if="snow"></snow-component>
+  <freezing-component v-if="freezing" style="padding-right: 400px"></freezing-component>
+  <freezing-component v-if="freezing"></freezing-component>
+  
+
   <weather-information-box v-if="weather" v-bind:weather=weather v-bind:mood=mood></weather-information-box>
   <mood-button @getMood="setMood"> </mood-button>
   <br/>
@@ -87,7 +96,7 @@ app.component('mood-button', {
     },
     template: /*html*/`
     <div class="info-box">
-      <div class="info-box-content text-light">
+      <div class="info-box-content text-light text-center">
         <h3>Current Weather: {{mood}}</h3>
         <p>Temperature: {{weather.temperature}}</p>
         <p>Humidity: {{weather.humidity}}</p>
