@@ -41,32 +41,18 @@ app.component("playlist-component", {
       playlists: [],
       playlistId: "",
       playlistName: "",
-      id: null,
     };
   },
   methods: {
     findPlaylists() {
-      // const basePlaylistUrl = `https://api.spotify.com/v1/users/${this.$parent.me.id}/playlists`;
       const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
-      console.log(basePlaylistUrl);
-      const settings = {
-        headers: {
-          Authorization: `Bearer ${this.$parent.payload}`,
-          "Content-Type": "application/json",
-        },
-      };
-      const response = fetch(basePlaylistUrl, {
-        method: "GET",
-        settings,
-      });
+      axios
+        .get(basePlaylistUrl, {
+          headers: {
+            Authorization: "Bearer " + this.$parent.access_token,
+          },
+        })
+        .then((reponse) => console.log(reponse));
     },
-  },
-  mounted() {
-    // this.$watch("userid", (newVal, oldVal) => {
-    //   this.findPlaylists();
-    //   console.log(this.token);
-    // });
-    // this.findPlaylists();
-    // console.log(this.token);
   },
 });

@@ -114,4 +114,7 @@ app.component("registration-component", {
       e.preventDefault();
     },
   },
+  created() {
+    // Create a api call to figure out if user exists already, this is the way
+  },
 });

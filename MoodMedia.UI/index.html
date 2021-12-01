@@ -70,7 +70,7 @@
             </button>
           </section>
         </div>
-        <div class=""><p class="text-light">{{ me }}</p></div>
+        <div class=""><p class="text-light">{{ user }}</p></div>
         <!-- Modal -->
         <div
           class="modal fade"
@@ -103,12 +103,12 @@
         </div>
         <!-- Option 2: Registation Form -->
         <registration-component
-          v-if="me"
-          v-bind:key="me.id"
-          v-bind:id="me.id"
-          v-bind:username="me.display_name"
-          v-bind:email="me.email"
-          v-bind:picture="me.images[0].url"
+          v-if="user"
+          v-bind:key="user.id"
+          v-bind:id="user.id"
+          v-bind:username="user.display_name"
+          v-bind:email="user.email"
+          v-bind:picture="user.images[0].url"
         ></registration-component>
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
