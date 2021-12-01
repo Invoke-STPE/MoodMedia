@@ -6,6 +6,7 @@ const app = Vue.createApp({
       users: Seed.users,
       rain: true,
       login: true,
+      playlistSettings: false,
       user: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       scopes: [
@@ -20,6 +21,10 @@ const app = Vue.createApp({
   methods: {
     logout() {
       this.login = false;
+    },
+    getPlaylistSettings() {
+      this.playlistSettings = true;
+      this.togglePlaylistSettingsModal();
     },
     spotifyAuthentication() {
       let popup = window.open(
@@ -58,6 +63,11 @@ const app = Vue.createApp({
     toggleRegistrationModal() {
       $(document).ready(function () {
         $("#registationModel").modal("show");
+      });
+    },
+    togglePlaylistSettingsModal() {
+      $(document).ready(function () {
+        $("#playlistSettingsModel").modal("show");
       });
     },
   },

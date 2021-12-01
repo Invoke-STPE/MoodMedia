@@ -1,0 +1,15 @@
+.navbar {
+  position: relative;
+}
+.navbar-brand {
+  position: absolute;
+  left: 46.5%;
+  margin-left: -50px !important; /* 50% of your logo width */
+  display: block;
+}
+
+.avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
