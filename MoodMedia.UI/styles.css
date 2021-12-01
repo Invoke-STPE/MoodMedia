@@ -40,7 +40,7 @@ body {
 /*#region rain animation */
 
 .rain {
-  position: static;
+  position: absolute;
   left: 0;
   width: 100%;
   height: 100%;
@@ -52,10 +52,9 @@ body {
   z-index: 1;
   bottom: 60px;
   opacity: 0.5;
-  position: relative;
 }
 
-div.back-row-toggle .rain.back-row {
+body.back-row-toggle .rain.back-row {
   display: block;
 }
 
@@ -84,11 +83,7 @@ div.back-row-toggle .rain.back-row {
   width: 1px;
   height: 60%;
   margin-left: 7px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.25)
-  );
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
   animation: stem 0.5s linear infinite;
 }
 
@@ -105,6 +100,21 @@ div.back-row-toggle .rain.back-row {
   100% {
     opacity: 0;
   }
+}
+
+.splat {
+  width: 15px;
+  height: 10px;
+  border-top: 2px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 1;
+  transform: scale(0);
+  animation: splat 0.5s linear infinite;
+  display: none;
+}
+
+body.splat-toggle .splat {
+  display: block;
 }
 
 @keyframes splat {
@@ -163,10 +173,26 @@ div.back-row-toggle .rain.back-row {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+.splat-toggle {
+  top: 20px;
+}
+
 .back-row-toggle {
   top: 90px;
   line-height: 12px;
   padding-top: 14px;
+}
+
+.single-toggle {
+  top: 160px;
+}
+
+body.single-toggle .drop {
+  display: none;
+}
+
+body.single-toggle .drop:nth-child(10) {
+  display: block;
 }
 
 /*#endregion rain animation*/
@@ -668,7 +694,7 @@ div.back-row-toggle .rain.back-row {
 }
 /* #endregion */
 
-.buttons-bottom-right{
+.buttons-bottom-right {
   position: absolute;
   top: 40%;
   left: 80%;
