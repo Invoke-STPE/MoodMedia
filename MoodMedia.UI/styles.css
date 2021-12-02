@@ -40,7 +40,7 @@ body {
 /*#region rain animation */
 
 .rain {
-  position: absolute;
+  position: static;
   left: 0;
   width: 100%;
   height: 100%;
@@ -48,7 +48,7 @@ body {
 }
 
 .rain.back-row {
-  display: none;
+  display: static;
   z-index: 1;
   bottom: 60px;
   opacity: 0.5;
@@ -110,7 +110,7 @@ body.back-row-toggle .rain.back-row {
   opacity: 1;
   transform: scale(0);
   animation: splat 0.5s linear infinite;
-  display: none;
+  display: static;
 }
 
 body.splat-toggle .splat {
