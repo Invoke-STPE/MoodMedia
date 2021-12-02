@@ -12,25 +12,13 @@ app.component("playlist-component", {
           </div>
           <div class="modal-body bg-dark">
             Alle playliste indstillinger
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a happy playlist </option>
-                <option value="playlist">Banger</option>
+            <div v-for="mood in moods">
+              <select name="playlist" id="{{mood}}" placeholder="">
+                <option disabled selected>Select a playlist for {{mood}}</option>
+                <option v-for="playlist in playlists" value="playlist">{{playlist.name}}</option>
               </select>
             </div>
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a ok playlist </option>
-                <option value="playlist">wackass</option>
-              </select>
-            </div>
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a sad playlist </option>
-                <option value="playlist">sad af</option>
-              </select>
-            </div>
-            <button class="btn btn-primary" type="button" @click="findPlaylists()">Test</button>
+            <button class="btn btn-primary" type="button" @click="savePlaylistOptions()">Save</button>
           </div>
         </div>
       </div>
@@ -39,9 +27,16 @@ app.component("playlist-component", {
   data() {
     return {
       playlists: [],
-      playlistId: "",
-      playlistName: "",
-    };
+      moods: [
+        "snow",
+        "rain",
+        "freezing",
+        "cold",
+        "nice",
+        "sunny"
+      ], 
+      moodPlaylists: { "snow": [],"rain": [], "freezing": [], "cold": [], "nice": [], "sunny": [] }
+    }
   },
   methods: {
     findPlaylists() {
@@ -50,9 +45,17 @@ app.component("playlist-component", {
         .get(basePlaylistUrl, {
           headers: {
             Authorization: "Bearer " + this.$parent.access_token,
-          },
+          }
         })
-        .then((reponse) => console.log(reponse));
+        .then((reponse) => {this.playlists = reponse.data.items
+        console.log(this.playlists)})
+    },
+    savePlaylistOptions(){
+    console.log(this.moodPlaylists)
+    this.$emit('moodPlaylist', moodPlaylists)
     },
   },
+  mounted(){
+    this.findPlaylists()
+  }
 });
