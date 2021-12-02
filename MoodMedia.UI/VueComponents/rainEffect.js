@@ -24,3 +24,8 @@ var makeItRain = function() {
     $('.rain.back-row').append(backDrops);
   }
   
+  $('.splat-toggle.toggle').on('click', function() {
+    $('body').toggleClass('splat-toggle');
+    $('.splat-toggle.toggle').toggleClass('active');
+    makeItRain();
+  });
