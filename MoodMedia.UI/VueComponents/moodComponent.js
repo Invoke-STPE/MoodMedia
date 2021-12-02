@@ -144,7 +144,7 @@ app.component('mood-test-buttons', {
   template: /*html*/`
   <div class="btn-group buttons-bottom-right text-light">
   
-    <p class="text-light">Toggle animations<p>
+    <p class="text-light">Toggle animations</p>
     <button v-if="snow" class="btn btn-light" @click="toggleSnow">Snow</button>
     <button v-else="snow" class="btn btn-dark" @click="toggleSnow">Snow</button>
     <button v-if="rain" class="btn btn-light" @click="toggleRain">Rain</button>
