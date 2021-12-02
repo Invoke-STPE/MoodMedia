@@ -10,12 +10,19 @@ const app = Vue.createApp({
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       stateKey: "spotify_auth_state",
       user: null,
+      moodPlaylists: null,
     };
   },
   methods: {
     logout() {
       this.login = false;
       localStorage.removeItem(this.stateKey);
+    },
+    setMoodPlaylists(moodPlaylists) {
+      const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      this.moodPlaylists = moodPlaylists;
+      console.log(this.moodPlaylists);
+      console.log(axios.put(apiUrl + "1", JSON.stringify(moodPlaylists)));
     },
     getPlaylistSettings() {
       this.playlistSettings = true;

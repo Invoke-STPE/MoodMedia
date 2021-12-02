@@ -112,7 +112,9 @@
         ></registration-component>
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
-          <playlist-component></playlist-component>
+          <playlist-component
+            @set-mood-playlists="setMoodPlaylists"
+          ></playlist-component>
         </div>
       </div>
     </div>

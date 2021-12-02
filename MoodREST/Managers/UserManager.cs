@@ -75,6 +75,21 @@ namespace MoodREST.Managers
             return null;
         }
 
+        public bool ImportMoodPlaylists(int id, List<string> moodPlaylists)
+        {
+            try
+            {
+                var user = Get(id);
+                user.MoodPlaylists = moodPlaylists;
+                return true;
+            }
+            catch (KeyNotFoundException knfe)
+            {
+
+                throw new KeyNotFoundException(knfe.Message);
+            }
+        }
+
 
         //Methods from here are used for testing
         public void TestSetup()

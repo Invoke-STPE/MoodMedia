@@ -77,5 +77,20 @@ namespace MoodREST.Controllers
                 return NotFound(knfe.Message);
             }
         }
+
+        [HttpPut("MoodPlaylists/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateMoodPlaylists(int id, [FromBody] List<string> moodPlaylists)
+        {
+            try
+            {
+                return Ok(userManager.ImportMoodPlaylists(id, moodPlaylists));
+            }
+            catch (KeyNotFoundException knfe)
+            {
+                return NotFound(knfe.Message);
+            }
+        }
     }
 }
