@@ -13,39 +13,39 @@ app.component("playlist-component", {
           <div class="modal-body bg-dark">
             Alle playliste indstillinger
               <div>
-                <select name="playlist" v-model="snow">
+                <select name="playlist" v-model="snow['id']">
                   <option disabled selected>Select a playlist for snowy mood</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
               <div>
-                <select name="playlist" v-model="rain">
+                <select name="playlist" v-model="rain['id']">
                   <option disabled selected>Select a playlist for rainy mood</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
               <div>
-                <select name="playlist" v-model="freezing">
+                <select name="playlist" v-model="freezing['id']">
                   <option disabled selected>Select a playlist for freezing mood</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
               <div>
-                <select name="playlist" v-model="cold">
+                <select name="playlist" v-model="cold['id']">
                   <option disabled selected>Select a playlist for cold mood</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
               <div>
-                <select name="playlist" v-model="nice">
+                <select name="playlist" v-model="nice['id']">
                   <option disabled selected>Select a playlist for nice mood}</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
               <div>
-                <select name="playlist" v-model="sunny">
+                <select name="playlist" v-model="sunny['id']">
                   <option disabled selected>Select a playlist for sunny mood</option>
-                  <option v-for="playlist in playlists" v-bind:value="playlist">{{playlist.name}}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
                 </select>
               </div>
             <button class="btn btn-primary" type="button" @click="savePlaylistOptions()">Save</button>
@@ -57,12 +57,15 @@ app.component("playlist-component", {
   data() {
     return {
       playlists: [],
-      snow: null,
-      rain: null,
-      freezing: null,
-      cold: null,
-      nice: null,
-      sunny: null,
+      snow: {
+        mood: "snow",
+        id: "",
+      },
+      rain: { mood: "rain", id: "" },
+      freezing: { mood: "freezing", id: "" },
+      cold: { mood: "cold", id: "" },
+      nice: { mood: "nice", id: "" },
+      sunny: { mood: "sunny", id: "" },
     };
   },
   methods: {

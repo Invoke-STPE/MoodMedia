@@ -21,14 +21,10 @@ const app = Vue.createApp({
     setMoodPlaylists(moodPlaylists) {
       const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
       this.moodPlaylists = moodPlaylists;
-      // console.log(this.moodPlaylists);
-      const jsonMoodPlaylists = JSON.parse(JSON.stringify(moodPlaylists));
-      console.log(jsonMoodPlaylists);
-      //axios.put(apiUrl + "1", { data: { moodPlaylists: jsonMoodPlaylists } });
       fetch("https://localhost:44367/api/User/MoodPlaylists/1", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        data: JSON.parse(JSON.stringify(moodPlaylists)),
+        body: JSON.stringify(moodPlaylists),
       })
         .then((response) => console.log(response))
         .catch((error) => console.log(error));

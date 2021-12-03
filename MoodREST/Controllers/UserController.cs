@@ -82,12 +82,12 @@ namespace MoodREST.Controllers
         [HttpPut("MoodPlaylists/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMoodPlaylists(int id, [FromBody] Object moodPlaylists)
+        public IActionResult UpdateMoodPlaylists(int id, [FromBody] IEnumerable<Playlist> moodPlaylists)
         {
             try
             {
-                string jsonFile = JsonSerializer.Serialize<string>(moodPlaylists.ToString());
-                return Ok(userManager.ImportMoodPlaylists(id, jsonFile));
+                //string jsonFile = JsonSerializer.Serialize<string>(moodPlaylists.ToString());
+                return Ok();
             }
             catch (KeyNotFoundException knfe)
             {
