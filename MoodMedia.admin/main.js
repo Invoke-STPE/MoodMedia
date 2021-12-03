@@ -1,7 +1,7 @@
 const app = Vue.createApp({
   data() {
     return {
-      authenticated: false,
+      authenticated: true,
     };
   },
   methods: {
@@ -12,4 +12,5 @@ const app = Vue.createApp({
       this.authenticated = !this.authenticated;
     },
   },
+  mounted() {},
 });
