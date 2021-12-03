@@ -85,62 +85,8 @@ const app = Vue.createApp({
         $("#playlistSettingsModel").modal("show");
       });
     },
-
     // SPOTIFY CALLS
-    waitForSpotifyWebPlaybackSDKToLoad: async function () {
-      return new Promise((resolve) => {
-        if (window.Spotify) {
-          resolve(window.Spotify);
-        } else {
-          window.onSpotifyWebPlaybackSDKReady = () => {
-            resolve(window.Spotify);
-          };
-        }
-      });
-    },
-    initiatePlayer: async function () {
-      const token = this.access_token;
-      let player = new Spotify.Player({
-        name: "Web Playback SDK Quick Start Player",
-        getOAuthToken: (cb) => {
-          cb(token);
-        },
-        volume: 0.5,
-      });
 
-      player.addListener("ready", ({ device_id }) => {
-        this.deviceId = device_id;
-        let song = this.getSong();
-        console.log("Ready with Device ID", device_id);
-        const play = ({
-          spotify_uri,
-          playerInstance: {
-            _options: { getOAuthToken },
-          },
-        }) => {
-          getOAuthToken((access_token) => {
-            fetch(
-              `https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`,
-              {
-                method: "PUT",
-                body: JSON.stringify({ uris: [spotify_uri] }),
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${access_token}`,
-                },
-              }
-            );
-          });
-        };
-
-        play({
-          playerInstance: player,
-          spotify_uri: `${song}`,
-        });
-      });
-      // this.player.togglePlay();
-      player.connect();
-    },
     async getSong() {
       let playlist = null;
       let playlists = JSON.parse(JSON.stringify(this.moodPlaylists));
@@ -183,8 +129,8 @@ const app = Vue.createApp({
             .catch((error) => console.log(error));
         }
       }
-
-      this.initiatePlayer();
+      // window.onSpotifyWebPlaybackSDKReady = () => {};
+      // this.initiatePlayer();
     },
   },
 });
