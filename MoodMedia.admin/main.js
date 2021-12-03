@@ -1,12 +1,12 @@
 const app = Vue.createApp({
   data() {
     return {
-      authenticated: true,
+      authenticated: false,
     };
   },
   methods: {
     logout() {
-      return null;
+      return (this.authenticated = false);
     },
     login() {
       this.authenticated = !this.authenticated;

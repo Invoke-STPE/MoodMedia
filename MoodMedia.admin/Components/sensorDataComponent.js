@@ -51,7 +51,9 @@ app.component("sensordata-component", {
         </div>
     </section>
     <div v-if="sensorData.length > 0">
-    <line-chart v-bind:parentDates="sensorData"></line-chart>
+    <temperature-chart v-bind:parentDates="dates"></temperature-chart>
+    <pressure-chart v-bind:parentDates="dates"></pressure-chart>
+    <humidity-chart v-bind:parentDates="dates"></humidity-chart>
     </div>
   </section>`,
   data() {
@@ -178,7 +180,7 @@ app.component("sensordata-component", {
         this.sensorData.slice(0).map((a) => {
           let date = new Date(a.time);
           if (date > startDate && date < endDate) {
-            console.log(a);
+            // console.log(a);
             tempArray.push(a);
           }
         });

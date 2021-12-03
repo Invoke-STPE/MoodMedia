@@ -1,5 +1,5 @@
-app.component("line-chart", {
-  template: `<div id="container" style="width:100%; height:400px;">Test</div>`,
+app.component("pressure-chart", {
+  template: `<div id="pressureChart" style="width:100%; height:400px;">Test</div>`,
   props: ["parentDates"],
   methods: {
     createChart() {
@@ -8,11 +8,11 @@ app.component("line-chart", {
         let datesArray = JSON.parse(JSON.stringify(this.parentDates));
         let data = {
           timestamp: [],
-          temperatures: [],
+          pressures: [],
         };
         // Define tempature
-        const temperatures = datesArray.map((element) => {
-          return element.temperature;
+        const pressures = datesArray.map((element) => {
+          return element.pressure;
         });
         const timestamps = datesArray.map((element) => {
           let date = new Date(element.time);
@@ -24,7 +24,7 @@ app.component("line-chart", {
         });
 
         data["timestamp"] = timestamps;
-        data["temperatures"] = temperatures;
+        data["pressures"] = pressures;
 
         console.log(data);
 
@@ -39,18 +39,14 @@ app.component("line-chart", {
           // console.log(startDate);
         }
         // Define Date end
-        const chart = Highcharts.chart("container", {
+        const chart = Highcharts.chart("pressureChart", {
           title: {
-            text: "Tempertures",
-          },
-
-          subtitle: {
-            text: "Source: thesolarfoundation.com",
+            text: "Pressures",
           },
 
           yAxis: {
             title: {
-              text: "Temperature (°C)",
+              text: "Pressure (°C)",
             },
           },
 
@@ -65,8 +61,8 @@ app.component("line-chart", {
 
           series: [
             {
-              name: "Temperature",
-              data: data.temperatures,
+              name: "Pressure",
+              data: data.pressures,
             },
           ],
 
@@ -92,6 +88,18 @@ app.component("line-chart", {
     },
   },
   mounted() {
-    this.createChart();
+    this.$watch(
+      "parentDates",
+      (date) => {
+        this.createChart();
+      },
+      { immediate: true }
+    );
+    // this.createChart();
+  },
+  watch: {
+    parentDates(val) {
+      console.log(val);
+    },
   },
 });
