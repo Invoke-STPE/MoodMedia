@@ -85,7 +85,6 @@ const app = Vue.createApp({
         $("#playlistSettingsModel").modal("show");
       });
     },
-    // SPOTIFY CALLS
 
     async getSong() {
       let playlist = null;
@@ -109,29 +108,86 @@ const app = Vue.createApp({
 
       return song.track.uri;
     },
-    mounted() {
-      var params = getHashParams();
-      (this.access_token = params.access_token),
-        (state = params.state),
-        (storedState = localStorage.getItem(this.stateKey));
-      if (this.access_token && (state == null || state !== storedState)) {
-        alert("There was an error during the authentication");
-      } else {
-        if (this.access_token) {
-          this.login = true;
-          axios
-            .get("https://api.spotify.com/v1/me", {
-              headers: {
-                Authorization: "Bearer " + this.access_token,
-              },
-            })
-            .then((reponse) => console.log(reponse.data))
-            .catch((error) => console.log(error));
-        }
-      }
-      // window.onSpotifyWebPlaybackSDKReady = () => {};
-      // this.initiatePlayer();
+    playMusic() {
+      this.initiatePlayer();
     },
+    waitForSpotifyWebPlaybackSDKToLoad: async function () {
+      return new Promise((resolve) => {
+        if (window.Spotify) {
+          resolve(window.Spotify);
+        } else {
+          window.onSpotifyWebPlaybackSDKReady = () => {
+            resolve(window.Spotify);
+          };
+        }
+      });
+    },
+    initiatePlayer: async function () {
+      const token = this.access_token;
+      let song = await this.getSong();
+      const { Player } = await this.waitForSpotifyWebPlaybackSDKToLoad();
+      let sdk = new Player({
+        name: "Web Playback SDK Quick Start Player",
+        getOAuthToken: (cb) => {
+          cb(token);
+        },
+        volume: 0.5,
+      });
+
+      sdk.addListener("ready", ({ device_id }) => {
+        this.deviceId = device_id;
+        console.log("Ready with Device ID", device_id);
+        const play = ({
+          spotify_uri,
+          playerInstance: {
+            _options: { getOAuthToken },
+          },
+        }) => {
+          getOAuthToken((access_token) => {
+            fetch(
+              `https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`,
+              {
+                method: "PUT",
+                body: JSON.stringify({ uris: [spotify_uri] }),
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${access_token}`,
+                },
+              }
+            );
+          });
+        };
+
+        play({
+          playerInstance: sdk,
+          spotify_uri: `${song}`,
+        });
+      });
+      // this.player.togglePlay();
+      sdk.connect();
+    },
+  },
+  mounted() {
+    var params = getHashParams();
+    (this.access_token = params.access_token),
+      (state = params.state),
+      (storedState = localStorage.getItem(this.stateKey));
+    if (this.access_token && (state == null || state !== storedState)) {
+      alert("There was an error during the authentication");
+    } else {
+      if (this.access_token) {
+        this.login = true;
+        axios
+          .get("https://api.spotify.com/v1/me", {
+            headers: {
+              Authorization: "Bearer " + this.access_token,
+            },
+          })
+          .then((reponse) => console.log(reponse.data))
+          .catch((error) => console.log(error));
+      }
+    }
+    window.onSpotifyWebPlaybackSDKReady = () => {};
   },
 });
 
