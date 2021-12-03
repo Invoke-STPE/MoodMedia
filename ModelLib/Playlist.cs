@@ -14,5 +14,11 @@ namespace ModelLib
         {
 
         }
+
+        public Playlist(string mood, string id)
+        {
+            Mood = mood;
+            Id = id;
+        }
     }
 }

@@ -15,11 +15,19 @@ app.component("media-component", {
     };
   },
   methods: {
-    getPlaylistByMood(currentMood) {
-      this.currentMood = currentMood;
-      fetch("https://localhost:44367/api/User/1")
+    async getPlaylistByMood() {
+      await fetch("https://localhost:44367/api/User/1")
         .then((response) => response.json())
         .then((data) => (this.user = JSON.parse(JSON.stringify(data))));
+
+      console.log(this.user);
+      let userPlaylist = JSON.parse(JSON.stringify(this.user));
+      const playlist = this.user.moodPlaylist.Find(
+        (element) => (element.mood = "snow")
+      );
+      this.playlistId = playlist.Id;
+
+      console.log(this.playlistId);
     },
   },
   mounted() {
