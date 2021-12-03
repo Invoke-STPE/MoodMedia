@@ -3,7 +3,6 @@ app.component("temperature-chart", {
   props: ["parentDates"],
   methods: {
     createChart() {
-      // const conElement = document.getElementById("container");
       if (this.parentDates.length > 0) {
         let datesArray = JSON.parse(JSON.stringify(this.parentDates));
         let data = {
@@ -17,7 +16,7 @@ app.component("temperature-chart", {
         const timestamps = datesArray.map((element) => {
           let date = new Date(element.time);
           var dd = String(date.getDate()).padStart(2, "0");
-          var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+          var mm = String(date.getMonth() + 1).padStart(2, "0");
           var yyyy = date.getFullYear();
           date = dd + "/" + mm + "/" + yyyy;
           return date;
@@ -26,8 +25,6 @@ app.component("temperature-chart", {
         data["timestamp"] = timestamps;
         data["temperatures"] = temperatures;
 
-        console.log(data);
-
         // Define start and end date
         if (this.dateStart && this.dateEnd) {
           startDate = new Date(this.dateStart);
@@ -35,17 +32,11 @@ app.component("temperature-chart", {
         } else {
           startDate = new Date(datesArray[0].time);
           endDate = new Date(datesArray[datesArray.length - 1].time);
-          // console.log(startDate.getDate());
-          // console.log(startDate);
         }
         // Define Date end
         const chart = Highcharts.chart("temperatureChart", {
           title: {
             text: "Tempertures",
-          },
-
-          subtitle: {
-            text: "Source: thesolarfoundation.com",
           },
 
           yAxis: {
@@ -58,8 +49,6 @@ app.component("temperature-chart", {
             categories: data.timestamp,
             labels: {
               rotation: -90,
-              // the step config is how you control how many x-axis labes are shown
-              // this will help when there are lots of labels
             },
           },
 
@@ -88,7 +77,6 @@ app.component("temperature-chart", {
           },
         });
       }
-      // console.log(chart);
     },
   },
   mounted() {
@@ -99,11 +87,5 @@ app.component("temperature-chart", {
       },
       { immediate: true }
     );
-    // this.createChart();
-  },
-  watch: {
-    parentDates(val) {
-      console.log(val);
-    },
   },
 });

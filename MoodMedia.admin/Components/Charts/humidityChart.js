@@ -3,7 +3,6 @@ app.component("humidity-chart", {
   props: ["parentDates"],
   methods: {
     createChart() {
-      // const conElement = document.getElementById("container");
       if (this.parentDates.length > 0) {
         let datesArray = JSON.parse(JSON.stringify(this.parentDates));
         let data = {
@@ -17,7 +16,7 @@ app.component("humidity-chart", {
         const timestamps = datesArray.map((element) => {
           let date = new Date(element.time);
           var dd = String(date.getDate()).padStart(2, "0");
-          var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+          var mm = String(date.getMonth() + 1).padStart(2, "0");
           var yyyy = date.getFullYear();
           date = dd + "/" + mm + "/" + yyyy;
           return date;
@@ -26,8 +25,6 @@ app.component("humidity-chart", {
         data["timestamp"] = timestamps;
         data["humidities"] = humidities;
 
-        console.log(data);
-
         // Define start and end date
         if (this.dateStart && this.dateEnd) {
           startDate = new Date(this.dateStart);
@@ -35,10 +32,7 @@ app.component("humidity-chart", {
         } else {
           startDate = new Date(datesArray[0].time);
           endDate = new Date(datesArray[datesArray.length - 1].time);
-          // console.log(startDate.getDate());
-          // console.log(startDate);
         }
-        // Define Date end
         const chart = Highcharts.chart("humidityChart", {
           title: {
             text: "Humidity",
@@ -54,8 +48,6 @@ app.component("humidity-chart", {
             categories: data.timestamp,
             labels: {
               rotation: -90,
-              // the step config is how you control how many x-axis labes are shown
-              // this will help when there are lots of labels
             },
           },
 
@@ -84,7 +76,6 @@ app.component("humidity-chart", {
           },
         });
       }
-      // console.log(chart);
     },
   },
   mounted() {
@@ -95,11 +86,5 @@ app.component("humidity-chart", {
       },
       { immediate: true }
     );
-    // this.createChart();
-  },
-  watch: {
-    parentDates(val) {
-      console.log(val);
-    },
   },
 });

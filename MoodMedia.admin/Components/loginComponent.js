@@ -56,11 +56,7 @@ app.component("login-component", {
           }
         })
         .catch((error) => {
-          console.log(error);
           this.error = true;
-        })
-        .finally(() => {
-          console.log("Invalid login");
         });
     },
   },
