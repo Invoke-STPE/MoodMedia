@@ -30,6 +30,15 @@ namespace ModelLib
             Pressure = pressure;
             Time = DateTime.Now;
         }
+        public SensorData(int id, string name, double temperature, double humidity, int pressure, DateTime dateTime)
+        {
+            Id = id;
+            SensorName = name;
+            Temperature = temperature;
+            Humidity = humidity;
+            Pressure = pressure;
+            Time = dateTime;
+        }
 
         public override string ToString()
         {
