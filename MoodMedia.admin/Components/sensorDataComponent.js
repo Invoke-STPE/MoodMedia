@@ -39,7 +39,7 @@ app.component("sensordata-component", {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="data in sortedDateTimes" :key="data.id">
+            <tr v-for="data in dates" :key="data.id">
               <td>{{ data.sensorName }}</td>
               <td>{{ data.temperature }} &#176;</td>
               <td>{{ data.humidity }}</td>
@@ -50,7 +50,9 @@ app.component("sensordata-component", {
         </table>
         </div>
     </section>
-    <line-chart v-bind:dates="dates"></line-chart>
+    <div v-if="sensorData.length > 0">
+    <line-chart v-bind:parentDates="sensorData"></line-chart>
+    </div>
   </section>`,
   data() {
     return {
@@ -80,7 +82,7 @@ app.component("sensordata-component", {
     },
     // createChart() {
     //   // const conElement = document.getElementById("container");
-    //   let myTarget = JSON.parse(JSON.stringify(this.sortedDateTimes));
+    //   let myTarget = JSON.parse(JSON.stringify(this.dates));
     //   let startDate;
     //   let endDate;
     //   let data = {
@@ -180,7 +182,7 @@ app.component("sensordata-component", {
             tempArray.push(a);
           }
         });
-        this.createChart();
+        // this.createChart();
         return tempArray;
       } else {
         return this.sensorData.slice(0);
@@ -197,11 +199,8 @@ app.component("sensordata-component", {
     axios
       .get("https://localhost:44367/api/Sensor/")
       .then(
-        (response) => (
-          (this.sensorData = JSON.parse(JSON.stringify(response.data))),
-          // console.log(this.sensorData),
-          this.createChart()
-        )
+        (response) =>
+          (this.sensorData = JSON.parse(JSON.stringify(response.data)))
       )
       .catch((error) => {
         console.log(error);
@@ -210,7 +209,7 @@ app.component("sensordata-component", {
       .finally(() => {
         this.loading = false;
         // console.log("Final" + this.sensorData);
-        this.createChart();
+        // this.createChart();
       });
   },
 });
