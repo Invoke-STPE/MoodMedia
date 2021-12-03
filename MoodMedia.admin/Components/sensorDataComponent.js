@@ -6,7 +6,7 @@ app.component("sensordata-component", {
         <label class="me-3" for="datetime-local-start">Start Date</label>
         <input
           v-model="dateStart"
-          type="datetime-local"
+          type="date"
           id="datetime-local-start"
         />
       </div>
@@ -14,7 +14,7 @@ app.component("sensordata-component", {
         <label class="ms-3" for="datetime-local-end">End Date</label>
         <input
           v-model="dateEnd"
-          type="datetime-local"
+          type="date"
           id="datetime-local-end"
         />
       </div>
@@ -50,7 +50,7 @@ app.component("sensordata-component", {
         </table>
         </div>
     </section>
-    <div id="container" style="width:100%; height:400px;">Test</div>
+    <line-chart v-bind:dates="dates"></line-chart>
   </section>`,
   data() {
     return {
@@ -76,102 +76,99 @@ app.component("sensordata-component", {
     },
     toggleTimeSort() {
       this.dateTimeSort = !this.dateTimeSort;
-      console.log(this.dateTimeSort);
+      // console.log(this.dateTimeSort);
     },
-    createChart() {
-      // const conElement = document.getElementById("container");
-      let myTarget = JSON.parse(JSON.stringify(this.sensorData));
-      let startDate;
-      let endDate;
-      // Define tempature
-      const temperatures = myTarget.map((element) => {
-        return element.temperature;
-      });
+    // createChart() {
+    //   // const conElement = document.getElementById("container");
+    //   let myTarget = JSON.parse(JSON.stringify(this.sortedDateTimes));
+    //   let startDate;
+    //   let endDate;
+    //   let data = {
+    //     timestamp: [],
+    //     temperatures: [],
+    //   };
+    //   // Define tempature
+    //   const temperatures = myTarget.map((element) => {
+    //     return element.temperature;
+    //   });
+    //   const timestamps = myTarget.map((element) => {
+    //     let date = new Date(element.time);
+    //     var dd = String(date.getDate()).padStart(2, "0");
+    //     var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+    //     var yyyy = date.getFullYear();
+    //     date = dd + "/" + mm + "/" + yyyy;
+    //     return date;
+    //   });
 
-      // Define start and end date
-      if (this.dateStart && this.dateEnd) {
-        startDate = new Date(this.dateStart);
-        endDate = new Date(this.endDate);
-      } else {
-        startDate = new Date(myTarget[0].time);
-        endDate = new Date(myTarget[myTarget.length - 1].time);
-        console.log(startDate.getDate());
-        console.log(startDate);
-      }
-      // Define Date end
-      const chart = Highcharts.chart("container", {
-        title: {
-          text: "Solar Employment Growth by Sector, 2010-2016",
-        },
+    //   data["timestamp"] = timestamps;
+    //   data["temperatures"] = temperatures;
 
-        subtitle: {
-          text: "Source: thesolarfoundation.com",
-        },
+    //   console.log(data);
 
-        yAxis: {
-          title: {
-            text: "Number of Employees",
-          },
-        },
+    //   // Define start and end date
+    //   if (this.dateStart && this.dateEnd) {
+    //     startDate = new Date(this.dateStart);
+    //     endDate = new Date(this.endDate);
+    //   } else {
+    //     startDate = new Date(myTarget[0].time);
+    //     endDate = new Date(myTarget[myTarget.length - 1].time);
+    //     // console.log(startDate.getDate());
+    //     // console.log(startDate);
+    //   }
+    //   // Define Date end
+    //   const chart = Highcharts.chart("container", {
+    //     title: {
+    //       text: "Tempertures",
+    //     },
 
-        xAxis: {
-          accessibility: {
-            rangeDescription: "Range: 2010 to 2017",
-          },
-          type: "datetime",
-          max: Date.UTC(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            endDate.getDay()
-          ),
-        },
+    //     subtitle: {
+    //       text: "Source: thesolarfoundation.com",
+    //     },
 
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-        },
+    //     yAxis: {
+    //       title: {
+    //         text: "Temperature (°C)",
+    //       },
+    //     },
 
-        plotOptions: {
-          series: {
-            pointStart: Date.UTC(
-              startDate.getFullYear(),
-              startDate.getMonth(),
-              startDate.getDay()
-            ),
-            pointInterval: 168 * 3600 * 1000, // one day
-          },
-        },
+    //     xAxis: {
+    //       categories: data.timestamp,
+    //       labels: {
+    //         rotation: -90,
+    //         // the step config is how you control how many x-axis labes are shown
+    //         // this will help when there are lots of labels
+    //       },
+    //     },
 
-        series: [
-          {
-            name: "Temperature",
-            data: temperatures,
-          },
-        ],
+    //     series: [
+    //       {
+    //         name: "Temperature",
+    //         data: data.temperatures,
+    //       },
+    //     ],
 
-        responsive: {
-          rules: [
-            {
-              condition: {
-                maxWidth: 500,
-              },
-              chartOptions: {
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
-                },
-              },
-            },
-          ],
-        },
-      });
-      console.log(chart);
-    },
+    //     responsive: {
+    //       rules: [
+    //         {
+    //           condition: {
+    //             maxWidth: 500,
+    //           },
+    //           chartOptions: {
+    //             legend: {
+    //               layout: "horizontal",
+    //               align: "center",
+    //               verticalAlign: "bottom",
+    //             },
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   });
+    //   // console.log(chart);
+    // },
   },
   computed: {
-    sortedDateTimes() {
+    dates() {
       let startDate = new Date(this.dateStart);
       let endDate = new Date(this.dateEnd);
       const tempArray = [];
@@ -185,13 +182,15 @@ app.component("sensordata-component", {
         });
         this.createChart();
         return tempArray;
+      } else {
+        return this.sensorData.slice(0);
       }
-      if (this.dateTimeSort) {
-        // this.createChart();
-        return this.sensorData.slice(0).sort((a, b) => {
-          return new Date(a.time) - new Date(b.time);
-        });
-      }
+      // if (this.dateTimeSort) {
+      //   // this.createChart();
+      //   return this.sensorData.slice(0).sort((a, b) => {
+      //     return new Date(a.time) - new Date(b.time);
+      //   });
+      // }
     },
   },
   mounted() {
@@ -200,7 +199,7 @@ app.component("sensordata-component", {
       .then(
         (response) => (
           (this.sensorData = JSON.parse(JSON.stringify(response.data))),
-          console.log(this.sensorData),
+          // console.log(this.sensorData),
           this.createChart()
         )
       )
@@ -210,7 +209,7 @@ app.component("sensordata-component", {
       })
       .finally(() => {
         this.loading = false;
-        console.log("Final" + this.sensorData);
+        // console.log("Final" + this.sensorData);
         this.createChart();
       });
   },
