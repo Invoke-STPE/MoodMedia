@@ -22,7 +22,16 @@ const app = Vue.createApp({
       const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
       this.moodPlaylists = moodPlaylists;
       console.log(this.moodPlaylists);
-      console.log(axios.put(apiUrl + "1", JSON.stringify(moodPlaylists)));
+      const jsonMoodPlaylists = JSON.stringify(moodPlaylists);
+      console.log(jsonMoodPlaylists);
+      //axios.put(apiUrl + "1", { data: { moodPlaylists: jsonMoodPlaylists } });
+      axios(apiUrl + "1", {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        data: jsonMoodPlaylists,
+      });
     },
     getPlaylistSettings() {
       this.playlistSettings = true;

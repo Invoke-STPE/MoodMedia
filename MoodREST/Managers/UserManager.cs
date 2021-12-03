@@ -75,7 +75,7 @@ namespace MoodREST.Managers
             return null;
         }
 
-        public bool ImportMoodPlaylists(int id, List<string> moodPlaylists)
+        public bool ImportMoodPlaylists(int id, IEnumerable<string> moodPlaylists)
         {
             try
             {

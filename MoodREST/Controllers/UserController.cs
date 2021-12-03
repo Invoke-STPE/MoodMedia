@@ -81,7 +81,7 @@ namespace MoodREST.Controllers
         [HttpPut("MoodPlaylists/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMoodPlaylists(int id, [FromBody] List<string> moodPlaylists)
+        public IActionResult UpdateMoodPlaylists(int id, [FromBody] IEnumerable<string> moodPlaylists)
         {
             try
             {
