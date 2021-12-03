@@ -1,32 +1,28 @@
 app.component("media-component", {
   template: /*html*/ `
-      <h2 class="text-white p-1">Song</h2>
-      <p class="lead text-white pb-3">Artist</p>
-      <div class="audio-player">
-        <div class="timeline">
-          <div class="progress"></div>
-        </div>
-        <div class="controls">
-          <div class="play-container">
-            <div class="toggle-play play"></div>
-          </div>
-          <div class="time">
-            <div class="current">0:00</div>
-            <div class="divider">/</div>
-            <div class="length"></div>
-          </div>
-          <div class="name">Music Song</div>
-          <!--     credit for icon to https://saeedalipoor.github.io/icono/ -->
-          <div class="volume-container">
-            <div class="volume-button">
-              <div class="volume icono-volumeMedium"></div>
-            </div>
-    
-            <div class="volume-slider">
-              <div class="volume-percentage"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-            `,
+  <iframe src="https://open.spotify.com/embed/playlist/7FbdfuFSqJWMTgx0LtlWAl?utm_source=generator" 
+          width="100%" 
+          height="380" 
+          frameBorder="0" 
+          allowfullscreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>`,
+  data() {
+    return {
+      currentMood: "",
+      user: null,
+      playlistId: "",
+    };
+  },
+  methods: {
+    getPlaylistByMood(currentMood) {
+      this.currentMood = currentMood;
+      fetch("https://localhost:44367/api/User/1")
+        .then((response) => response.json())
+        .then((data) => (this.user = data));
+    },
+  },
+  mounted() {
+    this.getPlaylistByMood();
+  },
 });

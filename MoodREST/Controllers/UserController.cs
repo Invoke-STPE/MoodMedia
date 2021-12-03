@@ -86,7 +86,7 @@ namespace MoodREST.Controllers
         {
             try
             {
-                //string jsonFile = JsonSerializer.Serialize<string>(moodPlaylists.ToString());
+                userManager.ImportMoodPlaylists(id, moodPlaylists);
                 return Ok();
             }
             catch (KeyNotFoundException knfe)

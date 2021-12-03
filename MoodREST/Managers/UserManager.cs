@@ -21,7 +21,7 @@ namespace MoodREST.Managers
 
         public User Get(int id)
         {
-            User foundUser = Users.Find(u => u.Id == id);
+            User foundUser = Users.SingleOrDefault(u => u.Id == id);
             if(foundUser == null)
             {
                 throw new KeyNotFoundException($"User with Id: {id} not found");
@@ -75,7 +75,7 @@ namespace MoodREST.Managers
             return null;
         }
 
-        public bool ImportMoodPlaylists(int id, string moodPlaylists)
+        public bool ImportMoodPlaylists(int id, IEnumerable<Playlist> moodPlaylists)
         {
             try
             {

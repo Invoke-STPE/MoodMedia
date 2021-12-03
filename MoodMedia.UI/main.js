@@ -3,6 +3,7 @@ const baseUrl = "https://localhost:44367/api/Sensor/";
 const app = Vue.createApp({
   data() {
     return {
+      currentMood: "",
       users: Seed.users,
       rain: true,
       login: false,

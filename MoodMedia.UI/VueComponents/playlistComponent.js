@@ -91,6 +91,9 @@ app.component("playlist-component", {
         this.sunny,
       ];
       this.$emit("setMoodPlaylists", moodPlaylists);
+      $(document).ready(function () {
+        $("#playlistSettingsModel").modal("hide");
+      });
     },
   },
   emits: ["setMoodPlaylists"],

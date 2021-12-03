@@ -1,4 +1,4 @@
-app.component('mood-component', {
+app.component("mood-component", {
   data() {
     return {
       mood: null,
@@ -9,79 +9,81 @@ app.component('mood-component', {
       rain: false,
       snow: false,
       freezing: false,
-      
-  }
+    };
   },
-  methods : {
-    setMood(response){
-      this.weather = response
-      this.sunny = false
-      this.nice = false
-      this.cold = false
-      this.rain = false
-      this.snow = false
-      this.freezing = false
+  methods: {
+    setMood(response) {
+      this.weather = response;
+      this.sunny = false;
+      this.nice = false;
+      this.cold = false;
+      this.rain = false;
+      this.snow = false;
+      this.freezing = false;
       //console.log(this.weather)
 
       if (response.temperature < 5) {
-        this.mood = "freezing"
-        this.freezing = true
+        this.mood = "freezing";
+        this.freezing = true;
         if (response.humidity >= 80) {
-          this.mood += " and snowing"
-          this.snow = true
+          this.mood += " and snowing";
+          this.snow = true;
+        }
+      } else if (response.temperature < 15) {
+        this.mood = "cold";
+        this.cold = true;
+        if (response.humidity >= 80) {
+          this.mood += " and rainy";
+          this.rain = true;
+        }
+      } else if (response.temperature <= 22) {
+        this.mood = "nice";
+        this.nice = true;
+        if (response.humidity >= 80) {
+          this.mood += " but rainy";
+          this.rain = true;
+        }
+      } else {
+        this.mood = "hot";
+        this.sunny = true;
+        if (response.humidity >= 80) {
+          this.mood += " but rainy";
+          this.rain = true;
         }
       }
-      else if (response.temperature < 15) {
-        this.mood = "cold"
-        this.cold= true
-        if (response.humidity >= 80) {
-          this.mood += " and rainy"
-          this.rain = true
-        }
-      }
-      else if (response.temperature <= 22) {
-        this.mood = "nice" 
-        this.nice = true
-        if (response.humidity >= 80) {
-          this.mood += " but rainy"
-          this.rain = true
-        }
-      }
-      else {
-        this.mood = "hot"
-        this.sunny = true
-        if (response.humidity >= 80) {
-          this.mood += " but rainy"
-          this.rain = true
-        }
-      } 
     },
     toggleSnow() {
-      if (this.snow) this.snow = false
-      else this.snow = true
+      if (this.snow) this.snow = false;
+      else this.snow = true;
+      this.$parent.currentMood = "snow";
     },
     toggleRain() {
-      if (this.rain) this.rain = false
-      else this.rain = true
+      if (this.rain) this.rain = false;
+      else this.rain = true;
+      this.$parent.currentMood = "rain";
     },
     toggleFreezing() {
-      if (this.freezing) this.freezing = false
-      else this.freezing = true
+      if (this.freezing) this.freezing = false;
+      else this.freezing = true;
+      this.$parent.currentMood = "freezing";
     },
     toggleCold() {
-      if (this.cold) this.cold = false
-      else this.cold = true
+      if (this.cold) this.cold = false;
+      else this.cold = true;
+      this.$parent.currentMood = "cold";
     },
     toggleNice() {
-      if (this.nice) this.nice = false
-      else this.nice = true
+      if (this.nice) this.nice = false;
+      else this.nice = true;
+      this.$parent.currentMood = "nice";
     },
     toggleSunny() {
-      if (this.sunny) this.sunny = false
-      else this.sunny = true
-    }
+      if (this.sunny) this.sunny = false;
+      else this.sunny = true;
+      this.$parent.currentMood = "sunny";
+    },
   },
-  template: /*html*/`
+  template: /*html*/ `
   <!--<div class="text-light"><p>DEBUG: <b>Freezing:</b> {{freezing}} - <b>Cold:</b> {{cold}} - <b>Nice: </b> {{nice}} - <b>Sun:</b> {{sunny}} <b>| Rain:</b> {{rain}} - <b>Snow:</b> {{snow}}</p></div>-->
   <sun-component v-if="sunny"></sun-component>
   <sun-clouds-component v-if="nice"></sun-clouds-component>
@@ -95,31 +97,31 @@ app.component('mood-component', {
   <weather-information-box v-if="weather" v-bind:weather=weather v-bind:mood=mood></weather-information-box>
   <mood-button @getMood="setMood"> </mood-button>
   <br/>
-  `
-})
+  `,
+});
 
-app.component('mood-button', {
+app.component("mood-button", {
   methods: {
-    async getMood() { 
-      var url = baseUrl + "GetLatest"
-      var response = (await axios.get(url)).data
-      this.$emit('getMood', response)
-    }
+    async getMood() {
+      var url = baseUrl + "GetLatest";
+      var response = (await axios.get(url)).data;
+      this.$emit("getMood", response);
+    },
   },
-  emits: ['getMood'],
-  template: /*html*/`
+  emits: ["getMood"],
+  template: /*html*/ `
   <button class="btn btn-primary" @click="getMood">
     Get Mood
   </button>
-  `
-})
+  `,
+});
 
-app.component('weather-information-box', {
-    props: {
-      weather: '',
-      mood: ''
-    },
-    template: /*html*/`
+app.component("weather-information-box", {
+  props: {
+    weather: "",
+    mood: "",
+  },
+  template: /*html*/ `
     <div class="info-box">
       <div class="info-box-content text-light text-center">
         <h3>Current Weather: {{mood}}</h3>
@@ -127,21 +129,20 @@ app.component('weather-information-box', {
         <p>Humidity: {{weather.humidity}}</p>
       </div>
     </div>
-    `
-})
+    `,
+});
 
-
-app.component('mood-test-buttons', {
+app.component("mood-test-buttons", {
   props: {
     snow: false,
     rain: false,
     freezing: false,
     cold: false,
     nice: false,
-    sunny: false
+    sunny: false,
   },
 
-  template: /*html*/`
+  template: /*html*/ `
   <div class="btn-group buttons-bottom-right text-light">
   
     <p class="text-light">Toggle animations</p>
@@ -161,24 +162,22 @@ app.component('mood-test-buttons', {
   `,
   methods: {
     toggleSnow() {
-      this.$emit('toggleSnow')
+      this.$emit("toggleSnow");
     },
     toggleRain() {
-      this.$emit('toggleRain')
+      this.$emit("toggleRain");
     },
     toggleFreezing() {
-      this.$emit('toggleFreezing')
+      this.$emit("toggleFreezing");
     },
     toggleCold() {
-      this.$emit('toggleCold')
+      this.$emit("toggleCold");
     },
     toggleNice() {
-      this.$emit('toggleNice')
+      this.$emit("toggleNice");
     },
     toggleSunny() {
-      this.$emit('toggleSunny')
+      this.$emit("toggleSunny");
     },
-
-
-  }
-})
+  },
+});
