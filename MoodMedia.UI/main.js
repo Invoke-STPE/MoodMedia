@@ -3,83 +3,56 @@ const baseUrl = "https://localhost:44367/api/Sensor/";
 const app = Vue.createApp({
   data() {
     return {
+      currentMood: "",
       users: Seed.users,
       rain: true,
       login: false,
       playlistSettings: false,
-      user: null,
-      token: null,
-      payload: null,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
-      scopes: [
-        "user-read-private",
-        "user-read-email",
-        "playlist-modify-private",
-        "playlist-read-private",
-        "user-read-playback-state",
-        "user-modify-playback-state",
-        "user-follow-modify",
-        "user-follow-read",
-        "user-library-modify",
-        "user-library-read",
-        "streaming",
-        "user-read-playback-position",
-        "playlist-modify-private",
-        "playlist-read-collaborative",
-        "user-top-read",
-        "playlist-modify-public",
-        "user-read-currently-playing",
-        "user-read-recently-played",
-      ],
-      redirect_uri: "http://127.0.0.1:5501/MoodMedia.UI/index.html",
-      me: null,
+      stateKey: "spotify_auth_state",
+      user: null,
+      moodPlaylists: null,
     };
   },
   methods: {
     logout() {
       this.login = false;
-      this.token = null;
-      console.log(this.token);
+      localStorage.removeItem(this.stateKey);
+    },
+    setMoodPlaylists(moodPlaylists) {
+      const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      this.moodPlaylists = moodPlaylists;
+      fetch("https://localhost:44367/api/User/MoodPlaylists/1", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(moodPlaylists),
+      })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
     getPlaylistSettings() {
       this.playlistSettings = true;
       this.togglePlaylistSettingsModal();
     },
     spotifyAuthentication() {
-      let popup = window.open(
-        `https://accounts.spotify.com/authorize?client_id=${this.client_id}&response_type=token&redirect_uri=${this.redirect_uri}&scope=${this.scopes}&show_dialog=true`,
-        "Login with Spotify",
-        "width=800,height=600"
-      );
+      // Setup parameters for URL
+      let client_id = "8c68d039b2544b31a1064152fbb24c51";
+      let redirect_uri = "http://127.0.0.1:5501/MoodMedia.UI/index.html";
 
-      window.spotifyCallback = (payload) => {
-        this.login = true;
-        popup.close();
-        this.payload = payload;
-        console.log(`Payload: ${payload}`);
+      let state = generateRandomString(16);
+      localStorage.setItem(this.stateKey, state);
 
-        fetch("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `Bearer ${payload}`,
-          },
-        })
-          .then((response) => {
-            console.log(response);
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-            this.me = JSON.parse(JSON.stringify(data));
-
-            console.log(this.me);
-
-            // user = {};
-            if (!this.doesUserExist(data)) {
-              this.toggleRegistrationModal();
-            }
-          });
-        console.log(payload);
-      };
+      let scope =
+        "user-read-private user-read-email playlist-modify-private playlist-read-private";
+      // Generate the url
+      var url = "https://accounts.spotify.com/authorize";
+      url += "?response_type=token";
+      url += "&client_id=" + encodeURIComponent(client_id);
+      url += "&scope=" + encodeURIComponent(scope);
+      url += "&redirect_uri=" + encodeURIComponent(redirect_uri);
+      url += "&state=" + encodeURIComponent(state);
+      window.location = url;
+      this.login = true;
     },
     doesUserExist(data) {
       const tempUsers = JSON.parse(JSON.stringify(this.users));
@@ -95,18 +68,72 @@ const app = Vue.createApp({
         $("#playlistSettingsModel").modal("show");
       });
     },
+    doesUserExist() {
+      const tempUsers = JSON.parse(JSON.stringify(this.users));
+      return tempUsers.some((u) => u.spotifyId === this.user.id);
+    },
+    toggleRegistrationModal() {
+      $(document).ready(function () {
+        $("#registationModel").modal("show");
+      });
+    },
+    togglePlaylistSettingsModal() {
+      $(document).ready(function () {
+        $("#playlistSettingsModel").modal("show");
+      });
+    },
   },
-  // watch: {
-  //   login: function () {
-  //     this.login = false;
-  //   },
-  // },
-
   mounted() {
-    this.token = window.location.hash.substr(1).split("&")[0].split("=")[1];
-
-    if (this.token) {
-      window.opener.spotifyCallback(this.token);
+    var params = getHashParams();
+    (this.access_token = params.access_token),
+      (state = params.state),
+      (storedState = localStorage.getItem(this.stateKey));
+    if (this.access_token && (state == null || state !== storedState)) {
+      alert("There was an error during the authentication");
+    } else {
+      if (this.access_token) {
+        this.login = true;
+        axios
+          .get("https://api.spotify.com/v1/me", {
+            headers: {
+              Authorization: "Bearer " + this.access_token,
+            },
+          })
+          .then((reponse) => (this.user = reponse.data));
+      }
     }
   },
 });
+
+/** Helper Functions */
+
+/**
+ * Used to generate a random ID to store the access token.
+ * @param {*} length
+ * @returns string
+ */
+function generateRandomString(length) {
+  var text = "";
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
+/**
+ * Used to seperate the url in the navigation bar.
+ * This seperates into a access_token and a state array
+ */
+function getHashParams() {
+  var hashParams = {};
+  var e,
+    r = /([^&;=]+)=?([^&;]*)/g,
+    q = window.location.hash.substring(1);
+  while ((e = r.exec(q))) {
+    hashParams[e[1]] = decodeURIComponent(e[2]);
+  }
+  return hashParams;
+}

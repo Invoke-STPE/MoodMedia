@@ -12,25 +12,43 @@ app.component("playlist-component", {
           </div>
           <div class="modal-body bg-dark">
             Alle playliste indstillinger
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a happy playlist </option>
-                <option value="playlist">Banger</option>
-              </select>
-            </div>
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a ok playlist </option>
-                <option value="playlist">wackass</option>
-              </select>
-            </div>
-            <div>
-              <select name="playlist" id="playlist">
-                <option value="" disabled selected>Select a sad playlist </option>
-                <option value="playlist">sad af</option>
-              </select>
-            </div>
-            <button class="btn btn-primary" type="button" @click="findPlaylists()">Test</button>
+              <div>
+                <select name="playlist" v-model="snow['id']">
+                  <option disabled selected>Select a playlist for snowy mood</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+              <div>
+                <select name="playlist" v-model="rain['id']">
+                  <option disabled selected>Select a playlist for rainy mood</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+              <div>
+                <select name="playlist" v-model="freezing['id']">
+                  <option disabled selected>Select a playlist for freezing mood</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+              <div>
+                <select name="playlist" v-model="cold['id']">
+                  <option disabled selected>Select a playlist for cold mood</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+              <div>
+                <select name="playlist" v-model="nice['id']">
+                  <option disabled selected>Select a playlist for nice mood}</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+              <div>
+                <select name="playlist" v-model="sunny['id']">
+                  <option disabled selected>Select a playlist for sunny mood</option>
+                  <option v-for="playlist in playlists" v-bind:value="playlist.id">{{playlist.name}}</option>
+                </select>
+              </div>
+            <button class="btn btn-primary" type="button" @click="savePlaylistOptions()">Save</button>
           </div>
         </div>
       </div>
@@ -39,34 +57,47 @@ app.component("playlist-component", {
   data() {
     return {
       playlists: [],
-      playlistId: "",
-      playlistName: "",
-      id: null,
+      snow: {
+        mood: "snow",
+        id: "",
+      },
+      rain: { mood: "rain", id: "" },
+      freezing: { mood: "freezing", id: "" },
+      cold: { mood: "cold", id: "" },
+      nice: { mood: "nice", id: "" },
+      sunny: { mood: "sunny", id: "" },
     };
   },
   methods: {
     findPlaylists() {
-      // const basePlaylistUrl = `https://api.spotify.com/v1/users/${this.$parent.me.id}/playlists`;
       const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
-      console.log(basePlaylistUrl);
-      const settings = {
-        headers: {
-          Authorization: `Bearer ${this.$parent.payload}`,
-          "Content-Type": "application/json",
-        },
-      };
-      const response = fetch(basePlaylistUrl, {
-        method: "GET",
-        settings,
+      axios
+        .get(basePlaylistUrl, {
+          headers: {
+            Authorization: "Bearer " + this.$parent.access_token,
+          },
+        })
+        .then((reponse) => {
+          this.playlists = reponse.data.items;
+        });
+    },
+    savePlaylistOptions() {
+      const moodPlaylists = [
+        this.snow,
+        this.rain,
+        this.freezing,
+        this.cold,
+        this.nice,
+        this.sunny,
+      ];
+      this.$emit("setMoodPlaylists", moodPlaylists);
+      $(document).ready(function () {
+        $("#playlistSettingsModel").modal("hide");
       });
     },
   },
+  emits: ["setMoodPlaylists"],
   mounted() {
-    // this.$watch("userid", (newVal, oldVal) => {
-    //   this.findPlaylists();
-    //   console.log(this.token);
-    // });
-    // this.findPlaylists();
-    // console.log(this.token);
+    this.findPlaylists();
   },
 });

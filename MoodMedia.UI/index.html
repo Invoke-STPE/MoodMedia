@@ -18,7 +18,6 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
-
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -51,10 +50,7 @@
             "
           >
             <mood-component></mood-component>
-            <media-component></media-component>
-            <div>
-              <register-component></register-component>
-            </div>
+            <media-component v-bind:currentMood="currentMood"></media-component>
           </div>
         </div>
         <div
@@ -73,7 +69,7 @@
             </button>
           </section>
         </div>
-        <div class=""><p class="text-light">{{ me }}</p></div>
+        <div class=""><p class="text-light">{{ user }}</p></div>
         <!-- Modal -->
         <div
           class="modal fade"
@@ -106,16 +102,18 @@
         </div>
         <!-- Option 2: Registation Form -->
         <registration-component
-          v-if="me"
-          v-bind:key="me.id"
-          v-bind:id="me.id"
-          v-bind:username="me.display_name"
-          v-bind:email="me.email"
-          v-bind:picture="me.images[0].url"
+          v-if="user"
+          v-bind:key="user.id"
+          v-bind:id="user.id"
+          v-bind:username="user.display_name"
+          v-bind:email="user.email"
+          v-bind:picture="user.images[0].url"
         ></registration-component>
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
-          <playlist-component></playlist-component>
+          <playlist-component
+            @set-mood-playlists="setMoodPlaylists"
+          ></playlist-component>
         </div>
       </div>
     </div>
@@ -132,12 +130,17 @@
     <script src="seed.js"></script>
     <script src="main.js"></script>
     <script src="./VueComponents/mediaComponent.js"></script>
-    <script src="./VueComponents/rainComponent.js"></script>
-    <script src="./VueComponents/sunComponent.js"></script>
     <script src="./VueComponents/registrationComponent.js"></script>
     <script src="./VueComponents/navComponent.js"></script>
     <script src="./seed.js"></script>
     <script src="./VueComponents/moodComponent.js"></script>
+    <script src="./VueComponents/snowComponent.js"></script>
+    <script src="./VueComponents/rainComponent.js"></script>
+    <script src="./VueComponents/sunComponent.js"></script>
+    <script src="./VueComponents/sunCloudsComponent.js"></script>
+    <script src="./VueComponents/coldComponent.js"></script>
+    <script src="./VueComponents/freezingComponent.js"></script>
+    <script src="./VueComponents/rainEffect.js"></script>
     <script src="./VueComponents/playlistComponent.js"></script>
 
     <script>
