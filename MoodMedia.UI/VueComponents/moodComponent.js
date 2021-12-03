@@ -9,7 +9,7 @@ app.component('mood-component', {
       rain: false,
       snow: false,
       freezing: false,
-      
+      debug: true
   }
   },
   methods : {
@@ -21,7 +21,7 @@ app.component('mood-component', {
       this.rain = false
       this.snow = false
       this.freezing = false
-      //console.log(this.weather)
+      if(this.debug) console.log(this.weather)
 
       if (response.temperature < 5) {
         this.mood = "freezing"
@@ -55,42 +55,51 @@ app.component('mood-component', {
           this.rain = true
         }
       } 
+      if(this.debug) this.printStates()
     },
     toggleSnow() {
       if (this.snow) this.snow = false
       else this.snow = true
+      this.printStates()
     },
     toggleRain() {
       if (this.rain) this.rain = false
       else this.rain = true
+      this.printStates()
     },
     toggleFreezing() {
       if (this.freezing) this.freezing = false
       else this.freezing = true
+      this.printStates()
     },
     toggleCold() {
       if (this.cold) this.cold = false
       else this.cold = true
+      this.printStates()
     },
     toggleNice() {
       if (this.nice) this.nice = false
       else this.nice = true
+      this.printStates()
     },
     toggleSunny() {
       if (this.sunny) this.sunny = false
       else this.sunny = true
+      this.printStates()
+    },
+    printStates() {
+      console.log("Snow: " + this.snow + " - Rain: " + this.rain + " | Freezing: " + this.freezing + " - Cold: " + this.cold + " - Nice: " + this.nice + " - Sunny: " + this.sunny  )
     }
   },
   template: /*html*/`
-  <!--<div class="text-light"><p>DEBUG: <b>Freezing:</b> {{freezing}} - <b>Cold:</b> {{cold}} - <b>Nice: </b> {{nice}} - <b>Sun:</b> {{sunny}} <b>| Rain:</b> {{rain}} - <b>Snow:</b> {{snow}}</p></div>-->
   <sun-component v-if="sunny"></sun-component>
   <sun-clouds-component v-if="nice"></sun-clouds-component>
   <rain-component v-if="rain"></rain-component>
   <snow-component v-if="snow"></snow-component>
   <freezing-component v-if="freezing"></freezing-component>
   
-  <!-- DISABLE FOR LIVE VERSION -->
-  <mood-test-buttons :snow="snow" :rain="rain" :freezing="freezing" :cold="cold" :nice="nice" :sunny="sunny" @toggleSnow="toggleSnow" @toggleRain="toggleRain" @toggleFreezing="toggleFreezing" @toggleCold="toggleCold" @toggleNice="toggleNice" @toggleSunny="toggleSunny"></mood-test-buttons>
+  <!-- Only shown if debug state is true -->
+  <mood-test-buttons v-if="debug" :snow="snow" :rain="rain" :freezing="freezing" :cold="cold" :nice="nice" :sunny="sunny" @toggleSnow="toggleSnow" @toggleRain="toggleRain" @toggleFreezing="toggleFreezing" @toggleCold="toggleCold" @toggleNice="toggleNice" @toggleSunny="toggleSunny"></mood-test-buttons>
 
   <weather-information-box v-if="weather" v-bind:weather=weather v-bind:mood=mood></weather-information-box>
   <mood-button @getMood="setMood"> </mood-button>
@@ -142,21 +151,22 @@ app.component('mood-test-buttons', {
   },
 
   template: /*html*/`
-  <div class="btn-group buttons-bottom-right text-light">
-  
+  <div class="buttons-bottom-right justify-content-center align-items-center text-center">
     <p class="text-light">Toggle animations</p>
-    <button v-if="snow" class="btn btn-light" @click="toggleSnow">Snow</button>
-    <button v-else="snow" class="btn btn-dark" @click="toggleSnow">Snow</button>
-    <button v-if="rain" class="btn btn-light" @click="toggleRain">Rain</button>
-    <button v-else="rain" class="btn btn-dark" @click="toggleRain">Rain</button>
-    <button v-if="freezing" class="btn btn-light" @click="toggleFreezing">Freezing</button>
-    <button v-else="freezing" class="btn btn-dark" @click="toggleFreezing">Freezing</button>
-    <button v-if="cold" class="btn btn-light" @click="toggleCold">Cold</button>
-    <button v-else="cold" class="btn btn-dark" @click="toggleCold">Cold</button>
-    <button v-if="nice" class="btn btn-light" @click="toggleNice">Nice</button>
-    <button v-else="nice" class="btn btn-dark" @click="toggleNice">Nice</button>
-    <button v-if="sunny" class="btn btn-light" @click="toggleSunny">Sunny</button>
-    <button v-else="sunny" class="btn btn-dark" @click="toggleSunny">Sunny</button>
+    <div class="btn-group-vertical text-light flex-wrap w-100">
+      <button v-if="snow" class="btn btn-light w-100" @click="toggleSnow">Snow</button>
+      <button v-else="snow" class="btn btn-dark w-100" @click="toggleSnow">Snow</button>
+      <button v-if="rain" class="btn btn-light w-100" @click="toggleRain">Rain</button>
+      <button v-else="rain" class="btn btn-dark w-100" @click="toggleRain">Rain</button>
+      <button v-if="freezing" class="btn btn-light w-100" @click="toggleFreezing">Freezing</button>
+      <button v-else="freezing" class="btn btn-dark w-100" @click="toggleFreezing">Freezing</button>
+      <button v-if="cold" class="btn btn-light w-100" @click="toggleCold">Cold</button>
+      <button v-else="cold" class="btn btn-dark w-100" @click="toggleCold">Cold</button>
+      <button v-if="nice" class="btn btn-light w-100" @click="toggleNice">Nice</button>
+      <button v-else="nice" class="btn btn-dark w-100" @click="toggleNice">Nice</button>
+      <button v-if="sunny" class="btn btn-light w-100" @click="toggleSunny">Sunny</button>
+      <button v-else="sunny" class="btn btn-dark w-100" @click="toggleSunny">Sunny</button>    
+    </div>
   </div>
   `,
   methods: {
