@@ -19,7 +19,7 @@ app.component("media-component", {
       this.currentMood = currentMood;
       fetch("https://localhost:44367/api/User/1")
         .then((response) => response.json())
-        .then((data) => (this.user = data));
+        .then((data) => (this.user = JSON.parse(JSON.stringify(data))));
     },
   },
   mounted() {
