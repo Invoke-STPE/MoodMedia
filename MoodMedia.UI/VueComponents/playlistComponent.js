@@ -78,7 +78,8 @@ app.component("playlist-component", {
           },
         })
         .then((reponse) => {
-          this.playlists = reponse.data.items;
+          (this.playlists = reponse.data.items),
+            console.log(reponse.data.items);
         });
     },
     savePlaylistOptions() {

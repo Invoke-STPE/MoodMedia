@@ -50,7 +50,15 @@
             "
           >
             <mood-component></mood-component>
-            <media-component v-bind:currentMood="currentMood"></media-component>
+
+            <!-- <media-component></media-component> -->
+            <section>
+              <h2 class="text-white">Song</h2>
+              <p class="lead text-white text-center">Artist</p>
+              <button class="btn btn-primary" @click="playMusic()">
+                Toggle Play
+              </button>
+            </section>
           </div>
         </div>
         <div
@@ -125,6 +133,7 @@
     ></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="seed.js"></script>
