@@ -13,6 +13,6 @@ namespace MoodREST.Interfaces
         public User Update(int id, User user);
         public bool Post(User user);
         public User Remove(int id);
-        public bool ImportMoodPlaylists(int id, IEnumerable<string> moodPlaylists);
+        public bool ImportMoodPlaylists(int id, string moodPlaylists);
     }
 }

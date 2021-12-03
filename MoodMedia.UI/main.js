@@ -21,17 +21,17 @@ const app = Vue.createApp({
     setMoodPlaylists(moodPlaylists) {
       const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
       this.moodPlaylists = moodPlaylists;
-      console.log(this.moodPlaylists);
-      const jsonMoodPlaylists = JSON.stringify(moodPlaylists);
+      // console.log(this.moodPlaylists);
+      const jsonMoodPlaylists = JSON.parse(JSON.stringify(moodPlaylists));
       console.log(jsonMoodPlaylists);
       //axios.put(apiUrl + "1", { data: { moodPlaylists: jsonMoodPlaylists } });
-      axios(apiUrl + "1", {
+      fetch("https://localhost:44367/api/User/MoodPlaylists/1", {
         method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        data: jsonMoodPlaylists,
-      });
+        headers: { "Content-Type": "application/json" },
+        data: JSON.parse(JSON.stringify(moodPlaylists)),
+      })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
     getPlaylistSettings() {
       this.playlistSettings = true;

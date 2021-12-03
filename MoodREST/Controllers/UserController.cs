@@ -8,6 +8,7 @@ using MoodREST.Managers;
 using Microsoft.AspNetCore.Http;
 using MoodREST.Interfaces;
 using Microsoft.AspNetCore.Cors;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -81,11 +82,12 @@ namespace MoodREST.Controllers
         [HttpPut("MoodPlaylists/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMoodPlaylists(int id, [FromBody] IEnumerable<string> moodPlaylists)
+        public IActionResult UpdateMoodPlaylists(int id, [FromBody] Object moodPlaylists)
         {
             try
             {
-                return Ok(userManager.ImportMoodPlaylists(id, moodPlaylists));
+                string jsonFile = JsonSerializer.Serialize<string>(moodPlaylists.ToString());
+                return Ok(userManager.ImportMoodPlaylists(id, jsonFile));
             }
             catch (KeyNotFoundException knfe)
             {
