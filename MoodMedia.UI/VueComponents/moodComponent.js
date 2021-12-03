@@ -91,8 +91,8 @@ app.component("mood-component", {
   <snow-component v-if="snow"></snow-component>
   <freezing-component v-if="freezing"></freezing-component>
   
-  <!-- DISABLE FOR LIVE VERSION -->
-  <mood-test-buttons :snow="snow" :rain="rain" :freezing="freezing" :cold="cold" :nice="nice" :sunny="sunny" @toggleSnow="toggleSnow" @toggleRain="toggleRain" @toggleFreezing="toggleFreezing" @toggleCold="toggleCold" @toggleNice="toggleNice" @toggleSunny="toggleSunny"></mood-test-buttons>
+  <!-- Only shown if debug state is true -->
+  <mood-test-buttons v-if="debug" :snow="snow" :rain="rain" :freezing="freezing" :cold="cold" :nice="nice" :sunny="sunny" @toggleSnow="toggleSnow" @toggleRain="toggleRain" @toggleFreezing="toggleFreezing" @toggleCold="toggleCold" @toggleNice="toggleNice" @toggleSunny="toggleSunny"></mood-test-buttons>
 
   <weather-information-box v-if="weather" v-bind:weather=weather v-bind:mood=mood></weather-information-box>
   <mood-button @getMood="setMood"> </mood-button>
