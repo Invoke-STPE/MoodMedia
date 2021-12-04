@@ -55,9 +55,34 @@
             <section>
               <h2 class="text-white">Song</h2>
               <p class="lead text-white text-center">Artist</p>
-              <button class="btn btn-primary" @click="playMusic()">
-                Toggle Play
+
+              <button class="btn btn-outline-secondary" @click="playMusic()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50"
+                  height="50"
+                  fill="currentColor"
+                  class="bi bi-play"
+                  style="color: white"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"
+                  />
+                </svg>
               </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="white"
+                class="bi bi-skip-end"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0V4zM5 4.633 10.804 8 5 11.367V4.633z"
+                />
+              </svg>
             </section>
           </div>
         </div>

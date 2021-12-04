@@ -6,7 +6,7 @@ const app = Vue.createApp({
       currentMood: "",
       users: Seed.users,
       rain: true,
-      login: false,
+      login: true,
       playlistSettings: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       stateKey: "spotify_auth_state",
