@@ -3,7 +3,7 @@ const baseUrl = "https://localhost:44367/api/Sensor/";
 const app = Vue.createApp({
   data() {
     return {
-      currentMood: "snow",
+      currentMood: "",
       users: Seed.users,
       rain: true,
       login: false,
@@ -91,7 +91,7 @@ const app = Vue.createApp({
       let playlists = JSON.parse(JSON.stringify(this.moodPlaylists));
       console.log(playlists);
       const playlistId = playlists.find(
-        (playlist) => playlist.mood == this.currentMood
+        (playlist) => playlist.mood == this.songMood
       );
       console.log(playlistId.id);
       let url = `https://api.spotify.com/v1/playlists/${playlistId.id}/tracks`;
@@ -165,6 +165,12 @@ const app = Vue.createApp({
       });
       // this.player.togglePlay();
       sdk.connect();
+    },
+  },
+  computed: {
+    songMood() {
+      console.log(`This is the currentMood: ${this.currentMood}`);
+      return this.currentMood;
     },
   },
   mounted() {
