@@ -12,6 +12,7 @@ namespace ModelLib
         public string ProfilePhotoURL { get; set; }
         public string SpotifyId { get; set; }
         public IEnumerable<Playlist> MoodPlaylists { get; set; }
+        public UserActivity UserActivity { get; set; }
 
         public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId, IEnumerable<Playlist> moodPlaylists)
         {
@@ -37,6 +38,18 @@ namespace ModelLib
         public User()
         {
             
+        }
+
+        public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId, IEnumerable<Playlist> moodPlaylists, UserActivity userActivity)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            Email = email;
+            ProfilePhotoURL = profilePhotoURL;
+            SpotifyId = spotifyId;
+            MoodPlaylists = moodPlaylists;
+            UserActivity = userActivity;
         }
 
         public override string ToString()
