@@ -50,7 +50,55 @@
             "
           >
             <mood-component></mood-component>
-            <media-component></media-component>
+
+            <!-- <media-component></media-component> -->
+            <section>
+              <h2 class="text-white text-center">Song</h2>
+              <p class="lead text-white text-center">Artist</p>
+              <button class="btn btn-outline-secondary me-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="white"
+                  class="bi bi-skip-start"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.52-.302 1.233.043 1.233.696v7.384c0 .653-.713.998-1.233.696L5 8.752V12a.5.5 0 0 1-1 0V4zm7.5.633L5.696 8l5.804 3.367V4.633z"
+                  />
+                </svg>
+              </button>
+              <button class="btn btn-outline-secondary" @click="playMusic()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50"
+                  height="50"
+                  fill="currentColor"
+                  class="bi bi-play"
+                  style="color: white"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"
+                  />
+                </svg>
+              </button>
+              <button class="btn btn-outline-secondary ms-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="white"
+                  class="bi bi-skip-end"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0V4zM5 4.633 10.804 8 5 11.367V4.633z"
+                  />
+                </svg>
+              </button>
+            </section>
           </div>
         </div>
         <div
@@ -69,7 +117,7 @@
             </button>
           </section>
         </div>
-        <div class=""><p class="text-light">{{ me }}</p></div>
+        <div class=""><p class="text-light">{{ user }}</p></div>
         <!-- Modal -->
         <div
           class="modal fade"
@@ -102,16 +150,18 @@
         </div>
         <!-- Option 2: Registation Form -->
         <registration-component
-          v-if="me"
-          v-bind:key="me.id"
-          v-bind:id="me.id"
-          v-bind:username="me.display_name"
-          v-bind:email="me.email"
-          v-bind:picture="me.images[0].url"
+          v-if="user"
+          v-bind:key="user.id"
+          v-bind:id="user.id"
+          v-bind:username="user.display_name"
+          v-bind:email="user.email"
+          v-bind:picture="user.images[0].url"
         ></registration-component>
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
-          <playlist-component></playlist-component>
+          <playlist-component
+            @set-mood-playlists="setMoodPlaylists"
+          ></playlist-component>
         </div>
       </div>
     </div>
@@ -123,12 +173,13 @@
     ></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
 
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="seed.js"></script>
     <script src="main.js"></script>
     <script src="./VueComponents/mediaComponent.js"></script>
     <script src="./VueComponents/registrationComponent.js"></script>
-    <script src="./VueComponents/brandComponent.js"></script>
     <script src="./VueComponents/navComponent.js"></script>
     <script src="./seed.js"></script>
     <script src="./VueComponents/moodComponent.js"></script>
@@ -143,6 +194,7 @@
 
     <script>
       const mountedApp = app.mount("#app");
+      // window.onSpotifyWebPlaybackSDKReady = () => {};
     </script>
   </body>
 </html>

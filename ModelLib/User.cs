@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ModelLib
 {
@@ -10,6 +11,18 @@ namespace ModelLib
         public string Email { get; set; }
         public string ProfilePhotoURL { get; set; }
         public string SpotifyId { get; set; }
+        public IEnumerable<Playlist> MoodPlaylists { get; set; }
+
+        public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId, IEnumerable<Playlist> moodPlaylists)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            Email = email;
+            ProfilePhotoURL = profilePhotoURL;
+            SpotifyId = spotifyId;
+            MoodPlaylists = moodPlaylists;
+        }
 
         public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId)
         {
