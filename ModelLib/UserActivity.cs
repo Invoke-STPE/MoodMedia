@@ -21,6 +21,7 @@ namespace ModelLib
         }
 
         public int Id { get; set; }
+        public User User { get; set; }
         public int ListenedSongs { get; set; }
         public int PlaylistChanged { get; set; }
         public int SiteVisits { get; set; }
