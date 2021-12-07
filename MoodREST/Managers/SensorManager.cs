@@ -53,6 +53,7 @@ namespace MoodREST.Managers
             // Get next available id for the new data
             // Any id given previously is overwritten to make sure they're unique
             data.Id = _nextId++;
+            data.Time = DateTime.Now;
             _dataList.Add(data);
             return true;
         }
