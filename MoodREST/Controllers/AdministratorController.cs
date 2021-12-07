@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelLib;
 using MoodREST.Managers;
@@ -13,20 +14,53 @@ namespace MoodREST.Controllers
     [ApiController]
     public class AdministratorController : Controller
     {
-        private static AdministratorManager _administratoManager = new AdministratorManager();
+        private static AdministratorManager _administratorManager = new AdministratorManager();
         public AdministratorController()
         {
 
         }
+        //[EnableCors]
+        //[HttpPost]
+        //public IActionResult Authenticate([FromBody] Administrator admin)
+        //{
+        //    bool authenticated = _administratorManager.ValidateAuthetication(admin.Username, admin.Password);
+        //    if (authenticated)
+        //    {
+        //        return Ok(authenticated);
+        //    }
+        //    else { return BadRequest(authenticated); }
+        //}
+
         [EnableCors]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Post([FromBody] Administrator admin)
         {
-            bool authenticated = _administratoManager.ValidateAuthetication(admin.Username, admin.Password);
-            if (authenticated)
+            try
             {
-                return Ok(authenticated);
-            } else { return BadRequest(authenticated); }
+                return Ok(_administratorManager.CreateAdmin(admin));
+            }
+            catch (KeyNotFoundException knfe)
+            {
+                return NotFound(knfe);
+            }
+        }
+
+        [EnableCors]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                return Ok(_administratorManager.Delete(id));
+            }
+            catch (KeyNotFoundException knfe)
+            {
+                return NotFound(knfe);
+            }
         }
     }
 }
