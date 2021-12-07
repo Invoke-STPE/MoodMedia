@@ -13,22 +13,10 @@ namespace MoodREST.Managers
 
         public static List<User> Users = new List<User>()
         {
-            new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
-            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
-            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
-            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
+            new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234"),
+            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234"),
+            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234"),
+            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234"),
         };
 
         public User Get(int id)
