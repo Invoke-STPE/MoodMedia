@@ -16,25 +16,23 @@ namespace MoodREST.Managers
         public SensorManager()
         {
             if (_dataList == null) _dataList = MockSensorData.GetMockData().ToList();
-
-            // Find next available id. To be used when adding new data
-            foreach (var data in _dataList)
-            {
-                if (data.Id > _nextId) _nextId = data.Id;
-            }
-            _nextId++; // should be 1 above highest id found in list
+            FindNextAvailableId();
         }
 
         public SensorManager(IEnumerable<SensorData> sensorDatas)
         {
             _dataList = sensorDatas.ToList();
+            FindNextAvailableId();
+        }
 
-            // Find next available id. To be used when adding new data
+        public void FindNextAvailableId()
+        {
             foreach (var data in _dataList)
             {
                 if (data.Id > _nextId) _nextId = data.Id;
             }
-            _nextId++; // should be 1 above highest id found in list
+            // should be 1 above highest id found in list
+            _nextId++;
         }
 
         public IEnumerable<SensorData> Get()
