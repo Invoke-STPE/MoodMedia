@@ -13,29 +13,29 @@ const app = Vue.createApp({
       user: null,
       moodPlaylists: [
         {
-          "mood": "snow",
-          "id": "1HQRFxcNdEoe95AMEdOj9E"
+          mood: "snow",
+          id: "1HQRFxcNdEoe95AMEdOj9E",
         },
         {
-          "mood": "rain",
-          "id": "0dG2VbQ1Gt91qY94GZikDF"
+          mood: "rain",
+          id: "00vHAKl40DCK6bQQZdZobS",
         },
         {
-          "mood": "freezing",
-          "id": "6AdgixeJzSr0VzNAtFoM03"
+          mood: "freezing",
+          id: "1Ewdu5hyej4DpbnXemF0Sy",
         },
         {
-          "mood": "cold",
-          "id": "6bcBVzXW10r9V6vfrujwWj"
+          mood: "cold",
+          id: "2pS6BUCSzV0RXUGmKgfPIn",
         },
         {
-          "mood": "nice",
-          "id": "2Bcr6R4EGVgzwSH3XPz6t6"
+          mood: "nice",
+          id: "18vbiPv6E5bVLP3A3wkFhN",
         },
         {
-          "mood": "sunny",
-          "id": "0iXcUskdtDdyTk3312hsGT"
-        }
+          mood: "sunny",
+          id: "27brHmEUn5N9R4Qm1i9kQQ",
+        },
       ],
       currentPlaylist: [],
       player: null,
