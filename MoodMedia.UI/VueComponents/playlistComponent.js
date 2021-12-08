@@ -68,7 +68,7 @@ app.component("playlist-component", {
   data() {
     return {
       playlists: [],
-      snow: {mood: "snow", id: "", },
+      snow: { mood: "snow", id: "" },
       rain: { mood: "rain", id: "" },
       freezing: { mood: "freezing", id: "" },
       cold: { mood: "cold", id: "" },
@@ -78,7 +78,7 @@ app.component("playlist-component", {
   },
   methods: {
     findPlaylists() {
-      const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists/0";
+      const basePlaylistUrl = "https://api.spotify.com/v1/me/playlists";
       axios
         .get(basePlaylistUrl, {
           headers: {

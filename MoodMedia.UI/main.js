@@ -49,8 +49,8 @@ const app = Vue.createApp({
       localStorage.removeItem(this.stateKey);
     },
     setMoodPlaylists(moodPlaylists) {
-      const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
-      apiUrl =+ this.userId
+      // const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      // apiUrl = +this.userId;
       this.moodPlaylists = moodPlaylists;
       fetch("https://localhost:44367/api/User/MoodPlaylists/0", {
         method: "PUT",
