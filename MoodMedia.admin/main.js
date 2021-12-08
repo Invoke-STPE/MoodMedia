@@ -1,6 +1,7 @@
 const app = Vue.createApp({
   data() {
     return {
+      adminSettings: false,
       authenticated: true,
     };
   },
@@ -11,6 +12,17 @@ const app = Vue.createApp({
     login() {
       this.authenticated = !this.authenticated;
     },
+    getAdminSettings()
+    {
+      this.adminSettings = true;
+      this.toggleAdminSettingsModal();
+    },
+    toggleAdminSettingsModal(){
+      console.log("hjælp");
+      $(document).ready(function (){
+        $("#adminSettingsModel").modal("show");
+      })
+    }
   },
   mounted() {},
 });

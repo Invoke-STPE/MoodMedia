@@ -37,7 +37,7 @@
           <div class="container">
             <div class="row mt-2 g-4">
               <div class="col-md-4">
-                <a href="">
+                <a @click="getAdminSettings()" href="#adminSettingsModel">
                   <div class="card p-1">
                     <div
                       class="
@@ -48,7 +48,7 @@
                       "
                     >
                       <div class="flex-column lh-1 imagename">
-                        <span>Users</span>
+                        <span>Admin settings</span>
                       </div>
                       <div>
                         <img
@@ -117,6 +117,9 @@
         <div v-else>
           <login-component></login-component>
         </div>
+        <div v-if = "adminSettings">
+          <admin-component></admin-component>
+        </div>
       </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -133,6 +136,7 @@
     <script src="sensorSeed.js"></script>
     <script src="./Components/navComponent.js"></script>
     <script src="./Components/sensorDataComponent.js"></script>
+    <script src="./Components/adminComponent.js"></script>
     <script src="./Components/loginComponent.js"></script>
     <!-- Chart components -->
     <script src="./Components/Charts/temperatureChart.js"></script>
