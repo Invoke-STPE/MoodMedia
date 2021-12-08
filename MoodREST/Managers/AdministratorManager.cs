@@ -38,5 +38,35 @@ namespace MoodREST.Managers
         {
             return _administrators.Exists(u => u.Username.ToLower() == username.ToLower() && u.Password == password);
         }
+
+        public IEnumerable<Administrator> GetAll()
+        {
+            return _administrators;
+        }
+
+        public bool CreateAdmin(Administrator admin)
+        {
+            foreach(var data in _administrators)
+            {
+                if (data.Id > _nextId) _nextId = data.Id;
+            }
+
+            var id = _nextId++;
+            var adminToAdd = new Administrator(id, admin.Username, admin.Password);
+            if(adminToAdd != null)
+            {
+                _administrators.Add(adminToAdd);
+                return true;
+            }
+            return false;
+        }
+
+
+        public Administrator Delete(int id)
+        {
+            var adminToDelete = _administrators.Find(a => a.Id == id);
+            _administrators.Remove(adminToDelete);
+            return adminToDelete;
+        }
     }
 }
