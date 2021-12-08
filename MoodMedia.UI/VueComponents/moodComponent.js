@@ -12,6 +12,7 @@ app.component("mood-component", {
       debug: true,
     };
   },
+  emits: ["mood-button-clicked"],
   methods: {
     setMood(response) {
       this.weather = response;
@@ -22,7 +23,6 @@ app.component("mood-component", {
       this.snow = false;
       this.freezing = false;
       if (this.debug) console.log(this.weather);
-      //console.log(this.weather)
 
       if (response.temperature < 5) {
         this.mood = "freezing";
@@ -54,6 +54,7 @@ app.component("mood-component", {
         }
       }
       if (this.debug) this.printStates();
+      this.$emit("mood-button-clicked")
     },
     toggleSnow() {
       if (this.snow) this.snow = false;
@@ -109,7 +110,6 @@ app.component("mood-component", {
     },
   },
   template: /*html*/ `
-  <!--<div class="text-light"><p>DEBUG: <b>Freezing:</b> {{freezing}} - <b>Cold:</b> {{cold}} - <b>Nice: </b> {{nice}} - <b>Sun:</b> {{sunny}} <b>| Rain:</b> {{rain}} - <b>Snow:</b> {{snow}}</p></div>-->
   <sun-component v-if="sunny"></sun-component>
   <sun-clouds-component v-if="nice"></sun-clouds-component>
   <rain-component v-if="rain"></rain-component>

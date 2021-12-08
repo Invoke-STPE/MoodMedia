@@ -18,6 +18,16 @@ const app = Vue.createApp({
     };
   },
   methods: {
+    moodButtonClicked() {
+      console.log("1");
+      axios.post("https://localhost:44367/api/Statistics/", {
+        "id": 0,
+        "userId": "123",
+        "userName": "test",
+        "action": "moodButtonClick",
+        "time": "2021-12-08T10:23:10.911Z"
+      })
+    },
     logout() {
       this.login = false;
       localStorage.removeItem(this.stateKey);
