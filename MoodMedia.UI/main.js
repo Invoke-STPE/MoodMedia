@@ -15,6 +15,7 @@ const app = Vue.createApp({
       currentPlaylist: [],
       player: null,
       deviceId: "",
+      userId: "",
     };
   },
   methods: {
@@ -34,8 +35,9 @@ const app = Vue.createApp({
     },
     setMoodPlaylists(moodPlaylists) {
       const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      apiUrl =+ this.userId
       this.moodPlaylists = moodPlaylists;
-      fetch("https://localhost:44367/api/User/MoodPlaylists/1", {
+      fetch("https://localhost:44367/api/User/MoodPlaylists/0", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(moodPlaylists),
