@@ -11,7 +11,32 @@ const app = Vue.createApp({
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       stateKey: "spotify_auth_state",
       user: null,
-      moodPlaylists: [],
+      moodPlaylists: [
+        {
+          "mood": "snow",
+          "id": "1HQRFxcNdEoe95AMEdOj9E"
+        },
+        {
+          "mood": "rain",
+          "id": "0dG2VbQ1Gt91qY94GZikDF"
+        },
+        {
+          "mood": "freezing",
+          "id": "6AdgixeJzSr0VzNAtFoM03"
+        },
+        {
+          "mood": "cold",
+          "id": "6bcBVzXW10r9V6vfrujwWj"
+        },
+        {
+          "mood": "nice",
+          "id": "2Bcr6R4EGVgzwSH3XPz6t6"
+        },
+        {
+          "mood": "sunny",
+          "id": "0iXcUskdtDdyTk3312hsGT"
+        }
+      ],
       currentPlaylist: [],
       player: null,
       deviceId: "",
