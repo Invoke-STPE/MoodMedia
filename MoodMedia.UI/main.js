@@ -19,14 +19,14 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    moodButtonClicked() {
-      console.log("1");
+    RecordActivity(action) {
+      console.log(action);
       axios.post("https://localhost:44367/api/Statistics/", {
         "id": 0,
         "userId": "123",
-        "userName": "test",
-        "action": "moodButtonClick",
-        "time": "2021-12-08T10:23:10.911Z"
+        "userName": "Placeholder",
+        "action": action,
+        "time": "2000-01-01T00:00:01.000Z"
       })
     },
     logout() {

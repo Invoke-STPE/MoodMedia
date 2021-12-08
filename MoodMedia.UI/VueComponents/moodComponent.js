@@ -12,7 +12,7 @@ app.component("mood-component", {
       debug: true,
     };
   },
-  emits: ["mood-button-clicked"],
+  emits: ["activity"],
   methods: {
     setMood(response) {
       this.weather = response;
@@ -54,7 +54,7 @@ app.component("mood-component", {
         }
       }
       if (this.debug) this.printStates();
-      this.$emit("mood-button-clicked")
+      this.$emit("activity", "mood-button-clicked")
     },
     toggleSnow() {
       if (this.snow) this.snow = false;
