@@ -1,5 +1,5 @@
 app.component("admin-component", {
-    template: /*html*/ `
+  template: /*html*/ `
       <div  class="text-light modal fade modal-dialog-centered" id="adminSettingsModel">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -9,33 +9,71 @@ app.component("admin-component", {
               </h4>
             </div>
             <div class="modal-body bg-dark">
-                <h5>
-                    Add Admin
-                </h5>
-                <form action="/action_page.php">
-                    <label for="aName">Admin name: </label>
-                    <input type="text" id="aName" name="aName"><br><br>
-                    <label for="aPassword">Admin password: </label>
-                    <input type="text" id="aPassword" name="aPassword"><br><br>
-                    <button class="btn btn-primary" type="button" @click="addAdmin()">Add Admin</button>
-                </form>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h5>
+                      Create New Admin
+                  </h5>
+                  <form>
+                      <label>Admin name: </label>
+                      <br>
+                      <input type="text" v-model.lazy="adminName"><br><br>
+                      <label for="aPassword">Admin password: </label>
+                      <br>
+                      <input type="text" v-model.lazy="adminPassword"><br><br>
+                      <button class="btn btn-primary" type="button" @click="addAdmin()">Confirm</button>
+                    </form>
+                  </div>
+                  <div class="col-sm-6">
+                  <h5>
+                      Delete Admin
+                  </h5>
+                  <form>
+                    <label>Id: </label>
+                    <br>
+                    <input type="number" v-model.lazy="idToDelete"><br><br>
+                    <br>
+                    <br>
+                    <br style="line-height: 30px;">
+                    <button class="btn btn-primary" type="button" @click="removeAdmin()">Confirm</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       `,
-      data() {
-          return{
-            adminSettings: false,
-            adminName: "",
-            adminPassword: "",
-        }
-      },
-      methods: {
-        addAdmin(adminName, adminPassword){
-
-        }
-    }
-})
-
-      
+  data() {
+    return {
+      adminSettings: false,
+      adminName: "",
+      adminPassword: "",
+      idToDelete: 0,
+    };
+  },
+  methods: {
+    async addAdmin() {
+      const apiUrl = "https://localhost:44367/api/Administrator";
+      await axios
+        .post(apiUrl, {
+          username: this.adminName,
+          password: this.adminPassword,
+          id: 0,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .then($("#adminSettingsModel").modal("hide"));
+    },
+    async removeAdmin() {
+      const apiUrl = `https://localhost:44367/api/Administrator/${this.idToDelete}`;
+      await axios
+        .delete(apiUrl)
+        .then(function (response) {
+          console.log(response);
+        })
+        .then($("#adminSettingsModel").modal("hide"));
+    },
+  },
+});

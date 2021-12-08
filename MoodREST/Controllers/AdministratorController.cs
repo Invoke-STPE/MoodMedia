@@ -19,17 +19,31 @@ namespace MoodREST.Controllers
         {
 
         }
-        //[EnableCors]
-        //[HttpPost]
-        //public IActionResult Authenticate([FromBody] Administrator admin)
-        //{
-        //    bool authenticated = _administratorManager.ValidateAuthetication(admin.Username, admin.Password);
-        //    if (authenticated)
-        //    {
-        //        return Ok(authenticated);
-        //    }
-        //    else { return BadRequest(authenticated); }
-        //}
+        [EnableCors]
+        [HttpPost("Authenticate")]
+        public IActionResult Authenticate([FromBody] Administrator admin)
+        {
+            bool authenticated = _administratorManager.ValidateAuthetication(admin.Username, admin.Password);
+            if (authenticated)
+            {
+                return Ok(authenticated);
+            }
+            else { return BadRequest(authenticated); }
+        }
+
+        [EnableCors]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_administratorManager.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
 
         [EnableCors]
         [HttpPost]

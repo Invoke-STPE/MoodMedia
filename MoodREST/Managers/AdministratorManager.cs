@@ -39,6 +39,11 @@ namespace MoodREST.Managers
             return _administrators.Exists(u => u.Username.ToLower() == username.ToLower() && u.Password == password);
         }
 
+        public IEnumerable<Administrator> GetAll()
+        {
+            return _administrators;
+        }
+
         public bool CreateAdmin(Administrator admin)
         {
             foreach(var data in _administrators)

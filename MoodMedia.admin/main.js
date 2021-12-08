@@ -12,17 +12,15 @@ const app = Vue.createApp({
     login() {
       this.authenticated = !this.authenticated;
     },
-    getAdminSettings()
-    {
+    getAdminSettings() {
       this.adminSettings = true;
       this.toggleAdminSettingsModal();
     },
-    toggleAdminSettingsModal(){
-      console.log("hjælp");
-      $(document).ready(function (){
+    toggleAdminSettingsModal() {
+      $(document).ready(function () {
         $("#adminSettingsModel").modal("show");
-      })
-    }
+      });
+    },
   },
   mounted() {},
 });
