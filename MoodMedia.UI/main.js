@@ -6,30 +6,75 @@ const app = Vue.createApp({
       currentMood: "",
       users: Seed.users,
       rain: true,
-      login: true,
+      login: false,
       playlistSettings: false,
       client_id: "8c68d039b2544b31a1064152fbb24c51",
       stateKey: "spotify_auth_state",
+      currentSpotifyUser: null,
       user: null,
-      moodPlaylists: [],
+      moodPlaylists: [
+        {
+          mood: "snow",
+          id: "1HQRFxcNdEoe95AMEdOj9E",
+        },
+        {
+          mood: "rain",
+          id: "00vHAKl40DCK6bQQZdZobS",
+        },
+        {
+          mood: "freezing",
+          id: "1Ewdu5hyej4DpbnXemF0Sy",
+        },
+        {
+          mood: "cold",
+          id: "2pS6BUCSzV0RXUGmKgfPIn",
+        },
+        {
+          mood: "nice",
+          id: "18vbiPv6E5bVLP3A3wkFhN",
+        },
+        {
+          mood: "sunny",
+          id: "27brHmEUn5N9R4Qm1i9kQQ",
+        },
+      ],
       currentPlaylist: [],
       player: null,
       deviceId: "",
+      userId: "",
     };
   },
   methods: {
+    RecordActivity(url, button) {
+      axios.post("https://localhost:44367/api/Statistics/", {
+        "id": 0,
+        "userId": "123",
+        "userName": "Placeholder",
+        "action": {
+          "url": url,
+          "button": button,
+          "time": "2000-01-01T00:00:00.127Z"
+        }
+      })
+    },
     logout() {
       this.login = false;
       localStorage.removeItem(this.stateKey);
     },
     setMoodPlaylists(moodPlaylists) {
-      const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      // const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
+      // apiUrl = +this.userId;
+      console.log(this.currentSpotifyUser);
       this.moodPlaylists = moodPlaylists;
-      fetch("https://localhost:44367/api/User/MoodPlaylists/1", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(moodPlaylists),
-      })
+      const shitString = "0";
+      fetch(
+        `https://localhost:44367/api/User/MoodPlaylists/${this.currentSpotifyUser.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(moodPlaylists),
+        }
+      )
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
     },
@@ -37,7 +82,7 @@ const app = Vue.createApp({
       this.playlistSettings = true;
       this.togglePlaylistSettingsModal();
     },
-    spotifyAuthentication() {
+    async spotifyAuthentication() {
       // Setup parameters for URL
       let client_id = "8c68d039b2544b31a1064152fbb24c51";
       let redirect_uri = "http://127.0.0.1:5501/MoodMedia.UI/index.html";
@@ -56,6 +101,29 @@ const app = Vue.createApp({
       url += "&state=" + encodeURIComponent(state);
       window.location = url;
       this.login = true;
+    },
+    async getCurrentSpotifyUser() {
+      let currentSpotifyUserUrl = "https://api.spotify.com/v1/me";
+      await axios
+        .get(currentSpotifyUserUrl, {
+          headers: {
+            Authorization: "Bearer " + this.access_token,
+          },
+        })
+        .then((response) =>
+          console.log((this.currentSpotifyUser = response.data))
+        );
+      this.createUserFromSpotifyUser();
+    },
+    async createUserFromSpotifyUser() {
+      console.log("hej");
+      await axios.post("https://localhost:44367/api/User/", {
+        name: this.currentSpotifyUser.display_name,
+        address: this.currentSpotifyUser.country,
+        email: this.currentSpotifyUser.email,
+        profilePhotoUrl: this.currentSpotifyUser.images[0].url,
+        spotifyId: this.currentSpotifyUser.id,
+      });
     },
     doesUserExist(data) {
       const tempUsers = JSON.parse(JSON.stringify(this.users));
@@ -109,6 +177,7 @@ const app = Vue.createApp({
       return song.track.uri;
     },
     playMusic() {
+      this.RecordActivity(window.location.pathname, "play-music-button")
       this.initiatePlayer();
     },
     waitForSpotifyWebPlaybackSDKToLoad: async function () {
@@ -166,6 +235,12 @@ const app = Vue.createApp({
       // this.player.togglePlay();
       sdk.connect();
     },
+    back() {
+      this.RecordActivity(window.location.pathname, "music-player-back-button")
+    },
+    forward() {
+      this.RecordActivity(window.location.pathname, "music-player-forward-button")
+    },
   },
   computed: {
     songMood() {
@@ -173,7 +248,7 @@ const app = Vue.createApp({
       return this.currentMood;
     },
   },
-  mounted() {
+  async mounted() {
     var params = getHashParams();
     (this.access_token = params.access_token),
       (state = params.state),
@@ -194,6 +269,7 @@ const app = Vue.createApp({
       }
     }
     window.onSpotifyWebPlaybackSDKReady = () => {};
+    await this.getCurrentSpotifyUser();
   },
 });
 

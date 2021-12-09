@@ -41,22 +41,21 @@ namespace MoodREST.Controllers
             }
         }
 
-        //[EnableCors]
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public IActionResult UserActivities()
-        //{
-        //    try
-        //    {
-        //        return Ok(userManager.UserActivities());
-        //    }
-        //    catch (KeyNotFoundException knfe)
-        //    {
-        //        return NotFound(knfe.Message);
-        //    }
-        //}
-
+        [EnableCors]
+        [HttpGet("GetBySpotifyId{spotifyId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetBySpotifyId(string id)
+        {
+            try
+            {
+                return Ok(userManager.GetBySpotifyId(id));
+            }
+            catch (KeyNotFoundException knfe)
+            {
+                return NotFound(knfe.Message);
+            }
+        }
 
         [EnableCors]
         [HttpPost]
@@ -100,7 +99,7 @@ namespace MoodREST.Controllers
         [HttpPut("MoodPlaylists/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMoodPlaylists(int id, [FromBody] IEnumerable<Playlist> moodPlaylists)
+        public IActionResult UpdateMoodPlaylists(string id, [FromBody] IEnumerable<Playlist> moodPlaylists)
         {
             try
             {

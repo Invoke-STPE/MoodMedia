@@ -68,10 +68,7 @@ app.component("playlist-component", {
   data() {
     return {
       playlists: [],
-      snow: {
-        mood: "snow",
-        id: "",
-      },
+      snow: { mood: "snow", id: "" },
       rain: { mood: "rain", id: "" },
       freezing: { mood: "freezing", id: "" },
       cold: { mood: "cold", id: "" },
@@ -102,13 +99,14 @@ app.component("playlist-component", {
         this.nice,
         this.sunny,
       ];
+      this.$emit("activity", window.location.pathname,"save-playlist-options-button");
       this.$emit("setMoodPlaylists", moodPlaylists);
       $(document).ready(function () {
         $("#playlistSettingsModel").modal("hide");
       });
     },
   },
-  emits: ["setMoodPlaylists"],
+  emits: ["setMoodPlaylists", "activity"],
   mounted() {
     this.findPlaylists();
   },

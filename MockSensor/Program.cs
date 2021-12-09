@@ -11,17 +11,17 @@ namespace MockSensor
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
+            Random random = new();
             var temperature = 20;
             var humidity = 50;
 
             var url = "https://localhost:44367/api/Sensor";
 
 
-            HttpClientHandler clientHandler = new HttpClientHandler();
+            HttpClientHandler clientHandler = new();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-            HttpClient client = new HttpClient(clientHandler);
+            HttpClient client = new(clientHandler);
 
             while (true)
             {

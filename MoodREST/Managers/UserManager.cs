@@ -30,6 +30,16 @@ namespace MoodREST.Managers
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
             }, new UserActivity(4, 2, 4, 5)),
         };
+        private static int _nextId = 1;
+
+        public UserManager()
+        {
+            foreach (var data in Users)
+            {
+                if (data.Id > _nextId) _nextId = data.Id;
+            }
+            _nextId++;
+        }
 
 
         public User Get(int id)
@@ -41,7 +51,18 @@ namespace MoodREST.Managers
                 throw new KeyNotFoundException($"User with Id: {id} not found");
             }
             return foundUser;
-        }        
+        }
+        
+
+        public User GetBySpotifyId(string spotifyId)
+        {
+            User foundUser = Users.SingleOrDefault(u => u.SpotifyId == spotifyId);
+            if (foundUser == null)
+            {
+                throw new KeyNotFoundException($"User with Spotify Id: {spotifyId} not found");
+            }
+            return foundUser;
+        }
 
         public List<User> GetAll()
         {
@@ -68,12 +89,19 @@ namespace MoodREST.Managers
 
         public bool Post(User user)
         {
+            user.Id = _nextId++;
+            
             if (user != null)
             {
-                Users.Add(user);
-                return true;
+                var checkUser = Users.Find(u => u.SpotifyId == user.SpotifyId);
+                if (checkUser == null)
+                {
+                    Users.Add(user);
+                    return user;
+                }
+                else return checkUser;
             }
-            return false;
+            return null;
         }
 
         public User Remove(int id)
@@ -107,11 +135,11 @@ namespace MoodREST.Managers
             return null;
         }
 
-        public bool ImportMoodPlaylists(int id, IEnumerable<Playlist> moodPlaylists)
+        public bool ImportMoodPlaylists(string id, IEnumerable<Playlist> moodPlaylists)
         {
             try
             {
-                var user = Get(id);
+                var user = GetBySpotifyId(id);
                 user.MoodPlaylists = moodPlaylists;
                 return true;
             }
