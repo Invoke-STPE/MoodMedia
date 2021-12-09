@@ -44,6 +44,19 @@ const app = Vue.createApp({
     };
   },
   methods: {
+    RecordActivity(url, button) {
+      console.log(url, button);
+      axios.post("https://localhost:44367/api/Statistics/", {
+        "id": 0,
+        "userId": "123",
+        "userName": "Placeholder",
+        "action": {
+          "url": url,
+          "button": button,
+          "time": "2000-01-01T00:00:00.127Z"
+        }
+      })
+    },
     logout() {
       this.login = false;
       localStorage.removeItem(this.stateKey);
@@ -136,6 +149,7 @@ const app = Vue.createApp({
       return song.track.uri;
     },
     playMusic() {
+      this.RecordActivity(window.location.pathname, "play-music-button")
       this.initiatePlayer();
     },
     waitForSpotifyWebPlaybackSDKToLoad: async function () {
@@ -192,6 +206,12 @@ const app = Vue.createApp({
       });
       // this.player.togglePlay();
       sdk.connect();
+    },
+    back() {
+      this.RecordActivity(window.location.pathname, "music-player-back-button")
+    },
+    forward() {
+      this.RecordActivity(window.location.pathname, "music-player-forward-button")
     },
   },
   computed: {

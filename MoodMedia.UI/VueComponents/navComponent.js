@@ -19,7 +19,7 @@ app.component("nav-component", {
 
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
+        <li class="nav-item" @click="infoButton">
           <a
             type="button"
             data-bs-toggle="modal"
@@ -30,7 +30,7 @@ app.component("nav-component", {
         </li>
       </ul>
       <div v-if="login">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto" @click="profileButton">
           <li class="nav-item">
           <div class="dropstart">
           <button class="btn dropdown-toggle" id="profileSettings" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,12 +54,21 @@ app.component("nav-component", {
   props: {
     login: Boolean,
   },
+  emits: ["activity"],
   methods: {
     logout() {
       this.$parent.logout();
+      this.$emit("activity", window.location.pathname,"logout-button");
     },
     getPlaylistSettings(){
+      this.$emit("activity", window.location.pathname,"get-playlist-settings-button");
       this.$parent.getPlaylistSettings();
+    },
+    infoButton() {
+      this.$emit("activity", window.location.pathname,"info-button");
+    },
+    profileButton() {
+      this.$emit("activity", window.location.pathname,"profile-button");
     }
   },
 });

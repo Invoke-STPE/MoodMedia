@@ -29,7 +29,7 @@
     <div class="container-fluid">
       <div id="app" class="w-100">
         <header>
-          <nav-component v-bind:login="login"></nav-component>
+          <nav-component @activity="RecordActivity" v-bind:login="login"></nav-component>
         </header>
 
         <!-- Weather Components -->
@@ -49,13 +49,13 @@
               vh-100
             "
           >
-            <mood-component></mood-component>
+            <mood-component @activity="RecordActivity"></mood-component>
 
             <!-- <media-component></media-component> -->
             <section>
               <h2 class="text-white text-center">Song</h2>
               <p class="lead text-white text-center">Artist</p>
-              <button class="btn btn-outline-secondary me-2">
+              <button class="btn btn-outline-secondary me-2" @click="back">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -84,7 +84,7 @@
                   />
                 </svg>
               </button>
-              <button class="btn btn-outline-secondary ms-2">
+              <button class="btn btn-outline-secondary ms-2" @click="forward">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -148,7 +148,7 @@
             </div>
           </div>
         </div>
-        <!-- Option 2: Registation Form -->
+        <!-- Option 2: Registration Form -->
         <registration-component
           v-if="user"
           v-bind:key="user.id"
@@ -160,6 +160,7 @@
         <!-- Option 3: Playlist settings -->
         <div v-if="playlistSettings">
           <playlist-component
+            @activity="RecordActivity"
             @set-mood-playlists="setMoodPlaylists"
           ></playlist-component>
         </div>
