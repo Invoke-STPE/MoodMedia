@@ -11,7 +11,14 @@ app.component("user-component", {
           <div
             class="container-fluid d-flex justify-content-center align-items-center"
           >
-            <div velse="" class="d-flex w-100">
+            <div v-if="userActivity">
+              <usercharts-component
+                v-bind:userId="userId"
+                v-bind:totalUserActivity="totalUserActivity"
+              >
+              </usercharts-component>
+            </div>
+            <div v-else class="d-flex w-100">
               <div class="container mt-3 mb-4 d-flex justify-content-center">
                 <div class="col-lg-9 mt-4 mt-lg-0">
                   <div class="row">
@@ -52,7 +59,7 @@ app.component("user-component", {
                               <td>
                                 <button
                                   class="btn"
-                                  @click="toggleUserActivity(user.spotifyId)"
+                                  @click="toggleUserActivity(user.id)"
                                 >
                                   <img
                                     src="./images/icons/graph-up-arrow.svg"
@@ -75,14 +82,38 @@ app.component("user-component", {
       </div>
     </div>
   </div> `,
-  props: ["userId"],
   data() {
     return {
       users: [],
-      userActivity: true,
+      userActivity: false,
+      userActivityId: 0,
     };
   },
-  methods: {},
+  computed: {
+    totalUserActivity() {
+      userActivity = {
+        listenedSongs: 0,
+        playlistChanged: 0,
+        siteVisits: 0,
+      };
+      this.users.forEach((user) => {
+        userActivity["listenedSongs"] += user.userActivity.listenedSongs;
+        userActivity["playlistChanged"] += user.userActivity.playlistChanged;
+        userActivity["siteVisits"] += user.userActivity.siteVisits;
+      });
+      return userActivity;
+    },
+    userId() {
+      return this.userActivityId;
+    },
+  },
+  methods: {
+    toggleUserActivity(id) {
+      this.userActivityId = id;
+      this.userActivity = true;
+      console.log(this.userActivityId);
+    },
+  },
   mounted() {
     fetch("https://localhost:44367/api/User")
       .then((response) => response.json())
@@ -97,7 +128,8 @@ app.component("user-component", {
 app.component("usercharts-component", {
   template: /* html */ `
   <div class="row">
-  <div class="col-4">
+  <h1 class="text-center display-4">Username's activity</h1>
+  <div class="col-4" >
     <canvas id="listenedSongs"></canvas>
   </div>
   <div class="col-4">
@@ -107,13 +139,15 @@ app.component("usercharts-component", {
     <canvas id="siteVisits"></canvas>
   </div>
 </div>`,
+  props: ["userId", "totalUserActivity"],
   methods: {
-    createListenedSongsPie() {
+    createListenedSongsPie(listenedSongs, totalUserActivity) {
       const data = {
+        labels: ["User", "Site Wide"],
         datasets: [
           {
             label: "My First Dataset",
-            data: [300, 50, 100],
+            data: [listenedSongs, totalUserActivity],
             backgroundColor: [
               "rgb(255, 99, 132)",
               "rgb(54, 162, 235)",
@@ -140,12 +174,13 @@ app.component("usercharts-component", {
         config
       );
     },
-    createPlaylistChangedPie() {
+    createPlaylistChangedPie(playlistChanged, totalUserActivity) {
       const data = {
+        labels: ["User", "Site Wide"],
         datasets: [
           {
             label: "This is a new name",
-            data: [300, 50, 100],
+            data: [playlistChanged, totalUserActivity],
             backgroundColor: [
               "rgb(255, 99, 132)",
               "rgb(54, 162, 235)",
@@ -172,12 +207,13 @@ app.component("usercharts-component", {
         config
       );
     },
-    createSiteVisitsPie() {
+    createSiteVisitsPie(siteVisits, totalUserActivity) {
       const data = {
+        labels: ["User", "Site Wide"],
         datasets: [
           {
             label: "My First Dataset",
-            data: [300, 50, 100],
+            data: [siteVisits, totalUserActivity],
             backgroundColor: [
               "rgb(255, 99, 132)",
               "rgb(54, 162, 235)",
@@ -206,8 +242,23 @@ app.component("usercharts-component", {
     },
   },
   mounted() {
-    this.createListenedSongsPie();
-    this.createPlaylistChangedPie();
-    this.createSiteVisitsPie();
+    if (this.userId > 0) {
+      fetch(`https://localhost:44367/api/User/${this.userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.createListenedSongsPie(
+            data.userActivity.listenedSongs,
+            this.totalUserActivity.listenedSongs
+          );
+          this.createPlaylistChangedPie(
+            data.userActivity.playlistChanged,
+            this.totalUserActivity.playlistChanged
+          );
+          this.createSiteVisitsPie(
+            data.userActivity.siteVisits,
+            this.totalUserActivity.siteVisits
+          );
+        });
+    }
   },
 });

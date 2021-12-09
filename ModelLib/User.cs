@@ -52,7 +52,7 @@ namespace ModelLib
             SpotifyId = spotifyId;
             MoodPlaylists = moodPlaylists;
             UserActivity = userActivity;
-            UserActivity = new UserActivity();
+            
         }
 
         public override string ToString()

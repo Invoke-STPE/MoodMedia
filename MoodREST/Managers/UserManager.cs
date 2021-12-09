@@ -31,8 +31,10 @@ namespace MoodREST.Managers
             }, new UserActivity(4, 2, 4, 5)),
         };
 
+
         public User Get(int id)
         {
+            UserActivity userActivity = new UserActivity(1, 2, 3, 4);
             User foundUser = Users.SingleOrDefault(u => u.Id == id);
             if(foundUser == null)
             {

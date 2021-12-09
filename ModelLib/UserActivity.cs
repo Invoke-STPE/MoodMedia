@@ -18,6 +18,7 @@ namespace ModelLib
             ListenedSongs = listenedSongs;
             PlaylistChanged = playlistChanged;
             SiteVisits = siteVisits;
+            User = new User();
         }
 
         public int Id { get; set; }
