@@ -54,7 +54,7 @@ app.component("mood-component", {
         }
       }
       if (this.debug) this.printStates();
-      this.$emit("activity", "mood-button-clicked")
+      this.$emit("activity", window.location.pathname,"mood-button");
     },
     toggleSnow() {
       if (this.snow) this.snow = false;

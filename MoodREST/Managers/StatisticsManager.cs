@@ -76,5 +76,16 @@ namespace MoodREST.Managers
         {
             return _data.FindAll(d => d.Time >= from && d.Time <= to);
         }
+
+        public IEnumerable<StatisticsData> GetByUrlPath(string path)
+        {
+            return _data.FindAll(d => d.Action.Url == path);
+        }
+
+        public IEnumerable<StatisticsData> GetByButton(string button)
+        {
+            return _data.FindAll(d => d.Action.Button == button);
+        }
+
     }
 }

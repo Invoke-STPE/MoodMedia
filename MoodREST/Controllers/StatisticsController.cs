@@ -15,7 +15,7 @@ namespace MoodREST.Controllers
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        private static readonly StatisticsManager _mgr = new StatisticsManager();
+        private static readonly StatisticsManager _mgr = new();
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -11,7 +11,7 @@ namespace ModelLib
         public int Id { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
-        public string Action { get; set; }
+        public Action Action { get; set; }
         public DateTime Time { get; set; }
 
         public StatisticsData()
@@ -19,7 +19,7 @@ namespace ModelLib
 
         }
 
-        public StatisticsData(int id, string userid, string username, string action, DateTime time)
+        public StatisticsData(int id, string userid, string username, Action action, DateTime time)
         {
             Id = id;
             UserId = userid;
@@ -36,7 +36,6 @@ namespace ModelLib
         public override bool Equals(object obj)
         {
             return obj is StatisticsData data &&
-                   Id == data.Id &&
                    UserId == data.UserId &&
                    UserName == data.UserName &&
                    Action == data.Action &&
