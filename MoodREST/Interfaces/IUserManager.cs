@@ -14,5 +14,6 @@ namespace MoodREST.Interfaces
         public bool Post(User user);
         public User Remove(int id);
         public bool ImportMoodPlaylists(int id, IEnumerable<Playlist> moodPlaylists);
+        IDictionary<string, int> UserActivities();
     }
 }

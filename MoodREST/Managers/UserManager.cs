@@ -16,19 +16,19 @@ namespace MoodREST.Managers
             new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
+            }, new UserActivity(1, 3, 4, 5)),
             new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
+            }, new UserActivity(2, 10, 9, 2)),
             new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
+            }, new UserActivity(3, 20, 6, 30)),
             new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
-            }),
+            }, new UserActivity(4, 2, 4, 5)),
         };
 
         public User Get(int id)
@@ -45,6 +45,24 @@ namespace MoodREST.Managers
         {
             return Users;
         }
+
+        public IDictionary<string, int> UserActivities() 
+        {
+            Dictionary<string, int> UserActivities = new();
+            UserActivities.Add("ListenedSongs", 0);
+            UserActivities.Add("PlaylistChanged", 0);
+            UserActivities.Add("SiteVisits", 0);
+
+            foreach (var user in Users)
+            {
+                UserActivities["ListenedSongs"] += user.UserActivity.ListenedSongs;
+                UserActivities["PlaylistChanged"] += user.UserActivity.PlaylistChanged;
+                UserActivities["SiteVisits"] += user.UserActivity.SiteVisits;
+            }
+
+            return UserActivities;
+        }
+
 
         public bool Post(User user)
         {

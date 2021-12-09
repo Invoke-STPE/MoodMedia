@@ -40,6 +40,24 @@ namespace MoodREST.Controllers
                 return NotFound(knfe.Message);
             }
         }
+
+        //[EnableCors]
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult UserActivities()
+        //{
+        //    try
+        //    {
+        //        return Ok(userManager.UserActivities());
+        //    }
+        //    catch (KeyNotFoundException knfe)
+        //    {
+        //        return NotFound(knfe.Message);
+        //    }
+        //}
+
+
         [EnableCors]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]

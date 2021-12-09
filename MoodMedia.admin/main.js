@@ -2,6 +2,7 @@ const app = Vue.createApp({
   data() {
     return {
       authenticated: true,
+      userId: "steven.basker",
     };
   },
   methods: {
@@ -11,6 +12,10 @@ const app = Vue.createApp({
     login() {
       this.authenticated = !this.authenticated;
     },
+    showUserActivity() {
+      $(document).ready(function () {
+        $("#userActivityModal").modal("show");
+      });
+    },
   },
-  mounted() {},
 });
