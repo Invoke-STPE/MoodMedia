@@ -150,7 +150,7 @@
         </div>
         <!-- Option 2: Registation Form -->
         <registration-component
-          v-if="user"
+          v-if="spotifyLogin"
           v-bind:key="user.id"
           v-bind:id="user.id"
           v-bind:username="user.display_name"
