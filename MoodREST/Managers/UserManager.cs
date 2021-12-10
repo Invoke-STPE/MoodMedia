@@ -87,7 +87,7 @@ namespace MoodREST.Managers
         }
 
 
-        public bool Post(User user)
+        public User Post(User user)
         {
             user.Id = _nextId++;
             
@@ -149,8 +149,6 @@ namespace MoodREST.Managers
                 throw new KeyNotFoundException(knfe.Message);
             }
         }
-
-
         //Methods from here are used for testing
         public void TestSetup()
         {

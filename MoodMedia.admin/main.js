@@ -13,10 +13,6 @@ const app = Vue.createApp({
     login() {
       this.authenticated = !this.authenticated;
     },
-    showUserActivity() {
-      $(document).ready(function () {
-        $("#userActivityModal").modal("show");
-    },
 
     getAdminSettings() {
       this.adminSettings = true;
@@ -25,6 +21,11 @@ const app = Vue.createApp({
     toggleAdminSettingsModal() {
       $(document).ready(function () {
         $("#adminSettingsModel").modal("show");
+      });
+    },
+    showUserActivity() {
+      $(document).ready(function () {
+        $("#userActivityModal").modal("show");
       });
     },
   },
