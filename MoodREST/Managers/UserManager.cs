@@ -97,9 +97,13 @@ namespace MoodREST.Managers
                 if (checkUser == null)
                 {
                     Users.Add(user);
+                    user.UserActivity.SiteVisits += 1;
                     return user;
                 }
-                else return checkUser;
+                else {
+                        checkUser.UserActivity.SiteVisits += 1;
+                        return checkUser;
+                     };
             }
             return null;
         }
@@ -140,6 +144,7 @@ namespace MoodREST.Managers
             try
             {
                 var user = GetBySpotifyId(id);
+                user.UserActivity.PlaylistChanged += 1;
                 user.MoodPlaylists = moodPlaylists;
                 return true;
             }
