@@ -47,15 +47,15 @@ const app = Vue.createApp({
   methods: {
     RecordActivity(url, button) {
       axios.post("https://localhost:44367/api/Statistics/", {
-        "id": 0,
-        "userId": "123",
-        "userName": "Placeholder",
-        "action": {
-          "url": url,
-          "button": button,
-          "time": "2000-01-01T00:00:00.127Z"
-        }
-      })
+        id: 0,
+        userId: "123",
+        userName: "Placeholder",
+        action: {
+          url: url,
+          button: button,
+          time: "2000-01-01T00:00:00.127Z",
+        },
+      });
     },
     logout() {
       this.login = false;
@@ -66,7 +66,6 @@ const app = Vue.createApp({
       // apiUrl = +this.userId;
       console.log(this.currentSpotifyUser);
       this.moodPlaylists = moodPlaylists;
-      const shitString = "0";
       fetch(
         `https://localhost:44367/api/User/MoodPlaylists/${this.currentSpotifyUser.id}`,
         {
@@ -177,7 +176,7 @@ const app = Vue.createApp({
       return song.track.uri;
     },
     playMusic() {
-      this.RecordActivity(window.location.pathname, "play-music-button")
+      this.RecordActivity(window.location.pathname, "play-music-button");
       this.initiatePlayer();
     },
     waitForSpotifyWebPlaybackSDKToLoad: async function () {
@@ -236,10 +235,13 @@ const app = Vue.createApp({
       sdk.connect();
     },
     back() {
-      this.RecordActivity(window.location.pathname, "music-player-back-button")
+      this.RecordActivity(window.location.pathname, "music-player-back-button");
     },
     forward() {
-      this.RecordActivity(window.location.pathname, "music-player-forward-button")
+      this.RecordActivity(
+        window.location.pathname,
+        "music-player-forward-button"
+      );
     },
   },
   computed: {
