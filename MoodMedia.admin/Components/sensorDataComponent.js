@@ -19,17 +19,19 @@ app.component("sensordata-component", {
 
             <table class="table table-hover table-striped text-dark">
               <thead>
-                <th class="text-center"><b>Title</b></th>
-                <th class="text-center"><b>Artist</b></th>
-                <th class="text-center"><b>Duration</b></th>
-                <th class="text-center"><b>Year</b></th>
+                <th class="text-center"><b>Id</b></th>
+                <th class="text-center"><b>Sensor Name</b></th>
+                <th class="text-center"><b>Temperature</b></th>
+                <th class="text-center"><b>Humidity</b></th>
+                <th class="text-center"><b>Time</b></th>
               </thead>
               <tbody>
                 <tr v-for="data in sensorData" class="text-dark" style="border: hidden">
                   <td class="text-center">{{data.id}}</td>
                   <td class="text-center">{{data.sensorName}}</td>
-                  <td class="text-center">{{data.temperature}}</td>
-                  <td class="text-center">{{data.humidity}}</td>
+                  <td class="text-center">{{data.temperature}}°</td>
+                  <td class="text-center">{{data.humidity}}%</td>
+                  <td class="text-center">{{data.time}}</td>
                 </tr>
               </tbody>
             </table>
@@ -75,6 +77,7 @@ app.component("sensordata-component", {
 
       this.fromDate = "";
       this.toDate = "";
+      console.log(this.sensorData[0])
     }
   },
   mounted() {
