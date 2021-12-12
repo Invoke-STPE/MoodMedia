@@ -45,13 +45,11 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    RecordActivity(url, button) {
-      console.log(this.user)
-      
+    RecordActivity(url, button) {      
       axios.post("https://localhost:44367/api/Statistics/", {
         id: 0,
-        userId: "123",
-        userName: "Placeholder",
+        userId: this.currentSpotifyUser.id ,
+        userName:this.currentSpotifyUser.display_name,
         action: {
           url: url,
           button: button,
@@ -66,7 +64,7 @@ const app = Vue.createApp({
     setMoodPlaylists(moodPlaylists) {
       // const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
       // apiUrl = +this.userId;
-      console.log(this.currentSpotifyUser);
+      // console.log(this.currentSpotifyUser);
       this.moodPlaylists = moodPlaylists;
       fetch(
         `https://localhost:44367/api/User/MoodPlaylists/${this.currentSpotifyUser.id}`,
@@ -158,7 +156,7 @@ const app = Vue.createApp({
     async getSong() {
       let playlist = null;
       let playlists = JSON.parse(JSON.stringify(this.moodPlaylists));
-      console.log(playlists);
+      // console.log(playlists);
       const playlistId = playlists.find(
         (playlist) => playlist.mood == this.songMood
       );
@@ -173,7 +171,7 @@ const app = Vue.createApp({
         .then((response) => (this.currentPlaylist = response));
       // console.log(this.currentPlaylist.data.items);
       let song = this.currentPlaylist.data.items[0];
-      console.log(song.track.uri);
+      // console.log(song.track.uri);
 
       return song.track.uri;
     },
@@ -206,7 +204,7 @@ const app = Vue.createApp({
 
       sdk.addListener("ready", ({ device_id }) => {
         this.deviceId = device_id;
-        console.log("Ready with Device ID", device_id);
+        // console.log("Ready with Device ID", device_id);
         const play = ({
           spotify_uri,
           playerInstance: {
@@ -248,7 +246,7 @@ const app = Vue.createApp({
   },
   computed: {
     songMood() {
-      console.log(`This is the currentMood: ${this.currentMood}`);
+      // console.log(`This is the currentMood: ${this.currentMood}`);
       return this.currentMood;
     },
   },
