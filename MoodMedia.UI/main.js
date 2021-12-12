@@ -122,6 +122,7 @@ const app = Vue.createApp({
         email: this.currentSpotifyUser.email,
         profilePhotoUrl: this.currentSpotifyUser.images[0].url,
         spotifyId: this.currentSpotifyUser.id,
+        userActivity: this.currentSpotifyUser.userActivity,
       });
     },
     doesUserExist(data) {
