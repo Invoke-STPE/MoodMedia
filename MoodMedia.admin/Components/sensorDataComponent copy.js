@@ -1,9 +1,5 @@
 app.component("sensordata-component", {
-  template: /* html */ `
-  <
-  
-  <!--
-  <section>
+  template: /* html */ `<section>
     <h1 class="h3 text-center pt-5">MoodMedia Admin Panel</h1>
     <div class="input-group mt-5 mb-3 justify-content-around">
       <div class="">
@@ -28,40 +24,38 @@ app.component("sensordata-component", {
       We're sorry, we're not able to retrieve this information at the moment, please try again later
     </p>
   </section>
-  <section v-else>
-    <div v-if="loading"><h1 class="display-5 text-center">Hang on loading data...</h1></div>
-    <div v-else>
-      <h1 class="h6">Weather data</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Sensor</th>
-            <th scope="col">Tempature</th>
-            <th scope="col">Humidity</th>
-            <th scope="col">Pressure</th>
-            <th scope="col">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="data in dates" :key="data.id">
-            <td>{{ data.sensorName }}</td>
-            <td>{{ data.temperature }} &#176;</td>
-            <td>{{ data.humidity }}</td>
-            <td>{{ data.pressure }}</td>
-            <td>{{ formatDate(data.time) }}</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-  </section>
-  <div v-if="sensorData.length > 0">
-  <temperature-chart v-bind:parentDates="dates"></temperature-chart>
-  <pressure-chart v-bind:parentDates="dates"></pressure-chart>
-  <humidity-chart v-bind:parentDates="dates"></humidity-chart>
-  </div>
-  </section>
-  -->
-  `,
+    <section v-else>
+      <div v-if="loading"><h1 class="display-5 text-center">Hang on loading data...</h1></div>
+      <div v-else>
+        <h1 class="h6">Weather data</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sensor</th>
+              <th scope="col">Tempature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Pressure</th>
+              <th scope="col">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="data in dates" :key="data.id">
+              <td>{{ data.sensorName }}</td>
+              <td>{{ data.temperature }} &#176;</td>
+              <td>{{ data.humidity }}</td>
+              <td>{{ data.pressure }}</td>
+              <td>{{ formatDate(data.time) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </section>
+    <div v-if="sensorData.length > 0">
+    <temperature-chart v-bind:parentDates="dates"></temperature-chart>
+    <pressure-chart v-bind:parentDates="dates"></pressure-chart>
+    <humidity-chart v-bind:parentDates="dates"></humidity-chart>
+    </div>
+  </section>`,
   data() {
     return {
       dateStart: null,
@@ -119,6 +113,5 @@ app.component("sensordata-component", {
       .finally(() => {
         this.loading = false;
       });
-    
   },
 });

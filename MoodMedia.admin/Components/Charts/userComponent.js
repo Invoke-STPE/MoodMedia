@@ -119,9 +119,10 @@ app.component("user-component", {
       .then((response) => response.json())
       .then((data) => {
         this.users = data;
-        console.log(this.users);
+        //console.log(this.users);
       })
       .catch((error) => console.log(error));
+      
   },
 });
 
