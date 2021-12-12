@@ -45,9 +45,6 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    RecordActivity(url, button) {
-      console.log(this.user)
-      
     RecordActivity(url, button) {      
       axios.post("https://localhost:44367/api/Statistics/", {
         id: 0,
