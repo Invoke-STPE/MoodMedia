@@ -9,7 +9,7 @@ app.component("menu-component", {
   },
   template: /* html */ `
   <div class="container">
-  
+
     <div class="row mt-2 g-4">
       <div class="col-md-4">
         <button-component 
@@ -65,19 +65,19 @@ app.component("menu-component", {
   methods: {
     toggleStatistics() {
       this.showStatistics = true;
-      console.log("Stats: " + this.showStatistics);
+      //console.log("Stats: " + this.showStatistics);
     },
     toggleSensorData() {
       this.showSensorData = true;
-      console.log("Data: " + this.showSensorData);
+      //console.log("Data: " + this.showSensorData);
     },
     toggleGraphs() {
       this.showGraphs = true;
-      console.log("Graphs: " + this.showGraphs);
+      //console.log("Graphs: " + this.showGraphs);
     },
     toggleAdminSettings() {
       this.showAdminSettings = true;
-      console.log("Admin: " + this.showAdminSettings);
+      //console.log("Admin: " + this.showAdminSettings);
     },
     
   }

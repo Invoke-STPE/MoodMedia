@@ -14,5 +14,6 @@ namespace MoodREST.Interfaces
         bool Update(int id, SensorData data);
         SensorData Delete(int id);
         SensorData GetLatest();
+        IEnumerable<SensorData> GetByDates(DateTime from, DateTime to);
     }
 }
