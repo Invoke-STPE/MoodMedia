@@ -1,70 +1,50 @@
 app.component("sensordata-component", {
-  template: /* html */ `<section>
-    <h1 class="h3 text-center pt-5">MoodMedia Admin Panel</h1>
-    <div class="input-group mt-5 mb-3 justify-content-around">
-      <div class="">
-        <label class="me-3" for="datetime-local-start">Start Date</label>
-        <input
-          v-model="dateStart"
-          type="date"
-          id="datetime-local-start"
-        />
-      </div>
-      <div class="">
-        <label class="ms-3" for="datetime-local-end">End Date</label>
-        <input
-          v-model="dateEnd"
-          type="date"
-          id="datetime-local-end"
-        />
-      </div>
-    </div>
-    <section v-if="error">
-    <p class="lead text-center">
-      We're sorry, we're not able to retrieve this information at the moment, please try again later
-    </p>
-  </section>
-    <section v-else>
-      <div v-if="loading"><h1 class="display-5 text-center">Hang on loading data...</h1></div>
-      <div v-else>
-        <h1 class="h6">Weather data</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Sensor</th>
-              <th scope="col">Tempature</th>
-              <th scope="col">Humidity</th>
-              <th scope="col">Pressure</th>
-              <th scope="col">Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="data in dates" :key="data.id">
-              <td>{{ data.sensorName }}</td>
-              <td>{{ data.temperature }} &#176;</td>
-              <td>{{ data.humidity }}</td>
-              <td>{{ data.pressure }}</td>
-              <td>{{ formatDate(data.time) }}</td>
-            </tr>
-          </tbody>
-        </table>
+  template: /* html */ `
+    <div class="text-light modal fade modal-dialog-centered" id="sensorDataModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-dark">
+            <h4 class="modal-title text-light">Sensor Data</h4>
+          </div>
+          <div class="modal-body bg-light">
+            <div class="row">
+              <label for="fromDateInput">From Date</label>
+              <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+
+              <label for="toDateInput">To Date</label>
+              <input type="date" class="form-control" id="toDateInput" v-model="toDate">
+
+              <button class="bg-dark text-light border-0 p-2" @click="getData">Get Data</button>  
+            </div>
+
+            <table class="table table-hover table-striped text-dark">
+              <thead>
+                <th class="text-center"><b>Title</b></th>
+                <th class="text-center"><b>Artist</b></th>
+                <th class="text-center"><b>Duration</b></th>
+                <th class="text-center"><b>Year</b></th>
+              </thead>
+              <tbody>
+                <tr v-for="data in sensorData" class="text-dark" style="border: hidden">
+                  <td class="text-center">{{data.id}}</td>
+                  <td class="text-center">{{data.sensorName}}</td>
+                  <td class="text-center">{{data.temperature}}</td>
+                  <td class="text-center">{{data.humidity}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
         </div>
-    </section>
-    <div v-if="sensorData.length > 0">
-    <temperature-chart v-bind:parentDates="dates"></temperature-chart>
-    <pressure-chart v-bind:parentDates="dates"></pressure-chart>
-    <humidity-chart v-bind:parentDates="dates"></humidity-chart>
+      </div>
     </div>
-  </section>`,
+  `,
   data() {
     return {
-      dateStart: null,
-      dateEnd: null,
-      dateTimeSort: true,
+      fromDate: "",
+      toDate: "",
       sensorData: [],
-      // sensorData: Seed.sensorData, // THIS IS FOR MOCK DATA ONLY!
-      error: false,
-      loading: true,
+      error: false
     };
   },
   methods: {
@@ -78,27 +58,24 @@ app.component("sensordata-component", {
       formattedDate = tempArray.join(" ");
       return formattedDate;
     },
-    toggleTimeSort() {
-      this.dateTimeSort = !this.dateTimeSort;
-    },
-  },
-  computed: {
-    dates() {
-      let startDate = new Date(this.dateStart);
-      let endDate = new Date(this.dateEnd);
-      const tempArray = [];
-      if (this.dateStart && this.dateEnd) {
-        this.sensorData.slice(0).map((a) => {
-          let date = new Date(a.time);
-          if (date > startDate && date < endDate) {
-            tempArray.push(a);
-          }
-        });
-        return tempArray;
-      } else {
-        return this.sensorData.slice(0);
-      }
-    },
+    getData() {
+      if(this.fromDate == "") this.fromDate = "2010-01-01";
+      if(this.toDate == "") this.toDate = "2050-01-01";
+      
+      let url = "https://localhost:44367/api/Sensor/" + "GetByDates?from=" + this.fromDate + "T00%3A00%3A00.000Z&to=" + this.toDate + "T00%3A00%3A00.000Z";
+      axios
+      .get(url)
+      .then(
+        (response) =>
+          (this.sensorData = JSON.parse(JSON.stringify(response.data)))
+      )
+      .catch((error) => {
+        this.error = error;
+      });
+
+      this.fromDate = "";
+      this.toDate = "";
+    }
   },
   mounted() {
     axios
@@ -108,10 +85,11 @@ app.component("sensordata-component", {
           (this.sensorData = JSON.parse(JSON.stringify(response.data)))
       )
       .catch((error) => {
-        this.error = true;
-      })
-      .finally(() => {
-        this.loading = false;
+        this.error = error;
       });
+    
+      $("#sensorDataModal").modal("show")
   },
 });
+
+

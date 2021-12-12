@@ -75,5 +75,11 @@ namespace MoodREST.Controllers
         {
             return Ok(_mgr.GetLatest());
         }
+
+        [HttpGet("GetByDates")]
+        public IActionResult GetByDates([FromQuery] DateTime from, [FromQuery] DateTime to)
+        {
+            return Ok(_mgr.GetByDates(from, to));
+        }
     }
 }

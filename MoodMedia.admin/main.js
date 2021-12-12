@@ -3,6 +3,7 @@ const app = Vue.createApp({
     return {
       adminSettings: false,
       authenticated: true,
+      userId: "steven.basker",
     };
   },
   methods: {
@@ -12,6 +13,7 @@ const app = Vue.createApp({
     login() {
       this.authenticated = !this.authenticated;
     },
+
     getAdminSettings() {
       this.adminSettings = true;
       this.toggleAdminSettingsModal();
@@ -21,6 +23,10 @@ const app = Vue.createApp({
         $("#adminSettingsModel").modal("show");
       });
     },
+    showUserActivity() {
+      $(document).ready(function () {
+        $("#userActivityModal").modal("show");
+      });
+    },
   },
-  mounted() {},
 });

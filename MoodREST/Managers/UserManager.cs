@@ -13,10 +13,22 @@ namespace MoodREST.Managers
 
         public static List<User> Users = new List<User>()
         {
-            new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "0"),
-            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1"),
-            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "2"),
-            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "3"),
+            new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
+                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            }, new UserActivity(1, 3, 4, 5)),
+            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
+                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            }, new UserActivity(2, 10, 9, 2)),
+            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
+                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            }, new UserActivity(3, 20, 6, 30)),
+            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
+                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            }, new UserActivity(4, 2, 4, 5)),
         };
         private static int _nextId = 1;
 
@@ -29,8 +41,10 @@ namespace MoodREST.Managers
             _nextId++;
         }
 
+
         public User Get(int id)
         {
+            UserActivity userActivity = new UserActivity(1, 2, 3, 4);
             User foundUser = Users.SingleOrDefault(u => u.Id == id);
             if(foundUser == null)
             {
@@ -55,6 +69,24 @@ namespace MoodREST.Managers
             return Users;
         }
 
+        public IDictionary<string, int> UserActivities() 
+        {
+            Dictionary<string, int> UserActivities = new();
+            UserActivities.Add("ListenedSongs", 0);
+            UserActivities.Add("PlaylistChanged", 0);
+            UserActivities.Add("SiteVisits", 0);
+
+            foreach (var user in Users)
+            {
+                UserActivities["ListenedSongs"] += user.UserActivity.ListenedSongs;
+                UserActivities["PlaylistChanged"] += user.UserActivity.PlaylistChanged;
+                UserActivities["SiteVisits"] += user.UserActivity.SiteVisits;
+            }
+
+            return UserActivities;
+        }
+
+
         public User Post(User user)
         {
             user.Id = _nextId++;
@@ -65,9 +97,13 @@ namespace MoodREST.Managers
                 if (checkUser == null)
                 {
                     Users.Add(user);
+                    user.UserActivity.SiteVisits += 1;
                     return user;
                 }
-                else return checkUser;
+                else {
+                        checkUser.UserActivity.SiteVisits += 1;
+                        return checkUser;
+                     };
             }
             return null;
         }
@@ -108,6 +144,7 @@ namespace MoodREST.Managers
             try
             {
                 var user = GetBySpotifyId(id);
+                user.UserActivity.PlaylistChanged += 1;
                 user.MoodPlaylists = moodPlaylists;
                 return true;
             }
@@ -117,8 +154,6 @@ namespace MoodREST.Managers
                 throw new KeyNotFoundException(knfe.Message);
             }
         }
-
-
         //Methods from here are used for testing
         public void TestSetup()
         {

@@ -76,4 +76,7 @@ app.component("admin-component", {
         .then($("#adminSettingsModel").modal("hide"));
     },
   },
+  mounted() {
+    $("#adminSettingsModel").modal("show")
+  }
 });

@@ -91,5 +91,9 @@ namespace MoodREST.Managers
             return Get().Last();
         }
 
+        public IEnumerable<SensorData> GetByDates(DateTime from, DateTime to)
+        {
+            return _dataList.Where(d => d.Time >= from && d.Time <= to);
+        }
     }
 }

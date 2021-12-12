@@ -12,6 +12,7 @@ namespace ModelLib
         public string ProfilePhotoURL { get; set; }
         public string SpotifyId { get; set; }
         public IEnumerable<Playlist> MoodPlaylists { get; set; }
+        public UserActivity UserActivity { get; set; }
 
         public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId, IEnumerable<Playlist> moodPlaylists)
         {
@@ -22,6 +23,7 @@ namespace ModelLib
             ProfilePhotoURL = profilePhotoURL;
             SpotifyId = spotifyId;
             MoodPlaylists = moodPlaylists;
+            UserActivity = new UserActivity();
         }
 
         public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId)
@@ -32,10 +34,24 @@ namespace ModelLib
             Email = email;
             ProfilePhotoURL = profilePhotoURL;
             SpotifyId = spotifyId;
+            UserActivity = new UserActivity();
         }
 
         public User()
         {
+            UserActivity = new UserActivity();
+        }
+
+        public User(int id, string name, string address, string email, string profilePhotoURL, string spotifyId, IEnumerable<Playlist> moodPlaylists, UserActivity userActivity)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            Email = email;
+            ProfilePhotoURL = profilePhotoURL;
+            SpotifyId = spotifyId;
+            MoodPlaylists = moodPlaylists;
+            UserActivity = userActivity;
             
         }
 
@@ -52,12 +68,14 @@ namespace ModelLib
                    Address == user.Address &&
                    Email == user.Email &&
                    ProfilePhotoURL == user.ProfilePhotoURL &&
-                   SpotifyId == user.SpotifyId;
+                   SpotifyId == user.SpotifyId &&
+                   EqualityComparer<IEnumerable<Playlist>>.Default.Equals(MoodPlaylists, user.MoodPlaylists) &&
+                   EqualityComparer<UserActivity>.Default.Equals(UserActivity, user.UserActivity);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Name, Address, Email, ProfilePhotoURL, SpotifyId);
+            return HashCode.Combine(Id, Name, Address, Email, ProfilePhotoURL, SpotifyId, MoodPlaylists, UserActivity);
         }
     }
 }
