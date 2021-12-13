@@ -1,7 +1,7 @@
 app.component("menu-component", {
   data() {
     return {
-      showStatistics: false,
+      showUsage: false,
       showSensorData: false,
       showGraphs: false,
       showAdminSettings: false,
@@ -13,9 +13,9 @@ app.component("menu-component", {
     <div class="row mt-2 g-4">
       <div class="col-md-4">
         <button-component 
-          :buttonText="'User Statistics'" 
+          :buttonText="'Usage Data'" 
           :icon="'./images/icons/people.svg'"
-          @clicked="toggleStatistics">
+          @clicked="toggleUsage">
         </button-component>
       </div>
       <div class="col-md-4">
@@ -45,10 +45,11 @@ app.component("menu-component", {
     </div>
     
   </div> 
-  <admin-component 
-    v-if="showAdminSettings"
+
+  <usage-component 
+    v-if="showUsage"
     @closed="closeModals">
-  </admin-component>
+  </usage-component>
 
   <sensordata-component 
     v-if="showSensorData"
@@ -60,15 +61,16 @@ app.component("menu-component", {
     @closed="closeModals">
   </graphs-component>
 
-  <user-component 
-    v-if="showStatistics"
+  <admin-component 
+    v-if="showAdminSettings"
     @closed="closeModals">
-  </user-component>
+  </admin-component>
+  
   
   `,
   methods: {
-    toggleStatistics() {
-      this.showStatistics = true;
+    toggleUsage() {
+      this.showUsage = true;
     },
     toggleSensorData() {
       this.showSensorData = true;
@@ -80,10 +82,10 @@ app.component("menu-component", {
       this.showAdminSettings = true;
     },
     closeModals() {
-      this.showAdminSettings = false;
-      this.showGraphs = false;
+      this.showUsage = false;
       this.showSensorData = false;
-      this.showStatistics = false;
+      this.showGraphs = false;
+      this.showAdminSettings = false;
     }
     
   }

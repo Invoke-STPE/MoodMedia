@@ -37,7 +37,6 @@
       <div class="container">
         <div v-if="authenticated">
           <menu-component></menu-component>
-          <user-component v-bind:userId="userId"></user-component>
         </div>
         <div v-else>
           <login-component></login-component>
@@ -74,7 +73,7 @@
     <script src="./Components/Charts/humidityChart.js"></script>
 
     <!-- User Activity -->
-    <script src="./Components/Charts/userComponent.js"></script>
+    <script src="./Components/usageComponent.js"></script>
   
     <!-- <script src="./Components/Charts/usercharts-component.js"></script> -->
     <script>

@@ -70,5 +70,11 @@ namespace MoodREST.Controllers
                 return NotFound(knfe.Message);
             }
         }
+
+        [HttpGet("GetByDates")]
+        public IActionResult GetByDates([FromQuery] DateTime from, [FromQuery] DateTime to)
+        {
+            return Ok(_mgr.GetByDates(from, to));
+        }
     }
 }

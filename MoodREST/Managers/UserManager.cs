@@ -17,15 +17,15 @@ namespace MoodREST.Managers
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
             }, new UserActivity(1, 3, 4, 5)),
-            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "2345", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
             }, new UserActivity(2, 10, 9, 2)),
-            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "3456", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
             }, new UserActivity(3, 20, 6, 30)),
-            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "4567", new List<Playlist>() {
                 new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
                 new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
             }, new UserActivity(4, 2, 4, 5)),

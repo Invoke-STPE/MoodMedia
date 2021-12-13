@@ -69,22 +69,27 @@ namespace MoodREST.Managers
 
         public IEnumerable<StatisticsData> GetByUserId(string userId)
         {
-            return _data.FindAll(d => d.UserId == userId);
+            return _data.Where(d => d.UserId == userId);
         }
 
         public IEnumerable<StatisticsData> GetByTimePeriod(DateTime from, DateTime to)
         {
-            return _data.FindAll(d => d.Time >= from && d.Time <= to);
+            return _data.Where(d => d.Time >= from && d.Time <= to);
         }
 
         public IEnumerable<StatisticsData> GetByUrlPath(string path)
         {
-            return _data.FindAll(d => d.Action.Url == path);
+            return _data.Where(d => d.Action.Url == path);
         }
 
         public IEnumerable<StatisticsData> GetByButton(string button)
         {
-            return _data.FindAll(d => d.Action.Button == button);
+            return _data.Where(d => d.Action.Button == button);
+        }
+
+        public IEnumerable<StatisticsData> GetByDates(DateTime from, DateTime to)
+        {
+            return _data.Where(d => d.Time >= from && d.Time <= to);
         }
 
     }

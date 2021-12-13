@@ -5,14 +5,14 @@ app.component("admin-component", {
           <div class="modal-content">
             <div class="modal-header bg-dark">
               <h4 class="modal-title text-light">
-                Admin Settings
+                Admin Settings 
               </h4>
             </div>
             <div class="modal-body bg-dark">
               <div class="row">
                 <div class="col-sm-6">
                   <h5>
-                      Create New Admin
+                      Create New Admin 
                   </h5>
                   <form>
                       <label>Admin name: </label>
@@ -50,6 +50,7 @@ app.component("admin-component", {
       adminName: "",
       adminPassword: "",
       idToDelete: 0,
+      responseText: "",
     };
   },
   emits: ["closed"],
@@ -63,18 +64,19 @@ app.component("admin-component", {
           id: 0,
         })
         .then(function (response) {
-          console.log(response);
-        })
-        .then($("#adminSettingsModel").modal("hide"));
+          console.log(this.responseText = response.status)
+        });
+      this.adminName = "";
+      this.adminPassword = "";
     },
     async removeAdmin() {
       const apiUrl = `https://localhost:44367/api/Administrator/${this.idToDelete}`;
       await axios
         .delete(apiUrl)
         .then(function (response) {
-          console.log(response);
-        })
-        .then($("#adminSettingsModel").modal("hide"));
+          console.log(this.responseText = response.status)
+        });
+      this.idToDelete = 0;
     },
     close() {
       this.$emit("closed")
