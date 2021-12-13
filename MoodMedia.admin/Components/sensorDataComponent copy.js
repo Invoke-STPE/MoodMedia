@@ -51,7 +51,7 @@ app.component("sensordata-component", {
         </div>
     </section>
     <div v-if="sensorData.length > 0">
-    <temperature-chart v-bind:parentDates="dates"></temperature-chart>
+    <temperature-chart v-bind:parentDates="dates" ></temperature-chart>
     <pressure-chart v-bind:parentDates="dates"></pressure-chart>
     <humidity-chart v-bind:parentDates="dates"></humidity-chart>
     </div>

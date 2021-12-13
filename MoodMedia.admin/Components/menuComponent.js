@@ -46,39 +46,45 @@ app.component("menu-component", {
     
   </div> 
   <admin-component 
-    v-if="showAdminSettings">
+    v-if="showAdminSettings"
+    @closed="closeModals">
   </admin-component>
 
   <sensordata-component 
-    v-if="showSensorData">
+    v-if="showSensorData"
+    @closed="closeModals">
   </sensordata-component>
 
-  <sensordata-component 
-    v-if="showGraphs">
-  </sensordata-component>
+  <graphs-component 
+    v-if="showGraphs"
+    @closed="closeModals">
+  </graphs-component>
 
   <user-component 
-    v-if="showStatistics">
+    v-if="showStatistics"
+    @closed="closeModals">
   </user-component>
   
   `,
   methods: {
     toggleStatistics() {
       this.showStatistics = true;
-      //console.log("Stats: " + this.showStatistics);
     },
     toggleSensorData() {
       this.showSensorData = true;
-      //console.log("Data: " + this.showSensorData);
     },
     toggleGraphs() {
       this.showGraphs = true;
-      //console.log("Graphs: " + this.showGraphs);
     },
     toggleAdminSettings() {
       this.showAdminSettings = true;
-      //console.log("Admin: " + this.showAdminSettings);
     },
+    closeModals() {
+      this.showAdminSettings = false;
+      this.showGraphs = false;
+      this.showSensorData = false;
+      this.showStatistics = false;
+    }
     
   }
 });

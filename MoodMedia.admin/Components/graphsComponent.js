@@ -1,40 +1,36 @@
-app.component("sensordata-component", {
+app.component("graphs-component", {
   template: /* html */ `
     <div class="text-light modal fade modal-dialog-centered" id="sensorDataModal" @click.self="close">
-      <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-dark">
             <h4 class="modal-title text-light">Sensor Data</h4>
           </div>
           <div class="modal-body bg-light">
             <div class="row">
-              <label for="fromDateInput">From Date</label>
-              <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+              <div class="col-md-6 text-dark">
+                <label for="fromDateInput" ><b>From: (optional)</b></label>
+                <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+              </div>
+              <div class="col-md-6 text-dark">
+                <label for="toDateInput"><b>To: (optional)</b></label>
+                <input type="date" class="form-control" id="toDateInput" v-model="toDate">
+              </div>
 
-              <label for="toDateInput">To Date</label>
-              <input type="date" class="form-control" id="toDateInput" v-model="toDate">
 
               <button class="bg-dark text-light border-0 p-2" @click="getData">Get Data</button>  
-            
-              <table class="table table-hover table-striped text-dark">
-                <thead>
-                  <th class="text-center"><b>Id</b></th>
-                  <th class="text-center"><b>Sensor Name</b></th>
-                  <th class="text-center"><b>Temperature</b></th>
-                  <th class="text-center"><b>Humidity</b></th>
-                  <th class="text-center"><b>Time</b></th>
-                </thead>
-                <tbody>
-                  <tr v-for="data in sensorData" class="text-dark" style="border: hidden">
-                    <td class="text-center">{{data.id}}</td>
-                    <td class="text-center">{{data.sensorName}}</td>
-                    <td class="text-center">{{data.temperature}}°</td>
-                    <td class="text-center">{{data.humidity}}%</td>
-                    <td class="text-center">{{formatDate(data.time)}}</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <temperature-chart v-bind:parentDates="sensorData"></temperature-chart>
+              </div>
+              <div class="col-md-6">
+                <humidity-chart v-bind:parentDates="sensorData"></humidity-chart>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -60,9 +56,6 @@ app.component("sensordata-component", {
       formattedDate = tempArray.join(" ");
       return formattedDate;
     },
-    close() {
-      this.$emit("closed")
-    },
     getData() {
       if(this.fromDate == "") this.fromDate = "2010-01-01";
       if(this.toDate == "") this.toDate = "2050-01-01";
@@ -80,7 +73,9 @@ app.component("sensordata-component", {
 
       this.fromDate = "";
       this.toDate = "";
-      console.log(this.sensorData[0])
+    },
+    close() {
+      this.$emit("closed")
     }
   },
   mounted() {

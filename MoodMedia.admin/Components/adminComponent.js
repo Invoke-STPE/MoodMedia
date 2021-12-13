@@ -1,6 +1,6 @@
 app.component("admin-component", {
   template: /*html*/ `
-      <div  class="text-light modal fade modal-dialog-centered" id="adminSettingsModel">
+      <div  class="text-light modal fade modal-dialog-centered" id="adminSettingsModel" @click.self="close">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header bg-dark">
@@ -52,6 +52,7 @@ app.component("admin-component", {
       idToDelete: 0,
     };
   },
+  emits: ["closed"],
   methods: {
     async addAdmin() {
       const apiUrl = "https://localhost:44367/api/Administrator";
@@ -75,6 +76,9 @@ app.component("admin-component", {
         })
         .then($("#adminSettingsModel").modal("hide"));
     },
+    close() {
+      this.$emit("closed")
+    }
   },
   mounted() {
     $("#adminSettingsModel").modal("show")
