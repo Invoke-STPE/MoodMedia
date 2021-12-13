@@ -14,20 +14,36 @@ namespace MoodREST.Managers
         public static List<User> Users = new List<User>()
         {
             new User(0, "Mikkel", "solrød", "mikk568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+                new Playlist("snow", "1HQRFxcNdEoe95AMEdOj9E"),
+                new Playlist("rain", "00vHAKl40DCK6bQQZdZobS"),
+                new Playlist("freezing", "1Ewdu5hyej4DpbnXemF0Sy"),
+                new Playlist("cold", "2pS6BUCSzV0RXUGmKgfPIn"),
+                new Playlist("nice","18vbiPv6E5bVLP3A3wkFhN"),
+                new Playlist("sunny","27brHmEUn5N9R4Qm1i9kQQ"),
             }, new UserActivity(1, 3, 4, 5)),
-            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "2345", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            new User(1, "Oscar", "Roskål", "oscar568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "1HQRFxcNdEoe95AMEdOj9E"),
+                new Playlist("rain", "00vHAKl40DCK6bQQZdZobS"),
+                new Playlist("freezing", "1Ewdu5hyej4DpbnXemF0Sy"),
+                new Playlist("cold", "2pS6BUCSzV0RXUGmKgfPIn"),
+                new Playlist("nice","18vbiPv6E5bVLP3A3wkFhN"),
+                new Playlist("sunny","27brHmEUn5N9R4Qm1i9kQQ"),
             }, new UserActivity(2, 10, 9, 2)),
-            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "3456", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            new User(2, "Steven", "Kan ikke huske", "steve568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "1HQRFxcNdEoe95AMEdOj9E"),
+                new Playlist("rain", "00vHAKl40DCK6bQQZdZobS"),
+                new Playlist("freezing", "1Ewdu5hyej4DpbnXemF0Sy"),
+                new Playlist("cold", "2pS6BUCSzV0RXUGmKgfPIn"),
+                new Playlist("nice","18vbiPv6E5bVLP3A3wkFhN"),
+                new Playlist("sunny","27brHmEUn5N9R4Qm1i9kQQ"),
             }, new UserActivity(3, 20, 6, 30)),
-            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "4567", new List<Playlist>() {
-                new Playlist("snow", "7FbdfuFSqJWMTgx0LtlWAl"),
-                new Playlist("sunny", "7FbdfuFSqJWMTgx0LtlWAl")
+            new User(3, "Christopher", "Roskål", "chris568f@edu.zealand.dk", "B)", "1234", new List<Playlist>() {
+                new Playlist("snow", "1HQRFxcNdEoe95AMEdOj9E"),
+                new Playlist("rain", "00vHAKl40DCK6bQQZdZobS"),
+                new Playlist("freezing", "1Ewdu5hyej4DpbnXemF0Sy"),
+                new Playlist("cold", "2pS6BUCSzV0RXUGmKgfPIn"),
+                new Playlist("nice","18vbiPv6E5bVLP3A3wkFhN"),
+                new Playlist("sunny","27brHmEUn5N9R4Qm1i9kQQ"),
             }, new UserActivity(4, 2, 4, 5)),
         };
         private static int _nextId = 1;
