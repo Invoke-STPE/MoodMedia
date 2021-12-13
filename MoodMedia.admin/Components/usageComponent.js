@@ -6,15 +6,18 @@ app.component("usage-component", {
           <div class="modal-header bg-dark">
             <h4 class="modal-title text-light">Usage Statistics</h4>
           </div>
-          <div class="modal-body bg-light">
+          <div class="modal-body bg-light text-dark">
             <div class="row">
-              <label for="fromDateInput">From Date</label>
-              <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+              <div class="col-md-6 text-dark">
+                <label for="fromDateInput" ><b>From: (optional)</b></label>
+                <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+              </div>
+              <div class="col-md-6 text-dark">
+                <label for="toDateInput"><b>To: (optional)</b></label>
+                <input type="date" class="form-control" id="toDateInput" v-model="toDate">
+              </div>
 
-              <label for="toDateInput">To Date</label>
-              <input type="date" class="form-control" id="toDateInput" v-model="toDate">
-
-              <button class="bg-dark text-light border-0 p-2" @click="getData">Get Usage</button>  
+              <button class="bg-dark text-light border-0 p-2" @click="getData">Get Data</button>  
             
               <table class="table table-hover table-striped text-dark">
                 <thead>

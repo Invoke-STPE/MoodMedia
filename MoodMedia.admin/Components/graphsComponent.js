@@ -18,7 +18,6 @@ app.component("graphs-component", {
                 <input type="date" class="form-control" id="toDateInput" v-model="toDate">
               </div>
 
-
               <button class="bg-dark text-light border-0 p-2" @click="getData">Get Data</button>  
             </div>
 

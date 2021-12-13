@@ -1,18 +1,21 @@
 app.component("sensordata-component", {
   template: /* html */ `
     <div class="text-light modal fade modal-dialog-centered" id="sensorDataModal" @click.self="close">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-dark">
             <h4 class="modal-title text-light">Sensor Data</h4>
           </div>
           <div class="modal-body bg-light">
             <div class="row">
-              <label for="fromDateInput">From Date</label>
-              <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
-
-              <label for="toDateInput">To Date</label>
-              <input type="date" class="form-control" id="toDateInput" v-model="toDate">
+              <div class="col-md-6 text-dark">
+                <label for="fromDateInput" ><b>From: (optional)</b></label>
+                <input type="date" class="form-control" id="fromDateInput" v-model="fromDate">
+              </div>
+              <div class="col-md-6 text-dark">
+                <label for="toDateInput"><b>To: (optional)</b></label>
+                <input type="date" class="form-control" id="toDateInput" v-model="toDate">
+              </div>
 
               <button class="bg-dark text-light border-0 p-2" @click="getData">Get Data</button>  
             
