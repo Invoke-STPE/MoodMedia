@@ -42,14 +42,14 @@ namespace MoodREST.Controllers
         }
 
         [EnableCors]
-        [HttpGet("GetBySpotifyId{spotifyId}")]
+        [HttpGet("GetBySpotifyId/{spotifyId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetBySpotifyId(string id)
+        public IActionResult GetBySpotifyId(string spotifyId)
         {
             try
             {
-                return Ok(userManager.GetBySpotifyId(id));
+                return Ok(userManager.GetBySpotifyId(spotifyId));
             }
             catch (KeyNotFoundException knfe)
             {

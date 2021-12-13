@@ -12,6 +12,7 @@ const app = Vue.createApp({
       stateKey: "spotify_auth_state",
       currentSpotifyUser: null,
       user: null,
+      currentUser: null,
       moodPlaylists: [
         {
           mood: "snow",
@@ -45,11 +46,11 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    RecordActivity(url, button) {      
+    RecordActivity(url, button) {
       axios.post("https://localhost:44367/api/Statistics/", {
         id: 0,
-        userId: this.currentSpotifyUser.id ,
-        userName:this.currentSpotifyUser.display_name,
+        userId: this.currentSpotifyUser.id,
+        userName: this.currentSpotifyUser.display_name,
         action: {
           url: url,
           button: button,
@@ -60,6 +61,13 @@ const app = Vue.createApp({
     logout() {
       this.login = false;
       localStorage.removeItem(this.stateKey);
+    },
+    async getCurrentUser() {
+      await axios
+        .get(
+          `https://localhost:44367/api/User/GetBySpotifyId/${this.currentSpotifyUser.id}`
+        )
+        .then((response) => (this.currentUser = response.data));
     },
     setMoodPlaylists(moodPlaylists) {
       // const apiUrl = "https://localhost:44367/api/User/MoodPlaylists/";
@@ -112,7 +120,8 @@ const app = Vue.createApp({
         .then((response) =>
           console.log((this.currentSpotifyUser = response.data))
         );
-      this.createUserFromSpotifyUser();
+      await this.createUserFromSpotifyUser();
+      await this.getCurrentUser();
     },
     async createUserFromSpotifyUser() {
       console.log("hej");
@@ -123,6 +132,7 @@ const app = Vue.createApp({
         profilePhotoUrl: this.currentSpotifyUser.images[0].url,
         spotifyId: this.currentSpotifyUser.id,
         userActivity: this.currentSpotifyUser.userActivity,
+        moodPlaylists: this.moodPlaylists,
       });
     },
     doesUserExist(data) {
@@ -273,6 +283,9 @@ const app = Vue.createApp({
     }
     window.onSpotifyWebPlaybackSDKReady = () => {};
     await this.getCurrentSpotifyUser();
+    console.log(this.currentSpotifyUser);
+    console.log(this.currentUser);
+    this.moodPlaylists = this.currentUser.moodPlaylists;
   },
 });
 
