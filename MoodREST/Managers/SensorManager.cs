@@ -25,7 +25,7 @@ namespace MoodREST.Managers
             FindNextAvailableId();
         }
 
-        public void FindNextAvailableId()
+        private void FindNextAvailableId()
         {
             foreach (var data in _dataList)
             {

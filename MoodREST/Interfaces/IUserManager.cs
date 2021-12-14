@@ -8,13 +8,13 @@ namespace MoodREST.Interfaces
 {
     interface IUserManager
     {
-        public List<User> GetAll();
-        public User Get(int id);
-        public User GetBySpotifyId(string spotifyId);
-        public User Update(int id, User user);
-        public User Post(User user);
-        public User Remove(int id);
-        public bool ImportMoodPlaylists(string id, IEnumerable<Playlist> moodPlaylists);
+        List<User> GetAll();
+        User Get(int id);
+        User GetBySpotifyId(string spotifyId);
+        User Update(int id, User user);
+        User Post(User user);
+        User Remove(int id);
+        bool ImportMoodPlaylists(string id, IEnumerable<Playlist> moodPlaylists);
         IDictionary<string, int> UserActivities();
     }
 }

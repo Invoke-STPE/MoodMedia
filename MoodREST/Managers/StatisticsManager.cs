@@ -72,11 +72,6 @@ namespace MoodREST.Managers
             return _data.Where(d => d.UserId == userId);
         }
 
-        public IEnumerable<StatisticsData> GetByTimePeriod(DateTime from, DateTime to)
-        {
-            return _data.Where(d => d.Time >= from && d.Time <= to);
-        }
-
         public IEnumerable<StatisticsData> GetByUrlPath(string path)
         {
             return _data.Where(d => d.Action.Url == path);

@@ -39,6 +39,7 @@ app.component("usage-component", {
                   </tr>
                 </tbody>
               </table>
+              
             </div>
           </div>
         </div>
