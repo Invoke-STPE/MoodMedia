@@ -1,0 +1,15 @@
+﻿.dark-auber {
+    color: #5E2750;
+}
+.light-auber {
+    color: #77216F;
+}
+
+.btn:hover {
+    color:#F8CCBC;
+}
+
+
+button.btn.btn-outline-secondary:hover {
+    background-color: #D6BECB;
+}

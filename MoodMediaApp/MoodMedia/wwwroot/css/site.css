@@ -2,14 +2,26 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #E6E4E2;
 }
-
+body, p {
+    color: #111111;
+    font: 400 1rem/1.625rem "Open Sans", sans-serif;
+}
 
 .header {
     padding-top: 8rem;
     padding-bottom: 9rem;
     background-color: #fff2dc;
     text-align: center;
+}
+
+h1 {
+    color: #77216F;
+    font-weight: 600;
+    font-size: 2.5rem;
+    line-height: 3.25rem;
+    letter-spacing: -0.4px;
 }
 
 a {
