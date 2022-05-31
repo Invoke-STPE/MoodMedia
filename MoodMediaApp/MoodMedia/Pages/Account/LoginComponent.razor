@@ -1,4 +1,7 @@
 ﻿@page "/login"
+@using MoodMedia.Services
+@inject NavigationManager navManager
+@inject SpotifyService spotifyManager
 
 <header id="header" class="header">
             <div class="container">
@@ -20,7 +23,7 @@
                                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                                     <label for="floatingPassword">Password</label>
                                 </div>
-                                <button type="submit" class="form-control-submit-button">Log in</button>
+                                <button type="submit" class="form-control-submit-button" @onclick="RequestLogin">Log in</button>
                             </form>
                             <!-- end of log in form -->
 
@@ -35,3 +38,13 @@
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
         </header>
+
+
+@code {
+    public void RequestLogin()
+    {
+        Uri uri = spotifyManager.NewLoginRequest();
+        navManager.NavigateTo(uri.ToString(), true);
+    }
+
+}

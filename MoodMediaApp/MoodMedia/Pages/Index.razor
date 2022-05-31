@@ -1,7 +1,55 @@
 ﻿@page "/"
+@using MoodMedia.Pages.Account
 @using MoodMedia.Pages.MusicPlayer
+@using MoodMedia.Services
+@using SpotifyAPI.Web
+@inject SpotifyService spotifyManager
+@inject NavigationManager navManager
 
-
-<section>
+<AuthorizeView>
+    <NotAuthorized>
+        <section>
+            <LoginComponent />
+        </section>
+    </NotAuthorized>
+@*<section>
     <MusicPlayerComponent />
-</section>
+</section>*@
+<Authorized>
+@if (track is not null)
+{
+    <p>@track.Name</p>
+}
+
+<button class="btn btn-primary" @onclick="GetTrack">Get track</button>
+</Authorized>
+</AuthorizeView>
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "code")]
+    public string? Code { get; set; }
+    private FullTrack track;
+    private PrivateUser _me;
+    //private SpotifyClient spotify;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        if (String.IsNullOrWhiteSpace(Code) == false)
+        {
+            spotifyManager.GetAccessToken(Code);
+        }
+    }
+
+    //private Task<SpotifyClient> CallLoginRequest(string code)
+    //{
+    //    return spotifyManager.GetAccessToken(code);
+    //}
+
+    private async Task GetTrack()
+    {
+        //track = await spotify.Tracks.Get("1s6ux0lNiTziSrd7iUAADH");
+        track = await spotifyManager.GetTrack("1s6ux0lNiTziSrd7iUAADH");
+    }
+}
