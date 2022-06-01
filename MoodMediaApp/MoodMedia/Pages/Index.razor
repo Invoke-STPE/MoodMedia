@@ -1,55 +1,62 @@
 ﻿@page "/"
+@using MoodMedia.Authentication
 @using MoodMedia.Pages.Account
 @using MoodMedia.Pages.MusicPlayer
-@using MoodMedia.Services
 @using SpotifyAPI.Web
-@inject SpotifyService spotifyManager
+
 @inject NavigationManager navManager
+@inject IConfiguration _config
+@inject AuthenticationStateProvider authStateProvider
+
+
 
 <AuthorizeView>
+    <Authorized>
+       <MusicPlayerComponent />
+    </Authorized>
     <NotAuthorized>
-        <section>
-            <LoginComponent />
-        </section>
+        <h1>Test</h1>
+        <LoginComponent />
     </NotAuthorized>
-@*<section>
-    <MusicPlayerComponent />
-</section>*@
-<Authorized>
-@if (track is not null)
-{
-    <p>@track.Name</p>
-}
-
-<button class="btn btn-primary" @onclick="GetTrack">Get track</button>
-</Authorized>
 </AuthorizeView>
 
 
-@code {
-    [Parameter]
-    [SupplyParameterFromQuery(Name = "code")]
-    public string? Code { get; set; }
-    private FullTrack track;
-    private PrivateUser _me;
-    //private SpotifyClient spotify;
 
-    protected async override Task OnParametersSetAsync()
+
+@code {
+
+    [CascadingParameter]
+    public Task<AuthenticationState> _authenticationState { get; set; }
+
+    private SpotifyClient _spotifyClient;
+    private Dictionary<string, string> fragmentParams;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (String.IsNullOrWhiteSpace(Code) == false)
+        if (isAccessCodeReceived())
         {
-            spotifyManager.GetAccessToken(Code);
+            SpotifyClient spotifyClient = new SpotifyClient(fragmentParams["access_token"]);
+            PrivateUser privateUser = await spotifyClient.UserProfile.Current();
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(new AuthUser
+                {
+                    AccessToken = fragmentParams["access_token"],
+                    DisplayName = privateUser.DisplayName,
+                });
+            fragmentParams = new Dictionary<string, string>();
+            navManager.NavigateTo("/");
         }
     }
 
-    //private Task<SpotifyClient> CallLoginRequest(string code)
-    //{
-    //    return spotifyManager.GetAccessToken(code);
-    //}
-
-    private async Task GetTrack()
+    private bool isAccessCodeReceived()
     {
-        //track = await spotify.Tracks.Get("1s6ux0lNiTziSrd7iUAADH");
-        track = await spotifyManager.GetTrack("1s6ux0lNiTziSrd7iUAADH");
+        var uri = new Uri(navManager.Uri);
+        var maxLen = Math.Min(1, uri.Fragment.Length);
+        fragmentParams = uri.Fragment.Substring(maxLen)?
+          .Split("&", StringSplitOptions.RemoveEmptyEntries)?
+          .Select(param => param.Split("=", StringSplitOptions.RemoveEmptyEntries))?
+          .ToDictionary(param => param[0], param => param[1]) ?? new Dictionary<string, string>();
+
+        return fragmentParams.ContainsKey("access_token");
     }
 }
