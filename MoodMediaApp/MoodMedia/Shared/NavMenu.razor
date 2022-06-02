@@ -1,20 +1,24 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-transparent px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="h1-large"><span class="color-orange">M</span>ood<span class="color-orange">M</span>edia</h1>
-                </a>
-                    <ul class="navbar-nav ms-auto me-5">
-                        <li class="nav-item dropstart">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="./images/UIElements/profile_pic.svg" class="avatar" />
-                          </a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                          </ul>
-                        </li>
-                      </ul>
+    <a href="" class="navbar-brand p-0">
+        <h1 class="h1-large"><span class="color-orange">M</span>ood<span class="color-orange">M</span>edia</h1>
+    </a>
+    <AuthorizeView>
+        <Authorized>
+            <ul class="navbar-nav ms-auto me-5">
+                <li class="nav-item dropstart">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="./images/UIElements/profile_pic.svg" class="avatar" />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </Authorized>
+    </AuthorizeView>
                       
 </nav>
 

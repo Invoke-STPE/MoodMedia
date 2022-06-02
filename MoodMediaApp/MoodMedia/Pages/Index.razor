@@ -1,10 +1,11 @@
 ﻿@page "/"
 @using MoodMedia.Authentication
 @using MoodMedia.Pages.Account
-@using MoodMedia.Pages.MusicPlayer
+@using MoodMedia.Pages.Components
 @using SpotifyAPI.Web
 
 @inject NavigationManager navManager
+@inject IJSRuntime _js
 @inject IConfiguration _config
 @inject AuthenticationStateProvider authStateProvider
 
@@ -12,10 +13,10 @@
 
 <AuthorizeView>
     <Authorized>
+        <WeatherComponent />
        <MusicPlayerComponent />
     </Authorized>
     <NotAuthorized>
-        <h1>Test</h1>
         <LoginComponent />
     </NotAuthorized>
 </AuthorizeView>
@@ -59,4 +60,6 @@
 
         return fragmentParams.ContainsKey("access_token");
     }
+
+
 }
